@@ -1,4 +1,4 @@
-import { Guid } from "./generics";
+import { Guid } from "./guid";
 
 export type RoomCode = string;
 export type ClientRole = "display" | "controller" | "spectator";
@@ -30,11 +30,11 @@ export type Room = {
   controllerBySocketId: Map<string, Guid>;
 };
 
-export type ServerToClientEvents = {
+export interface ServerToClientEvents {
+  "room:created": (payload: { code: string }) => void;
   "room:state": (state: RoomPublicState) => void;
   "room:error": (message: string) => void;
-  "debug:pong": (ts: number) => void;
-};
+}
 
 export type ClientToServerEvents = {
   "room:create": (payload: { role: ClientRole }) => void;

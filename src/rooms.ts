@@ -1,5 +1,5 @@
-import { emptyTiers, makeCode } from "./lib.js";
-import { Guid, newGuid } from "./types/generics.js";
+import { EMPTY_TIERS, makeCode } from "./lib.js";
+import { Guid, newGuid } from "./types/guid.js";
 import type { Room, RoomCode, RoomPublicState } from "./types/types.js";
 
 const rooms = new Map<RoomCode, Room>();
@@ -19,7 +19,7 @@ export function createRoom(
     code,
     phase: "LOBBY",
     players: [],
-    tiers: emptyTiers(),
+    tiers: EMPTY_TIERS,
     currentTurnPlayerId: null,
     currentItem: null,
     timers: { discussEndsAt: null, voteEndsAt: null },
@@ -39,11 +39,11 @@ export function createRoom(
   return room;
 }
 
-export function joinAsDisplay(room: Room, socketId: string) {
+export function joinAsHost(room: Room, socketId: string) {
   room.displayConnectionIds.add(socketId);
 }
 
-export function joinAsController(room: Room, socketId: string, name: string) {
+export function joinAsPlayer(room: Room, socketId: string, name: string) {
   const safeName = name.trim().slice(0, 18);
   if (!safeName) throw new Error("Name required");
 

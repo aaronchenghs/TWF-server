@@ -1,13 +1,18 @@
+import { CODE_LENGTH } from "./constants/codes.js";
 import type { RoomCode, TierId } from "./types/types.js";
 
-export function makeCode(len = 4): RoomCode {
+export function makeCode(): RoomCode {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let out = "";
-  for (let i = 0; i < len; i++)
+  for (let i = 0; i < CODE_LENGTH; i++)
     out += alphabet[Math.floor(Math.random() * alphabet.length)];
   return out;
 }
 
-export function emptyTiers(): Record<TierId, string[]> {
-  return { S: [], A: [], B: [], C: [], D: [] };
-}
+export const EMPTY_TIERS: Record<TierId, string[]> = {
+  S: [],
+  A: [],
+  B: [],
+  C: [],
+  D: [],
+} as const;

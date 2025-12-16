@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { REGEX } from "../constants/regex";
 
 /**
  * Nominal/Branded string type for UUID/GUID values.
@@ -11,8 +12,5 @@ export function newGuid(): Guid {
 }
 
 export function isGuid(value: string): value is Guid {
-  // strict-ish UUID v4 check
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-    value
-  );
+  return REGEX.GUID.test(value);
 }

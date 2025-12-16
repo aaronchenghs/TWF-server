@@ -4,8 +4,8 @@ import {
   createRoom,
   deleteRoomIfEmpty,
   getRoom,
-  joinAsController,
-  joinAsDisplay,
+  joinAsPlayer,
+  joinAsHost,
   removeConnectionFromRoom,
 } from "./rooms.js";
 import { ClientToServerEvents, ServerToClientEvents } from "./types/types.js";
@@ -18,12 +18,11 @@ export function registerSocketHandlers(
   };
 
   io.on("connection", (socket) => {
-    socket.on("debug:ping", (ts) => socket.emit("debug:pong", ts));
-
     socket.on("room:create", ({ role }) => {
       const room = createRoom(socket.id, role);
       socket.join(room.code);
-      broadcastState(room.code, room.state);
+      socket.emit("room:created", { code: room.code });
+      io.to(room.code).emit("room:state", room.state);
     });
 
     socket.on("room:join", ({ code, role, name }) => {
@@ -37,14 +36,14 @@ export function registerSocketHandlers(
       socket.join(room.code);
 
       if (role === "display") {
-        joinAsDisplay(room, socket.id);
+        joinAsHost(room, socket.id);
         broadcastState(room.code, room.state);
         return;
       }
 
       if (role === "controller") {
         try {
-          joinAsController(room, socket.id, name ?? "");
+          joinAsPlayer(room, socket.id, name ?? "");
           broadcastState(room.code, room.state);
         } catch (e) {
           socket.emit(
