@@ -1,4 +1,4 @@
-import { RoomCode, RoomPublicState } from "@twf/contracts";
+import { Role, RoomCode, RoomPublicState } from "@twf/contracts";
 import { EMPTY_TIERS, makeCode } from "./lib.js";
 import { Guid, newGuid } from "./types/guid.js";
 import type { Room } from "./types/types.js";
@@ -9,10 +9,7 @@ export function getRoom(code: RoomCode): Room | null {
   return rooms.get(code) ?? null;
 }
 
-export function createRoom(
-  creatorSocketId: string,
-  initialRole: "display" | "controller" | "spectator"
-): Room {
+export function createRoom(creatorSocketId: string, initialRole: Role): Room {
   let code = makeCode();
   while (rooms.has(code)) code = makeCode();
 
@@ -34,7 +31,7 @@ export function createRoom(
     controllerBySocketId: new Map<string, Guid>(),
   };
 
-  if (initialRole === "display") room.displayConnectionIds.add(creatorSocketId);
+  if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
 
   rooms.set(code, room);
   return room;
