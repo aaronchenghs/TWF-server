@@ -43,7 +43,7 @@ function handleJoin(io: IOServer, socket: IOSocket) {
     name,
   }: {
     code: string;
-    role: string;
+    role: Role;
     name?: string;
   }) => {
     const normalized = normalizeCode(code);
@@ -57,13 +57,13 @@ function handleJoin(io: IOServer, socket: IOSocket) {
     socket.join(room.code);
 
     switch (role) {
-      case "display": {
+      case "host": {
         joinAsHost(room, socket.id);
         emitState(io, room.code, room.state);
         return;
       }
 
-      case "controller": {
+      case "player": {
         try {
           joinAsPlayer(room, socket.id, name ?? "");
           emitState(io, room.code, room.state);
@@ -74,7 +74,6 @@ function handleJoin(io: IOServer, socket: IOSocket) {
       }
 
       default: {
-        // spectator (or unknown role)
         emitState(io, room.code, room.state);
         return;
       }
