@@ -8,7 +8,10 @@ import {
   joinAsHost,
   removeConnectionFromRoom,
 } from "./rooms.js";
-import { ClientToServerEvents, ServerToClientEvents } from "@twf/contracts";
+import type {
+  ClientToServerEvents,
+  ServerToClientEvents,
+} from "@twf/contracts";
 
 export function registerSocketHandlers(
   io: Server<ClientToServerEvents, ServerToClientEvents>
