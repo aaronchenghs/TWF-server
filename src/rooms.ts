@@ -1,6 +1,7 @@
+import { RoomCode, RoomPublicState } from "@twf/contracts";
 import { EMPTY_TIERS, makeCode } from "./lib.js";
 import { Guid, newGuid } from "./types/guid.js";
-import type { Room, RoomCode, RoomPublicState } from "./types/types.js";
+import type { Room } from "./types/types.js";
 
 const rooms = new Map<RoomCode, Room>();
 

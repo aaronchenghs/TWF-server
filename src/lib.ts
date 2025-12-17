@@ -1,5 +1,4 @@
-import { CODE_LENGTH } from "./constants/codes.js";
-import type { RoomCode, TierId } from "./types/types.js";
+import { RoomCode, CODE_LENGTH, TierId } from "@twf/contracts";
 
 export function makeCode(): RoomCode {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

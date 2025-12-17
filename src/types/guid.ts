@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { REGEX } from "../constants/regex";
+import { REGEX } from "@twf/contracts";
 
 /**
  * Nominal/Branded string type for UUID/GUID values.
