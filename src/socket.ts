@@ -10,16 +10,16 @@ import {
 import type {
   ClientToServerEvents,
   Role,
+  RoomPublicState,
   ServerToClientEvents,
 } from "@twf/contracts";
+import { normalizeCode } from "./lib.js";
 
 type IOServer = Server<ClientToServerEvents, ServerToClientEvents>;
 type IOSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
 
-const normalizeCode = (code: string) => code.trim().toUpperCase();
-
-const emitState = (io: IOServer, code: string, state: unknown) => {
-  io.to(code).emit("room:state", state as any);
+const emitState = (io: IOServer, code: string, state: RoomPublicState) => {
+  io.to(code).emit("room:state", state);
 };
 
 const emitError = (socket: IOSocket, message: string) => {
@@ -29,9 +29,10 @@ const emitError = (socket: IOSocket, message: string) => {
 function handleCreate(io: IOServer, socket: IOSocket) {
   return ({ role }: { role: Role }) => {
     const room = createRoom(socket.id, role);
-    socket.join(room.code);
 
+    socket.join(room.code);
     socket.emit("room:created", { code: room.code });
+
     emitState(io, room.code, room.state);
   };
 }
@@ -54,36 +55,21 @@ function handleJoin(io: IOServer, socket: IOSocket) {
       return;
     }
 
-    socket.join(room.code);
-
-    switch (role) {
-      case "host": {
-        joinAsHost(room, socket.id);
-        emitState(io, room.code, room.state);
-        return;
-      }
-
-      case "player": {
-        try {
-          joinAsPlayer(room, socket.id, name ?? "");
-          emitState(io, room.code, room.state);
-        } catch (e) {
-          emitError(socket, e instanceof Error ? e.message : "Join failed");
-        }
-        return;
-      }
-
-      default: {
-        emitState(io, room.code, room.state);
-        return;
-      }
+    try {
+      role === "host"
+        ? joinAsHost(room, socket.id)
+        : joinAsPlayer(room, socket.id, name ?? "");
+      socket.join(room.code);
+      emitState(io, room.code, room.state);
+    } catch (e) {
+      emitError(socket, e instanceof Error ? e.message : "Join failed");
     }
   };
 }
 
 /**
- * Use `disconnecting` (not `disconnect`) so socket.rooms still contains the joined rooms.
- * Iterate the socket's rooms, not all rooms in memory.
+ * Use `disconnecting` so socket.rooms still contains the joined rooms.
+ * Iterate the socket's rooms (socket.io rooms), not all rooms in memory.
  */
 function handleDisconnecting(io: IOServer, socket: IOSocket) {
   return () => {
