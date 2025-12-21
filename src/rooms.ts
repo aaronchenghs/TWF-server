@@ -21,6 +21,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     currentTurnPlayerId: null,
     currentItem: null,
     timers: { discussEndsAt: null, voteEndsAt: null },
+    tierSetId: null,
   };
 
   const room: Room = {

@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/aaronchenghs/TWF-server#readme",
   "dependencies": {
-    "@twf/contracts": "github:aaronchenghs/TWF-contracts#82b45fb614f8fe9554de4953c98182fc88462c4c",
+    "@twf/contracts": "github:aaronchenghs/TWF-contracts#824912e9bd64b875adc3ad4f9e47e6a7ef628659",
     "cors": "^2.8.5",
     "express": "^5.2.1",
     "socket.io": "^4.8.1",
