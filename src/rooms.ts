@@ -1,5 +1,5 @@
 import { Role, RoomCode, RoomPublicState } from "@twf/contracts";
-import { EMPTY_TIERS, makeCode } from "./lib.js";
+import { makeCode } from "./lib.js";
 import { Guid, newGuid } from "./types/guid.js";
 import type { Room } from "./types/types.js";
 
@@ -17,7 +17,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     code,
     phase: "LOBBY",
     players: [],
-    tiers: EMPTY_TIERS,
+    tiers: {},
     currentTurnPlayerId: null,
     currentItem: null,
     timers: { discussEndsAt: null, voteEndsAt: null },

@@ -12,8 +12,10 @@ import type {
   Role,
   RoomPublicState,
   ServerToClientEvents,
+  TierSetId,
 } from "@twf/contracts";
-import { normalizeCode } from "./lib.js";
+import { makeEmptyTiers, normalizeCode } from "./lib.js";
+import { getTierSet, listTierSets } from "./tierSets/registry.js";
 
 type IOServer = Server<ClientToServerEvents, ServerToClientEvents>;
 type IOSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
@@ -87,10 +89,55 @@ function handleDisconnecting(io: IOServer, socket: IOSocket) {
   };
 }
 
+function handleTierSetsList(socket: IOSocket) {
+  return () => {
+    socket.emit("tierSets:listed", { tierSets: listTierSets() });
+  };
+}
+
+function handleTierSetsGet(socket: IOSocket) {
+  return ({ id }: { id: TierSetId }) => {
+    const tierSet = getTierSet(id);
+    if (!tierSet) return emitError(socket, "Unknown tier set.");
+    socket.emit("tierSets:got", { tierSet });
+  };
+}
+
+function handleSetTierSet(io: IOServer, socket: IOSocket) {
+  return ({ tierSetId }: { tierSetId: TierSetId }) => {
+    const roomCode = [...socket.rooms].find((r) => r !== socket.id);
+    if (!roomCode) return emitError(socket, "Not in a room.");
+
+    const room = getRoom(roomCode);
+    if (!room) return emitError(socket, "Room not found.");
+
+    if (room.adminConnectionId !== socket.id) {
+      return emitError(socket, "Only host can set tier set.");
+    }
+    if (room.state.phase !== "LOBBY") {
+      return emitError(socket, "Cannot change tier set after start.");
+    }
+
+    const def = getTierSet(tierSetId);
+    if (!def) return emitError(socket, "Unknown tier set.");
+
+    room.state.tierSetId = def.id;
+    room.state.tiers = makeEmptyTiers(def);
+    room.state.currentItem = null;
+    room.state.currentTurnPlayerId = null;
+
+    emitState(io, room.code, room.state);
+  };
+}
+
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));
   socket.on("room:join", handleJoin(io, socket));
   socket.on("disconnecting", handleDisconnecting(io, socket));
+
+  socket.on("tierSets:list", handleTierSetsList(socket));
+  socket.on("tierSets:get", handleTierSetsGet(socket));
+  socket.on("room:setTierSet", handleSetTierSet(io, socket));
 }
 
 export function registerSocketHandlers(io: IOServer) {
