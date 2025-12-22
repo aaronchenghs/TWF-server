@@ -6,7 +6,7 @@ import {
   joinAsHost,
   joinAsPlayer,
   removeConnectionFromRoom,
-} from "./rooms.js";
+} from "./lib/rooms.js";
 import type {
   ClientToServerEvents,
   Role,
@@ -14,7 +14,7 @@ import type {
   ServerToClientEvents,
   TierSetId,
 } from "@twf/contracts";
-import { makeEmptyTiers, normalizeCode } from "./lib.js";
+import { makeEmptyTiers, normalizeCode } from "./lib/general.js";
 import { getTierSet, listTierSets } from "./tierSets/registry.js";
 
 type IOServer = Server<ClientToServerEvents, ServerToClientEvents>;
@@ -130,14 +130,33 @@ function handleSetTierSet(io: IOServer, socket: IOSocket) {
   };
 }
 
+function handleCloseRoom(io: IOServer, socket: IOSocket) {
+  return () => {
+    const roomCode = [...socket.rooms].find((room) => room !== socket.id);
+    if (!roomCode) return emitError(socket, "Not in a room.");
+
+    const room = getRoom(roomCode);
+    if (!room) return emitError(socket, "Room not found.");
+
+    if (room.adminConnectionId !== socket.id)
+      return emitError(socket, "Only host can close lobby.");
+
+    io.to(roomCode).emit("room:closed");
+    io.in(roomCode).disconnectSockets(true);
+    deleteRoomIfEmpty(room);
+  };
+}
+
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));
   socket.on("room:join", handleJoin(io, socket));
+  socket.on("room:close", handleCloseRoom(io, socket));
+  socket.on("room:setTierSet", handleSetTierSet(io, socket));
+
   socket.on("disconnecting", handleDisconnecting(io, socket));
 
   socket.on("tierSets:list", handleTierSetsList(socket));
   socket.on("tierSets:get", handleTierSetsGet(socket));
-  socket.on("room:setTierSet", handleSetTierSet(io, socket));
 }
 
 export function registerSocketHandlers(io: IOServer) {
