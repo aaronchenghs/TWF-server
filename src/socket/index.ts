@@ -4,9 +4,12 @@ import {
   handleJoin,
   handleCloseRoom,
   handleSetTierSet,
-} from "./roomHandlers.js";
-import { handleTierSetsList, handleTierSetsGet } from "./tierSetHandlers.js";
-import { handleDisconnectFromRoom } from "./connectionHandlers.js";
+} from "./handlers/roomHandlers.js";
+import {
+  handleTierSetsList,
+  handleTierSetsGet,
+} from "./handlers/tierSetHandlers.js";
+import { handleDisconnectFromRoom } from "./handlers/connectionHandlers.js";
 
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));

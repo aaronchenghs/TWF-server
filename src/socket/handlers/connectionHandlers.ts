@@ -2,8 +2,8 @@ import {
   getRoom,
   removeConnectionFromRoom,
   deleteRoomIfEmpty,
-} from "../lib/rooms";
-import { IOServer, IOSocket, emitState } from "./emit";
+} from "../../lib/rooms";
+import { IOServer, IOSocket, emitState } from "../emit";
 
 export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
   return () => {

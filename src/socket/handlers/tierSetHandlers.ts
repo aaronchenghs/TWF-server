@@ -1,6 +1,6 @@
 import type { TierSetId } from "@twf/contracts";
-import { listTierSets, getTierSet } from "../tierSets/registry.js";
-import { emitError, IOSocket } from "./emit.js";
+import { listTierSets, getTierSet } from "../../tierSets/registry.js";
+import { emitError, IOSocket } from "../emit.js";
 
 export function handleTierSetsList(socket: IOSocket) {
   return () => {

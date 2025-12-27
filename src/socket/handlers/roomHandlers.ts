@@ -1,14 +1,14 @@
 import type { Role, TierSetId } from "@twf/contracts";
-import { makeEmptyTiers, normalizeCode } from "../lib/general.js";
-import { getTierSet } from "../tierSets/registry.js";
+import { makeEmptyTiers, normalizeCode } from "../../lib/general.js";
+import { getTierSet } from "../../tierSets/registry.js";
 import {
   createRoom,
   getRoom,
   joinAsHost,
   joinAsPlayer,
   deleteRoomIfEmpty,
-} from "../lib/rooms.js";
-import { emitError, emitState, IOServer, IOSocket } from "./emit.js";
+} from "../../lib/rooms.js";
+import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 
 export function handleCreate(io: IOServer, socket: IOSocket) {
   return ({ role }: { role: Role }) => {
