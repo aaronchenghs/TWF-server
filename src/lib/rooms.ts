@@ -1,6 +1,6 @@
 import { Role, RoomCode, RoomPublicState } from "@twf/contracts";
 import { makeCode } from "./general.js";
-import { Guid, newGuid } from "../types/guid.js";
+import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 
 const rooms = new Map<RoomCode, Room>();
@@ -17,10 +17,19 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     code,
     phase: "LOBBY",
     players: [],
-    tiers: {},
+    turnOrderPlayerIds: [],
+    turnIndex: 0,
     currentTurnPlayerId: null,
+    tiers: {},
     currentItem: null,
-    timers: { discussEndsAt: null, voteEndsAt: null },
+    votes: {},
+    timers: {
+      buildEndsAt: null,
+      revealEndsAt: null,
+      placeEndsAt: null,
+      voteEndsAt: null,
+    },
+
     tierSetId: null,
   };
 
@@ -29,11 +38,10 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     state,
     adminConnectionId: creatorSocketId,
     displayConnectionIds: new Set<string>(),
-    controllerBySocketId: new Map<string, Guid>(),
+    controllerBySocketId: new Map<string, ReturnType<typeof newGuid>>(),
   };
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
-
   rooms.set(code, room);
   return room;
 }
