@@ -29,7 +29,6 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
       placeEndsAt: null,
       voteEndsAt: null,
     },
-
     tierSetId: null,
   };
 
@@ -39,6 +38,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     adminConnectionId: creatorSocketId,
     displayConnectionIds: new Set<string>(),
     controllerBySocketId: new Map<string, ReturnType<typeof newGuid>>(),
+    itemQueue: [],
   };
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
@@ -91,6 +91,6 @@ export function deleteRoomIfEmpty(room: Room) {
   return !hasAnyConnections;
 }
 
-export function allRooms(): IterableIterator<Room> {
+export function getAllRooms(): IterableIterator<Room> {
   return rooms.values();
 }

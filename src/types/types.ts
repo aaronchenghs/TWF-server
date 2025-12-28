@@ -1,4 +1,4 @@
-import { RoomCode, RoomPublicState } from "@twf/contracts";
+import { RoomCode, RoomPublicState, TierItemId } from "@twf/contracts";
 import { Guid } from "./guid";
 
 export type Room = {
@@ -7,4 +7,5 @@ export type Room = {
   adminConnectionId: string | null;
   displayConnectionIds: Set<string>;
   controllerBySocketId: Map<string, Guid>;
+  itemQueue: TierItemId[];
 };

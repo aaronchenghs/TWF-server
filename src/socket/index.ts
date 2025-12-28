@@ -10,12 +10,14 @@ import {
   handleTierSetsGet,
 } from "./handlers/tierSetHandlers.js";
 import { handleDisconnectFromRoom } from "./handlers/connectionHandlers.js";
+import { handleStart } from "./handlers/gameHandlers.js";
 
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));
   socket.on("room:join", handleJoin(io, socket));
   socket.on("room:close", handleCloseRoom(io, socket));
   socket.on("room:setTierSet", handleSetTierSet(io, socket));
+  socket.on("room:start", handleStart(io, socket));
 
   socket.on("disconnecting", handleDisconnectFromRoom(io, socket));
 
