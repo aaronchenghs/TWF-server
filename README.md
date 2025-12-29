@@ -1,4 +1,3 @@
-````md
 # Tiers With Friends — Server
 
 ## Overview
@@ -22,7 +21,6 @@ Backend for **Tiers With Friends**, built with **Express** + **socket.io**. Host
 npm install
 npm run dev
 ```
-````
 
 # Scripts
 
