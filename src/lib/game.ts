@@ -3,6 +3,7 @@ import type { Room } from "../types/types.js";
 import { BUILD_MS, REVEAL_MS, PLACE_MS, VOTE_MS } from "./timers.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
+import { getErrorMessage } from "./errors.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items;
@@ -16,10 +17,11 @@ export function getPlayerId(room: Room, socket: IOSocket) {
 
 export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
   const playerIds = room.state.players.map((player) => player.id);
-  if (playerIds.length < 1) throw new Error("No players.");
+  if (playerIds.length < 1) throw new Error(getErrorMessage("NO_PLAYERS"));
 
   const items = getItemIds(tierSet);
-  if (items.length < 1) throw new Error("Tier set has no items.");
+  if (items.length < 1)
+    throw new Error(getErrorMessage("TIER_SET_HAS_NO_ITEMS"));
   room.itemQueue = shuffle(items);
 
   room.state = {
@@ -107,7 +109,7 @@ export function beginVote(room: Room, now: number) {
 
 export function finalizeTurn(room: Room) {
   if (room.state.phase !== "VOTE")
-    throw new Error("Cannot finalize outside VOTE.");
+    throw new Error(getErrorMessage("FINALIZE_OUTSIDE_VOTE"));
 
   const playersCount = room.state.turnOrderPlayerIds.length;
   if (room.itemQueue.length > 0) room.itemQueue.shift();

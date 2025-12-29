@@ -9,6 +9,7 @@ import {
   deleteRoomIfEmpty,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
+import { getErrorMessage } from "../../lib/errors";
 
 export function handleCreate(io: IOServer, socket: IOSocket) {
   return ({ role }: { role: Role }) => {
@@ -32,7 +33,7 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
     const normalized = normalizeCode(code);
     const room = getRoom(normalized);
 
-    if (!room) return emitError(socket, "Room not found");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
 
     try {
       role === "host"
@@ -41,7 +42,10 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
       socket.join(room.code);
       emitState(io, room.code, room.state);
     } catch (e) {
-      emitError(socket, e instanceof Error ? e.message : "Join failed");
+      emitError(
+        socket,
+        e instanceof Error ? e.message : getErrorMessage("JOIN_FAILED")
+      );
     }
   };
 }
@@ -49,17 +53,17 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
 export function handleSetTierSet(io: IOServer, socket: IOSocket) {
   return ({ tierSetId }: { tierSetId: TierSetId }) => {
     const roomCode = [...socket.rooms].find((r) => r !== socket.id);
-    if (!roomCode) return emitError(socket, "Not in a room.");
+    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
 
     const room = getRoom(roomCode);
-    if (!room) return emitError(socket, "Room not found.");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
-      return emitError(socket, "Only host can set tier set.");
+      return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     if (room.state.phase !== "LOBBY")
-      return emitError(socket, "Cannot change tier set after start.");
+      return emitError(socket, getErrorMessage("CANNOT_CHANGE_TIER_SET"));
 
     const def = getTierSet(tierSetId);
-    if (!def) return emitError(socket, "Unknown tier set.");
+    if (!def) return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
     room.state.tierSetId = def.id;
     room.state.tiers = makeEmptyTiers(def);
@@ -73,12 +77,12 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
 export function handleCloseRoom(io: IOServer, socket: IOSocket) {
   return () => {
     const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, "Not in a room.");
+    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
 
     const room = getRoom(roomCode);
-    if (!room) return emitError(socket, "Room not found.");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
-      return emitError(socket, "Only host can close lobby.");
+      return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
 
     io.to(roomCode).emit("room:closed");
     io.in(roomCode).disconnectSockets(true);

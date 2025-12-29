@@ -9,25 +9,27 @@ import { getRoom } from "../../lib/rooms";
 import { reschedule, VOTE_MS } from "../../lib/timers";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
+import { getErrorMessage } from "../../lib/errors";
 
 export function handleStart(io: IOServer, socket: IOSocket) {
   return () => {
     const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, "Not in a room.");
+    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
 
     const room = getRoom(roomCode);
-    if (!room) return emitError(socket, "Room not found.");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
-      return emitError(socket, "Only host can start game.");
+      return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     if (room.state.phase !== "LOBBY")
-      return emitError(socket, "Game already started.");
+      return emitError(socket, getErrorMessage("GAME_ALREADY_STARTED"));
     if (!room.state.tierSetId)
-      return emitError(socket, "Select a tier set first.");
+      return emitError(socket, getErrorMessage("TIER_SET_NOT_SELECTED"));
     if (room.state.players.length < 1)
-      return emitError(socket, "Need at least 1 player.");
+      return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
 
     const selectedTierSet = getTierSet(room.state.tierSetId);
-    if (!selectedTierSet) return emitError(socket, "Unknown tier set.");
+    if (!selectedTierSet)
+      return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
     gameStart(room, selectedTierSet, Date.now());
     emitState(io, room.code, room.state);
@@ -38,22 +40,26 @@ export function handleStart(io: IOServer, socket: IOSocket) {
 export function handlePlace(io: IOServer, socket: IOSocket) {
   return ({ tierId }: { tierId: TierId }) => {
     const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, "Not in a room.");
+    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
     const room = getRoom(roomCode);
-    if (!room) return emitError(socket, "Room not found.");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
 
     const pid = getPlayerId(room, socket);
-    if (!pid) return emitError(socket, "Not a player.");
-    if (room.state.phase !== "PLACE") return emitError(socket, "Not in PLACE.");
+    if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+    if (room.state.phase !== "PLACE")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
     if (room.state.currentTurnPlayerId !== pid)
-      return emitError(socket, "Not your turn.");
-    if (!room.state.currentItem) return emitError(socket, "No current item.");
-    if (!room.state.tiers[tierId]) return emitError(socket, "Invalid tier.");
+      return emitError(socket, getErrorMessage("NOT_YOUR_TURN"));
+    if (!room.state.currentItem)
+      return emitError(socket, getErrorMessage("NO_CURRENT_ITEM"));
+    if (!room.state.tiers[tierId])
+      return emitError(socket, getErrorMessage("INVALID_TIER"));
 
     const isAlreadyPlaced = Object.values(room.state.tiers).some((arr) =>
       arr.includes(room.state.currentItem!)
     );
-    if (isAlreadyPlaced) return emitError(socket, "Item already placed.");
+    if (isAlreadyPlaced)
+      return emitError(socket, getErrorMessage("ITEM_ALREADY_PLACED"));
 
     room.state = {
       ...room.state,
@@ -79,15 +85,16 @@ export function handlePlace(io: IOServer, socket: IOSocket) {
 export function handleVote(io: IOServer, socket: IOSocket) {
   return ({ vote }: { vote: VoteValue }) => {
     const roomCode = [...socket.rooms].find((r) => r !== socket.id);
-    if (!roomCode) return emitError(socket, "Not in a room.");
+    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
     const room = getRoom(roomCode);
-    if (!room) return emitError(socket, "Room not found.");
+    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
 
     const pid = getPlayerId(room, socket);
-    if (!pid) return emitError(socket, "Not a player.");
-    if (room.state.phase !== "VOTE") return emitError(socket, "Not in VOTE.");
+    if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+    if (room.state.phase !== "VOTE")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
     if (room.state.currentTurnPlayerId === pid)
-      return emitError(socket, "Placer cannot vote.");
+      return emitError(socket, getErrorMessage("PLACER_CANNOT_VOTE"));
 
     room.state = {
       ...room.state,

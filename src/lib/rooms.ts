@@ -7,6 +7,7 @@ import {
 import { makeCode } from "./general.js";
 import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
+import { getErrorMessage } from "./errors.js";
 
 const rooms = new Map<RoomCode, Room>();
 
@@ -58,7 +59,7 @@ export function joinAsHost(room: Room, socketId: string) {
 
 export function joinAsPlayer(room: Room, socketId: string, name: string) {
   const safeName = name.trim().slice(0, MAX_NAME_LENGTH);
-  if (!safeName) throw new Error("Name required");
+  if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));
 
   const existingPlayerId = room.controllerBySocketId.get(socketId);
   if (existingPlayerId) return;
@@ -79,7 +80,9 @@ export function removeConnectionFromRoom(room: Room, socketId: string) {
   const playerId = room.controllerBySocketId.get(socketId);
   if (playerId) {
     room.controllerBySocketId.delete(socketId);
-    room.state.players = room.state.players.filter((p) => p.id !== playerId);
+    room.state.players = room.state.players.filter(
+      (player) => player.id !== playerId
+    );
 
     if (room.state.currentTurnPlayerId === playerId) {
       room.state.currentTurnPlayerId = null;
