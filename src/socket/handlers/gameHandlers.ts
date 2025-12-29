@@ -5,7 +5,7 @@ import {
   gameStart,
   getPlayerId,
 } from "../../lib/game";
-import { getRoom } from "../../lib/rooms";
+import { getRoom, requireRoom } from "../../lib/rooms";
 import { reschedule, VOTE_MS } from "../../lib/timers";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
@@ -13,11 +13,9 @@ import { getErrorMessage } from "../../lib/errors";
 
 export function handleStart(io: IOServer, socket: IOSocket) {
   return () => {
-    const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
+    const room = requireRoom(socket);
+    if (!room) return;
 
-    const room = getRoom(roomCode);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     if (room.state.phase !== "LOBBY")
@@ -37,12 +35,10 @@ export function handleStart(io: IOServer, socket: IOSocket) {
   };
 }
 
-export function handlePlace(io: IOServer, socket: IOSocket) {
+export function handlePlaceItem(io: IOServer, socket: IOSocket) {
   return ({ tierId }: { tierId: TierId }) => {
-    const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
-    const room = getRoom(roomCode);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
+    const room = requireRoom(socket);
+    if (!room) return;
 
     const pid = getPlayerId(room, socket);
     if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
@@ -84,10 +80,8 @@ export function handlePlace(io: IOServer, socket: IOSocket) {
 
 export function handleVote(io: IOServer, socket: IOSocket) {
   return ({ vote }: { vote: VoteValue }) => {
-    const roomCode = [...socket.rooms].find((r) => r !== socket.id);
-    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
-    const room = getRoom(roomCode);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
+    const room = requireRoom(socket);
+    if (!room) return;
 
     const pid = getPlayerId(room, socket);
     if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));

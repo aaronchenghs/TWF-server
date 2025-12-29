@@ -7,6 +7,7 @@ import {
   joinAsHost,
   joinAsPlayer,
   deleteRoomIfEmpty,
+  requireRoom,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
@@ -52,11 +53,9 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
 
 export function handleSetTierSet(io: IOServer, socket: IOSocket) {
   return ({ tierSetId }: { tierSetId: TierSetId }) => {
-    const roomCode = [...socket.rooms].find((r) => r !== socket.id);
-    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
+    const room = requireRoom(socket);
+    if (!room) return;
 
-    const room = getRoom(roomCode);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     if (room.state.phase !== "LOBBY")
@@ -76,16 +75,14 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
 
 export function handleCloseRoom(io: IOServer, socket: IOSocket) {
   return () => {
-    const roomCode = [...socket.rooms].find((room) => room !== socket.id);
-    if (!roomCode) return emitError(socket, getErrorMessage("NOT_IN_ROOM"));
+    const room = requireRoom(socket);
+    if (!room) return;
 
-    const room = getRoom(roomCode);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
 
-    io.to(roomCode).emit("room:closed");
-    io.in(roomCode).disconnectSockets(true);
+    io.to(room.code).emit("room:closed");
+    io.in(room.code).disconnectSockets(true);
     deleteRoomIfEmpty(room);
   };
 }

@@ -4,10 +4,11 @@ import {
   RoomCode,
   RoomPublicState,
 } from "@twf/contracts";
-import { makeCode } from "./general.js";
+import { makeCode, normalizeCode } from "./general.js";
 import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 import { getErrorMessage } from "./errors.js";
+import { emitError, IOSocket } from "../socket/emit.js";
 
 const rooms = new Map<RoomCode, Room>();
 
@@ -102,4 +103,18 @@ export function deleteRoomIfEmpty(room: Room) {
 
 export function getAllRooms(): IterableIterator<Room> {
   return rooms.values();
+}
+
+export function requireRoom(socket: IOSocket): Room | null {
+  const roomCode = [...socket.rooms].find((room) => room !== socket.id);
+  if (!roomCode) {
+    emitError(socket, getErrorMessage("NOT_IN_ROOM"));
+    return null;
+  }
+  const room = getRoom(roomCode);
+  if (!room) {
+    emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
+    return null;
+  }
+  return room;
 }
