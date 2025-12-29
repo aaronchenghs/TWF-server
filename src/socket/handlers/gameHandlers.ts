@@ -5,8 +5,8 @@ import {
   gameStart,
   getPlayerId,
 } from "../../lib/game";
-import { getRoom, requireRoom } from "../../lib/rooms";
-import { reschedule, VOTE_MS } from "../../lib/timers";
+import { requireRoom } from "../../lib/rooms";
+import { reschedule, VOTE_MS } from "../../lib/timing";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";

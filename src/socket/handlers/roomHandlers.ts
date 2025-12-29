@@ -1,4 +1,4 @@
-import type { Role, TierSetId } from "@twf/contracts";
+import type { Role, TierId, TierSetId } from "@twf/contracts";
 import { makeEmptyTiers, normalizeCode } from "../../lib/general.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import {
@@ -66,6 +66,7 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
 
     room.state.tierSetId = def.id;
     room.state.tiers = makeEmptyTiers(def);
+    room.state.tierOrder = Object.keys(room.state.tiers) as TierId[];
     room.state.currentItem = null;
     room.state.currentTurnPlayerId = null;
 

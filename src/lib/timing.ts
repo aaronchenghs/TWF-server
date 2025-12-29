@@ -1,11 +1,21 @@
 import type { RoomCode, TierSetDefinition, TierSetId } from "@twf/contracts";
 import type { Room } from "../types/types.js";
-import { beginTurn, beginPlace, beginVote, finalizeTurn } from "../lib/game.js";
+import {
+  beginTurn,
+  beginPlace,
+  beginVote,
+  finalizeTurn,
+  beginResults,
+  beginDrift,
+  commitDriftResolution,
+} from "./game.js";
 
 export const BUILD_MS = 1500;
 export const REVEAL_MS = 1200;
 export const PLACE_MS = 12_000;
 export const VOTE_MS = 8_000;
+export const RESULTS_MS = 1500;
+export const DRIFT_MS = 900;
 
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
@@ -39,7 +49,8 @@ export function reschedule(
     addTimer(
       room.code,
       setTimeout(() => {
-        beginTurn(room, Date.now());
+        const now2 = Date.now();
+        beginTurn(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
       }, Math.max(0, timers.buildEndsAt - now))
@@ -51,7 +62,8 @@ export function reschedule(
     addTimer(
       room.code,
       setTimeout(() => {
-        beginPlace(room, Date.now());
+        const now2 = Date.now();
+        beginPlace(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
       }, Math.max(0, timers.revealEndsAt - now))
@@ -63,9 +75,8 @@ export function reschedule(
     addTimer(
       room.code,
       setTimeout(() => {
-        // No placement submitted by deadline: skip voting and advance to vote/resolve later.
-        // MVP: go to VOTE anyway with empty votes (clients can still vote), or you can auto-place.
-        beginVote(room, Date.now());
+        const now2 = Date.now();
+        beginVote(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
       }, Math.max(0, timers.placeEndsAt - now))
@@ -78,7 +89,34 @@ export function reschedule(
       room.code,
       setTimeout(() => {
         const now2 = Date.now();
+        beginResults(room, now2);
+        emit(room);
+        reschedule(room, emit, _getTierSet);
+      }, Math.max(0, timers.voteEndsAt - now))
+    );
+    return;
+  }
 
+  if (phase === "RESULTS" && timers.resultsEndsAt) {
+    addTimer(
+      room.code,
+      setTimeout(() => {
+        const now2 = Date.now();
+        beginDrift(room, now2);
+        emit(room);
+        reschedule(room, emit, _getTierSet);
+      }, Math.max(0, timers.resultsEndsAt - now))
+    );
+    return;
+  }
+
+  if (phase === "DRIFT" && timers.driftEndsAt) {
+    addTimer(
+      room.code,
+      setTimeout(() => {
+        const now2 = Date.now();
+
+        commitDriftResolution(room);
         finalizeTurn(room);
         emit(room);
 
@@ -86,7 +124,8 @@ export function reschedule(
         emit(room);
 
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.voteEndsAt - now))
+      }, Math.max(0, timers.driftEndsAt - now))
     );
+    return;
   }
 }

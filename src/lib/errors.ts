@@ -20,6 +20,8 @@ const ERRORS = {
   FINALIZE_OUTSIDE_VOTE: "Cannot finalize outside VOTE.",
   CANNOT_CHANGE_TIER_SET: "Cannot change tier set after start.",
   CANNOT_FINALIZE_OUTSIDE_VOTE: "Cannot finalize outside VOTE.",
+  MISSING_PENDING_TIER: "Missing pending tier.",
+  MISSING_RESOLUTION: "Missing resolution",
 } as const;
 
 export type ErrorKey = keyof typeof ERRORS;

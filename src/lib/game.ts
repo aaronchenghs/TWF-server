@@ -1,9 +1,17 @@
-import type { TierItemId, TierSetDefinition } from "@twf/contracts";
+import type { TierId, TierItemId, TierSetDefinition } from "@twf/contracts";
 import type { Room } from "../types/types.js";
-import { BUILD_MS, REVEAL_MS, PLACE_MS, VOTE_MS } from "./timers.js";
+import {
+  BUILD_MS,
+  REVEAL_MS,
+  PLACE_MS,
+  VOTE_MS,
+  RESULTS_MS,
+  DRIFT_MS,
+} from "./timing.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
 import { getErrorMessage } from "./errors.js";
+import { computeResolution } from "./computations.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items;
@@ -52,6 +60,8 @@ export function beginTurn(room: Room, now: number) {
       phase: "FINISHED",
       currentItem: null,
       currentTurnPlayerId: null,
+      pendingTierId: null,
+      lastResolution: null,
       votes: {},
       timers: {
         ...room.state.timers,
@@ -125,5 +135,86 @@ export function finalizeTurn(room: Room) {
       ...room.state.timers,
       voteEndsAt: null,
     },
+  };
+}
+
+export function beginResults(room: Room, now: number) {
+  if (!room.state.currentItem)
+    throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
+  if (!room.state.pendingTierId)
+    throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
+
+  const eligibleVoterIds = room.state.players
+    .map((p) => p.id)
+    .filter((id) => id !== room.state.currentTurnPlayerId);
+
+  const { resolution } = computeResolution({
+    votes: room.state.votes,
+    eligibleVoterIds,
+    fromTierId: room.state.pendingTierId,
+    tierOrder: room.state.tierOrder,
+  });
+
+  room.state = {
+    ...room.state,
+    phase: "RESULTS",
+    lastResolution: resolution,
+    timers: {
+      ...room.state.timers,
+      voteEndsAt: null,
+      resultsEndsAt: now + RESULTS_MS,
+      driftEndsAt: null,
+    },
+  };
+}
+
+export function beginDrift(room: Room, now: number) {
+  const res = room.state.lastResolution;
+  if (!res) throw new Error(getErrorMessage("MISSING_RESOLUTION"));
+  if (!room.state.currentItem)
+    throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
+  if (!room.state.pendingTierId)
+    throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
+
+  const toTierId = res.toTierId as TierId;
+
+  if (!room.state.tiers[toTierId])
+    throw new Error(getErrorMessage("INVALID_TIER"));
+
+  room.state = {
+    ...room.state,
+    phase: "DRIFT",
+    timers: {
+      ...room.state.timers,
+      resultsEndsAt: null,
+      driftEndsAt: now + DRIFT_MS,
+    },
+  };
+}
+
+export function commitDriftResolution(room: Room) {
+  const item = room.state.currentItem;
+  if (!item) throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
+  const res = room.state.lastResolution;
+  if (!res) throw new Error(getErrorMessage("MISSING_RESOLUTION"));
+  const toTierId = res.toTierId;
+  const toTier = room.state.tiers[toTierId];
+  if (!toTier) throw new Error(getErrorMessage("INVALID_TIER"));
+
+  // Remove item from all tiers defensively (shouldn't be present if you only used pendingTierId)
+  const nextTiers: typeof room.state.tiers = {};
+  for (const [tierId, arr] of Object.entries(room.state.tiers)) {
+    nextTiers[tierId as keyof typeof room.state.tiers] = arr.filter(
+      (x) => x !== item
+    );
+  }
+
+  nextTiers[toTierId] = [...toTier, item];
+
+  room.state = {
+    ...room.state,
+    tiers: nextTiers,
+    pendingTierId: null,
+    lastResolution: null,
   };
 }

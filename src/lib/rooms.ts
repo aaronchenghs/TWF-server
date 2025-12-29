@@ -4,7 +4,7 @@ import {
   RoomCode,
   RoomPublicState,
 } from "@twf/contracts";
-import { makeCode, normalizeCode } from "./general.js";
+import { makeCode } from "./general.js";
 import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 import { getErrorMessage } from "./errors.js";
@@ -30,11 +30,15 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     tiers: {},
     currentItem: null,
     votes: {},
+    lastResolution: null,
+    tierOrder: [],
     timers: {
       buildEndsAt: null,
       revealEndsAt: null,
       placeEndsAt: null,
       voteEndsAt: null,
+      resultsEndsAt: null,
+      driftEndsAt: null,
     },
     tierSetId: null,
     pendingTierId: null,
