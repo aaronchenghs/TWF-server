@@ -1,16 +1,15 @@
-# Tiers! With Friends — Client
+````md
+# Tiers With Friends — Server
 
 ## Overview
 
-Frontend for **Tiers! With Friends**, a real-time tier-ranking party game. Hosts create lobbies; players join with a code and name. Communicates with the server over **socket.io**.
+Backend for **Tiers With Friends**, built with **Express** + **socket.io**. Hosts the WebSocket API used for lobbies, tier set selection, game start, item placement, and voting.
 
 ## Tech
 
-- React + TypeScript
-- Vite
-- React Router
-- socket.io-client
-- SCSS Modules
+- Node.js + TypeScript
+- Express
+- socket.io
 
 ## Prerequisites
 
@@ -19,18 +18,27 @@ Frontend for **Tiers! With Friends**, a real-time tier-ranking party game. Hosts
 
 ## Setup
 
-```sh
+```bash
 npm install
 npm run dev
 ```
+````
 
 # Scripts
 
+```bash
 npm run dev
 npm run build
-npm run preview
-npm run lint
+npm start
+```
 
-# Local Dev Notes
+# Environment Variables
 
-Run the server in a separate terminal. The server defaults to port 3001 and expects the client origin to be allowed via CORS.
+```sh
+PORT (default: 3001)
+CLIENT_ORIGIN (default: http://localhost:5173) — allowed CORS origin for the client
+```
+
+# Health Check
+
+GET /health → { ok: true }
