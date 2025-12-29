@@ -2,11 +2,16 @@ import type { TierItemId, TierSetDefinition } from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import { BUILD_MS, REVEAL_MS, PLACE_MS, VOTE_MS } from "./timers.js";
 import { shuffle } from "lodash-es";
+import { IOSocket } from "../socket/emit.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items;
   if (!Array.isArray(items)) return [];
   return items.filter((x) => typeof x === "string") as TierItemId[];
+}
+
+export function getPlayerId(room: Room, socket: IOSocket) {
+  return room.controllerBySocketId.get(socket.id) ?? null;
 }
 
 export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
@@ -96,6 +101,27 @@ export function beginVote(room: Room, now: number) {
       ...room.state.timers,
       placeEndsAt: null,
       voteEndsAt: now + VOTE_MS,
+    },
+  };
+}
+
+export function finalizeTurn(room: Room) {
+  if (room.state.phase !== "VOTE")
+    throw new Error("Cannot finalize outside VOTE.");
+
+  const playersCount = room.state.turnOrderPlayerIds.length;
+  if (room.itemQueue.length > 0) room.itemQueue.shift();
+
+  room.state = {
+    ...room.state,
+    phase: "RESOLVE",
+    currentItem: null,
+    currentTurnPlayerId: null,
+    votes: {},
+    turnIndex: playersCount > 0 ? (room.state.turnIndex + 1) % playersCount : 0,
+    timers: {
+      ...room.state.timers,
+      voteEndsAt: null,
     },
   };
 }

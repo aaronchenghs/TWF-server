@@ -10,7 +10,11 @@ import {
   handleTierSetsGet,
 } from "./handlers/tierSetHandlers.js";
 import { handleDisconnectFromRoom } from "./handlers/connectionHandlers.js";
-import { handleStart } from "./handlers/gameHandlers.js";
+import {
+  handlePlace,
+  handleStart,
+  handleVote,
+} from "./handlers/gameHandlers.js";
 
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));
@@ -23,6 +27,9 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
 
   socket.on("tierSets:list", handleTierSetsList(socket));
   socket.on("tierSets:get", handleTierSetsGet(socket));
+
+  socket.on("game:place", handlePlace(io, socket));
+  socket.on("game:vote", handleVote(io, socket));
 }
 
 export function registerSocketHandlers(io: IOServer) {

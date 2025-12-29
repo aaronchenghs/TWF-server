@@ -30,6 +30,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
       voteEndsAt: null,
     },
     tierSetId: null,
+    pendingTierId: null,
   };
 
   const room: Room = {

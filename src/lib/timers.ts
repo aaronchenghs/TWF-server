@@ -1,6 +1,6 @@
 import type { RoomCode, TierSetDefinition, TierSetId } from "@twf/contracts";
 import type { Room } from "../types/types.js";
-import { beginTurn, beginPlace, beginVote } from "../lib/game.js";
+import { beginTurn, beginPlace, beginVote, finalizeTurn } from "../lib/game.js";
 
 export const BUILD_MS = 1500;
 export const REVEAL_MS = 1200;
@@ -77,23 +77,14 @@ export function reschedule(
     addTimer(
       room.code,
       setTimeout(() => {
-        // MVP: just end vote window. Actual resolve happens when you implement drift + commit.
-        room.state.phase = "RESOLVE";
-        room.state.timers.voteEndsAt = null;
+        const now2 = Date.now();
+
+        finalizeTurn(room);
         emit(room);
 
-        // Immediately move to next turn reveal for now
-        room.state.turnIndex =
-          room.state.turnOrderPlayerIds.length > 0
-            ? (room.state.turnIndex + 1) % room.state.turnOrderPlayerIds.length
-            : 0;
-
-        // Consume current item
-        const queue = room.itemQueue;
-        if (Array.isArray(queue)) queue.shift();
-
-        beginTurn(room, Date.now());
+        beginTurn(room, now2);
         emit(room);
+
         reschedule(room, emit, _getTierSet);
       }, Math.max(0, timers.voteEndsAt - now))
     );
