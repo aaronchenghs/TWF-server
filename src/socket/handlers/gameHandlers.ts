@@ -1,5 +1,6 @@
 import { TierId, VoteValue } from "@twf/contracts";
 import {
+  beginResults,
   beginTurn,
   finalizeTurn,
   gameStart,
@@ -101,10 +102,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
     if (have >= needed) {
       const now = Date.now();
 
-      finalizeTurn(room);
-      emitState(io, room.code, room.state);
-
-      beginTurn(room, now);
+      beginResults(room, now);
       emitState(io, room.code, room.state);
 
       reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
