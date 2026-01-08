@@ -16,6 +16,13 @@ import { computeResolution } from "./computations.js";
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items;
   if (!Array.isArray(items)) return [];
+
+  const asObjects = items as Array<{ id?: unknown }>;
+  const ids = asObjects
+    .map((x) => (typeof x?.id === "string" ? x.id : null))
+    .filter((x): x is TierItemId => !!x);
+  if (ids.length > 0) return ids;
+
   return items.filter((x) => typeof x === "string") as TierItemId[];
 }
 
@@ -201,7 +208,6 @@ export function commitDriftResolution(room: Room) {
   const toTier = room.state.tiers[toTierId];
   if (!toTier) throw new Error(getErrorMessage("INVALID_TIER"));
 
-  // Remove item from all tiers defensively (shouldn't be present if you only used pendingTierId)
   const nextTiers: typeof room.state.tiers = {};
   for (const [tierId, arr] of Object.entries(room.state.tiers)) {
     nextTiers[tierId as keyof typeof room.state.tiers] = arr.filter(
