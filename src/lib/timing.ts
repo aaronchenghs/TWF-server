@@ -8,14 +8,15 @@ import {
   beginResults,
   beginDrift,
   commitDriftResolution,
+  fillMissingVotesAsAgree,
 } from "./game.js";
 
-export const BUILD_MS = 1500;
-export const REVEAL_MS = 1200;
-export const PLACE_MS = 12_000;
-export const VOTE_MS = 8_000;
-export const RESULTS_MS = 1500;
-export const DRIFT_MS = 900;
+export const BUILD_MS = 5_000;
+export const REVEAL_MS = 2_000;
+export const PLACE_MS = 15_000;
+export const VOTE_MS = 30_000;
+export const RESULTS_MS = 3_000;
+export const DRIFT_MS = 1_000;
 
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
@@ -46,85 +47,108 @@ export function reschedule(
   const { phase, timers } = room.state;
 
   if (phase === "STARTING" && timers.buildEndsAt) {
+    const dueAt = timers.buildEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        // Phase may have advanced early; guard against stale callback
+        if (room.state.phase !== "STARTING") return;
         const now2 = Date.now();
         beginTurn(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.buildEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }
 
   if (phase === "REVEAL" && timers.revealEndsAt) {
+    const dueAt = timers.revealEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        if (room.state.phase !== "REVEAL") return;
+
         const now2 = Date.now();
         beginPlace(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.revealEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }
 
   if (phase === "PLACE" && timers.placeEndsAt) {
+    const dueAt = timers.placeEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        if (room.state.phase !== "PLACE") return;
+
         const now2 = Date.now();
         beginVote(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.placeEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }
 
   if (phase === "VOTE" && timers.voteEndsAt) {
+    const dueAt = timers.voteEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        if (room.state.phase !== "VOTE") return;
+
         const now2 = Date.now();
+        fillMissingVotesAsAgree(room);
         beginResults(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.voteEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }
 
   if (phase === "RESULTS" && timers.resultsEndsAt) {
+    const dueAt = timers.resultsEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        if (room.state.phase !== "RESULTS") return;
+
         const now2 = Date.now();
         beginDrift(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.resultsEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }
 
   if (phase === "DRIFT" && timers.driftEndsAt) {
+    const dueAt = timers.driftEndsAt;
     addTimer(
       room.code,
       setTimeout(() => {
+        if (room.state.phase !== "DRIFT") return;
         const now2 = Date.now();
-
         commitDriftResolution(room);
-        finalizeTurn(room);
-        emit(room);
 
+        if (room.state.phase === "DRIFT") {
+          try {
+            finalizeTurn(room);
+          } catch {
+            // phase guards elsewhere will keep the engine moving
+          }
+        }
+
+        emit(room);
         beginTurn(room, now2);
         emit(room);
-
         reschedule(room, emit, _getTierSet);
-      }, Math.max(0, timers.driftEndsAt - now))
+      }, Math.max(0, dueAt - now))
     );
     return;
   }

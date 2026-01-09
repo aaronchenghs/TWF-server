@@ -51,6 +51,8 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     displayConnectionIds: new Set<string>(),
     controllerBySocketId: new Map<string, ReturnType<typeof newGuid>>(),
     itemQueue: [],
+    timer: null,
+    scheduleNonce: 0,
   };
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
@@ -77,6 +79,8 @@ export function joinAsPlayer(room: Room, socketId: string, name: string) {
     name: safeName,
     joinedAt: Date.now(),
   });
+
+  return playerId as string;
 }
 
 export function removeConnectionFromRoom(room: Room, socketId: string) {

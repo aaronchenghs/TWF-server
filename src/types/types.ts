@@ -8,4 +8,6 @@ export type Room = {
   displayConnectionIds: Set<string>;
   controllerBySocketId: Map<string, Guid>;
   itemQueue: TierItemId[];
+  timer: NodeJS.Timeout | null;
+  scheduleNonce: number;
 };

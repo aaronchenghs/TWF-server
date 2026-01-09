@@ -1,8 +1,7 @@
 import { TierId, VoteValue } from "@twf/contracts";
 import {
   beginResults,
-  beginTurn,
-  finalizeTurn,
+  fillMissingVotesAsAgree,
   gameStart,
   getPlayerId,
 } from "../../lib/game";
@@ -102,6 +101,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
     if (have >= needed) {
       const now = Date.now();
 
+      fillMissingVotesAsAgree(room);
       beginResults(room, now);
       emitState(io, room.code, room.state);
 

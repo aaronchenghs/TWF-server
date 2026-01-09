@@ -1,4 +1,9 @@
-import type { TierId, TierItemId, TierSetDefinition } from "@twf/contracts";
+import type {
+  TierId,
+  TierItemId,
+  TierSetDefinition,
+  VoteValue,
+} from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import {
   BUILD_MS,
@@ -24,6 +29,29 @@ function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   if (ids.length > 0) return ids;
 
   return items.filter((x) => typeof x === "string") as TierItemId[];
+}
+
+export function fillMissingVotesAsAgree(room: Room) {
+  const placerId = room.state.currentTurnPlayerId;
+  if (!placerId) return;
+  for (const p of room.state.players) {
+    if (p.id === placerId) continue;
+    if (room.state.votes[p.id] === undefined) {
+      room.state.votes[p.id] = 0 satisfies VoteValue;
+    }
+  }
+}
+
+function isItemPlaced(room: Room, itemId: TierItemId): boolean {
+  return Object.values(room.state.tiers).some((arr) => arr.includes(itemId));
+}
+
+function popNextUnplacedItem(room: Room): TierItemId | null {
+  while (room.itemQueue.length > 0) {
+    const next = room.itemQueue.shift()!;
+    if (!isItemPlaced(room, next)) return next;
+  }
+  return null;
 }
 
 export function getPlayerId(room: Room, socket: IOSocket) {
@@ -57,45 +85,52 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
   };
 }
 
-export function beginTurn(room: Room, now: number) {
-  const queue = room.itemQueue;
-  const item = queue?.[0] ?? null;
+// #region direct socket helpers
 
-  if (!item) {
+export function beginTurn(room: Room, now: number) {
+  const nextItem = popNextUnplacedItem(room);
+
+  if (!nextItem) {
     room.state = {
       ...room.state,
       phase: "FINISHED",
       currentItem: null,
-      currentTurnPlayerId: null,
       pendingTierId: null,
-      lastResolution: null,
       votes: {},
       timers: {
         ...room.state.timers,
-        buildEndsAt: null,
         revealEndsAt: null,
         placeEndsAt: null,
         voteEndsAt: null,
+        resultsEndsAt: null,
+        driftEndsAt: null,
       },
     };
     return;
   }
 
-  const currentPlayerId =
-    room.state.turnOrderPlayerIds[room.state.turnIndex] ?? null;
+  const turnIndex = room.state.turnIndex;
+  const currentTurnPlayerId =
+    room.state.turnOrderPlayerIds.length > 0
+      ? room.state.turnOrderPlayerIds[
+          turnIndex % room.state.turnOrderPlayerIds.length
+        ] ?? null
+      : null;
 
   room.state = {
     ...room.state,
     phase: "REVEAL",
-    currentItem: item,
-    currentTurnPlayerId: currentPlayerId,
+    currentItem: nextItem,
+    pendingTierId: null,
     votes: {},
+    currentTurnPlayerId,
     timers: {
       ...room.state.timers,
-      buildEndsAt: null,
       revealEndsAt: now + REVEAL_MS,
       placeEndsAt: null,
       voteEndsAt: null,
+      resultsEndsAt: null,
+      driftEndsAt: null,
     },
   };
 }
@@ -129,7 +164,6 @@ export function finalizeTurn(room: Room) {
     throw new Error(getErrorMessage("FINALIZE_OUTSIDE_VOTE"));
 
   const playersCount = room.state.turnOrderPlayerIds.length;
-  if (room.itemQueue.length > 0) room.itemQueue.shift();
 
   room.state = {
     ...room.state,
@@ -215,8 +249,8 @@ export function commitDriftResolution(room: Room) {
     );
   }
 
+  if (room.itemQueue.length > 0) room.itemQueue.shift();
   nextTiers[toTierId] = [...toTier, item];
-
   room.state = {
     ...room.state,
     tiers: nextTiers,
@@ -224,3 +258,5 @@ export function commitDriftResolution(room: Room) {
     lastResolution: null,
   };
 }
+
+// #endregion direct socket helpers

@@ -13,16 +13,17 @@ import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
 
 export function handleCreate(io: IOServer, socket: IOSocket) {
-  return ({ role }: { role: Role }) => {
+  return async ({ role }: { role: Role }) => {
     const room = createRoom(socket.id, role);
-    socket.join(room.code);
+    await socket.join(room.code);
     socket.emit("room:created", { code: room.code });
+    socket.emit("room:state", room.state);
     emitState(io, room.code, room.state);
   };
 }
 
 export function handleJoin(io: IOServer, socket: IOSocket) {
-  return ({
+  return async ({
     code,
     role,
     name,
@@ -33,14 +34,20 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
   }) => {
     const normalized = normalizeCode(code);
     const room = getRoom(normalized);
-
     if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
 
     try {
-      role === "host"
-        ? joinAsHost(room, socket.id)
-        : joinAsPlayer(room, socket.id, name ?? "");
-      socket.join(room.code);
+      if (role === "host") {
+        joinAsHost(room, socket.id);
+      } else {
+        joinAsPlayer(room, socket.id, name ?? "");
+        const playerId = room.controllerBySocketId.get(socket.id) ?? null;
+        if (!playerId) return emitError(socket, getErrorMessage("JOIN_FAILED"));
+        socket.emit("room:joined", { playerId });
+      }
+
+      await socket.join(room.code);
+      socket.emit("room:state", room.state);
       emitState(io, room.code, room.state);
     } catch (e) {
       emitError(
@@ -66,7 +73,7 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
 
     room.state.tierSetId = def.id;
     room.state.tiers = makeEmptyTiers(def);
-    room.state.tierOrder = Object.keys(room.state.tiers) as TierId[];
+    room.state.tierOrder = Object.keys(room.state.tiers);
     room.state.currentItem = null;
     room.state.currentTurnPlayerId = null;
 
