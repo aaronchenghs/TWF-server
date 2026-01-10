@@ -44,7 +44,7 @@ export function computeResolution(args: {
 
   const toIdx = Math.min(
     safeTierOrder.length - 1,
-    Math.max(0, clampedFromIdx - driftDelta)
+    Math.max(0, clampedFromIdx + driftDelta)
   );
 
   const toTierId = safeTierOrder[toIdx] ?? fromTierId;

@@ -82,7 +82,8 @@ export function handleVote(io: IOServer, socket: IOSocket) {
   return ({ vote }: { vote: VoteValue }) => {
     const room = requireRoom(socket);
     if (!room) return;
-
+    if (vote !== -1 && vote !== 0 && vote !== 1)
+      return emitError(socket, getErrorMessage("INVALID_VOTE"));
     const pid = getPlayerId(room, socket);
     if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
     if (room.state.phase !== "VOTE")
