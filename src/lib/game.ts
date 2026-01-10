@@ -160,7 +160,7 @@ export function beginVote(room: Room, now: number) {
 }
 
 export function finalizeTurn(room: Room) {
-  if (room.state.phase !== "VOTE")
+  if (room.state.phase !== "VOTE" && room.state.phase !== "DRIFT")
     throw new Error(getErrorMessage("FINALIZE_OUTSIDE_VOTE"));
 
   const playersCount = room.state.turnOrderPlayerIds.length;
@@ -249,7 +249,6 @@ export function commitDriftResolution(room: Room) {
     );
   }
 
-  if (room.itemQueue.length > 0) room.itemQueue.shift();
   nextTiers[toTierId] = [...toTier, item];
   room.state = {
     ...room.state,
