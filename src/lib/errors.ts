@@ -20,6 +20,7 @@ const ERRORS = {
   NO_CURRENT_ITEM: "No current item.",
   NO_PLAYERS: "No players.",
   NO_PREV_SNAPSHOT: "No previous phase snapshot yet.",
+  PLACER_CANNOT_VOTE: "Placer cannot vote on their own item.",
   ROOM_NOT_FOUND: "Room not found.",
   SOCKET_ID_MISMATCH: "Socket ID mismatch.",
   TIER_SET_HAS_NO_ITEMS: "Tier set has no items.",

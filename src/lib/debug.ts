@@ -18,7 +18,7 @@ import {
  * @param now   Current timestamp (ms).
  * @returns A timers object with only the active phase deadline set.
  */
-function resetTimersForPhase(
+export function resetTimersForPhase(
   state: RoomPublicState,
   now: number
 ): RoomPublicState["timers"] {
