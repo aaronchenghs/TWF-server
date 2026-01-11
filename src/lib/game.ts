@@ -1,6 +1,7 @@
 import type {
   Tier,
   TierId,
+  TierItem,
   TierItemId,
   TierSetDefinition,
   VoteValue,
@@ -22,16 +23,10 @@ import { computeResolution } from "./computations.js";
 import { recordPhaseStart } from "./debug.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
-  const items = tierSet.items;
-  if (!Array.isArray(items)) return [];
-
-  const asObjects = items as Array<{ id?: unknown }>;
-  const ids = asObjects
-    .map((x) => (typeof x?.id === "string" ? x.id : null))
-    .filter((x): x is TierItemId => !!x);
-  if (ids.length > 0) return ids;
-
-  return items.filter((x) => typeof x === "string") as TierItemId[];
+  const items = tierSet.items ?? [];
+  return items
+    .map((item) => item?.id)
+    .filter((id): id is TierItemId => typeof id === "string" && id.length > 0);
 }
 
 export function fillMissingVotesAsAgree(room: Room) {
@@ -72,6 +67,8 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
 
   const tiersMeta: Record<TierId, Tier> = {};
   for (const tier of tierSet.tiers) tiersMeta[tier.id] = tier;
+  const itemMetaById: Record<TierItemId, TierItem> = {};
+  for (const item of tierSet.items ?? []) itemMetaById[item.id] = item;
 
   room.state = {
     ...room.state,
@@ -79,6 +76,7 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
     turnOrderPlayerIds: shuffle(playerIds),
     turnIndex: 0,
     tierMetaById: tiersMeta,
+    itemMetaById,
     currentTurnPlayerId: null,
     currentItem: null,
     votes: {},

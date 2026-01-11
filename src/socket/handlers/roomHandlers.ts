@@ -1,4 +1,11 @@
-import type { Role, TierId, TierSetId } from "@twf/contracts";
+import type {
+  Role,
+  Tier,
+  TierId,
+  TierItem,
+  TierItemId,
+  TierSetId,
+} from "@twf/contracts";
 import { makeEmptyTiers, normalizeCode } from "../../lib/general.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import {
@@ -6,7 +13,6 @@ import {
   getRoom,
   joinAsHost,
   joinAsPlayer,
-  deleteRoomIfEmpty,
   requireRoom,
   deleteRoom,
 } from "../../lib/rooms.js";
@@ -64,20 +70,32 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
   return ({ tierSetId }: { tierSetId: TierSetId }) => {
     const room = requireRoom(socket);
     if (!room) return;
-
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     if (room.state.phase !== "LOBBY")
       return emitError(socket, getErrorMessage("CANNOT_CHANGE_TIER_SET"));
+    const tierSetDefinition = getTierSet(tierSetId);
+    if (!tierSetDefinition)
+      return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
-    const def = getTierSet(tierSetId);
-    if (!def) return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
+    const tierMeta: Record<TierId, Tier> = {};
+    for (const tier of tierSetDefinition.tiers) tierMeta[tier.id] = tier;
+    const itemMeta: Record<TierItemId, TierItem> = {};
+    for (const item of tierSetDefinition.items ?? []) itemMeta[item.id] = item;
 
-    room.state.tierSetId = def.id;
-    room.state.tiers = makeEmptyTiers(def);
-    room.state.tierOrder = Object.keys(room.state.tiers);
-    room.state.currentItem = null;
-    room.state.currentTurnPlayerId = null;
+    room.state = {
+      ...room.state,
+      tierSetId: tierSetDefinition.id,
+      tiers: makeEmptyTiers(tierSetDefinition),
+      tierOrder: tierSetDefinition.tiers.map((t) => t.id),
+      tierMetaById: tierMeta,
+      itemMetaById: itemMeta,
+      currentItem: null,
+      currentTurnPlayerId: null,
+      pendingTierId: null,
+      votes: {},
+      lastResolution: null,
+    };
 
     emitState(io, room.code, room.state);
   };
