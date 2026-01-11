@@ -1,4 +1,5 @@
 import type {
+  Tier,
   TierId,
   TierItemId,
   TierSetDefinition,
@@ -12,6 +13,7 @@ import {
   VOTE_MS,
   RESULTS_MS,
   DRIFT_MS,
+  NULL_TIMERS,
 } from "./timing.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
@@ -68,22 +70,25 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
     throw new Error(getErrorMessage("TIER_SET_HAS_NO_ITEMS"));
   room.itemQueue = shuffle(items);
 
+  const tiersMeta: Record<TierId, Tier> = {};
+  for (const tier of tierSet.tiers) tiersMeta[tier.id] = tier;
+
   room.state = {
     ...room.state,
     phase: "STARTING",
     turnOrderPlayerIds: shuffle(playerIds),
     turnIndex: 0,
+    tierMetaById: tiersMeta,
     currentTurnPlayerId: null,
     currentItem: null,
     votes: {},
     timers: {
+      ...NULL_TIMERS,
       ...room.state.timers,
       buildEndsAt: now + BUILD_MS,
-      revealEndsAt: null,
-      placeEndsAt: null,
-      voteEndsAt: null,
     },
   };
+
   recordPhaseStart(room);
 }
 
@@ -100,12 +105,8 @@ export function beginTurn(room: Room, now: number) {
       pendingTierId: null,
       votes: {},
       timers: {
+        ...NULL_TIMERS,
         ...room.state.timers,
-        revealEndsAt: null,
-        placeEndsAt: null,
-        voteEndsAt: null,
-        resultsEndsAt: null,
-        driftEndsAt: null,
       },
     };
     return;
@@ -127,12 +128,9 @@ export function beginTurn(room: Room, now: number) {
     votes: {},
     currentTurnPlayerId,
     timers: {
+      ...NULL_TIMERS,
       ...room.state.timers,
       revealEndsAt: now + REVEAL_MS,
-      placeEndsAt: null,
-      voteEndsAt: null,
-      resultsEndsAt: null,
-      driftEndsAt: null,
     },
   };
   recordPhaseStart(room);
