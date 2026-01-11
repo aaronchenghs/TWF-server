@@ -18,7 +18,7 @@ import {
 
 export const BUILD_MS = 5_000;
 export const REVEAL_MS = 2_000;
-export const PLACE_MS = 15_000;
+export const PLACE_MS = 20_000;
 export const VOTE_MS = 60_000;
 export const RESULTS_MS = 3_000;
 export const DRIFT_MS = 1_000;
