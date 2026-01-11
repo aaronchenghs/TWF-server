@@ -1,4 +1,9 @@
-import type { RoomCode, TierSetDefinition, TierSetId } from "@twf/contracts";
+import type {
+  RoomCode,
+  RoomPublicState,
+  TierSetDefinition,
+  TierSetId,
+} from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import {
   beginTurn,
@@ -18,12 +23,21 @@ export const VOTE_MS = 30_000;
 export const RESULTS_MS = 3_000;
 export const DRIFT_MS = 1_000;
 
+export const NULL_TIMERS: RoomPublicState["timers"] = {
+  buildEndsAt: null,
+  revealEndsAt: null,
+  placeEndsAt: null,
+  voteEndsAt: null,
+  resultsEndsAt: null,
+  driftEndsAt: null,
+};
+
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
 
 const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
 
-function clearRoomTimers(roomCode: RoomCode) {
+export function clearRoomTimers(roomCode: RoomCode) {
   const timers = timersByRoom.get(roomCode);
   if (!timers) return;
   for (const t of timers) clearTimeout(t);

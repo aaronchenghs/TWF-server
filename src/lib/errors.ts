@@ -23,6 +23,8 @@ const ERRORS = {
   MISSING_PENDING_TIER: "Missing pending tier.",
   MISSING_RESOLUTION: "Missing resolution",
   INVALID_VOTE: "Invalid vote value.",
+  NOT_DEBUG_MODE: "Debug controls are disabled.",
+  SOCKET_ID_MISMATCH: "Socket ID mismatch.",
 } as const;
 
 export type ErrorKey = keyof typeof ERRORS;

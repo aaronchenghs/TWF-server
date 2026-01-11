@@ -15,6 +15,7 @@ import {
   handleStart,
   handleVote,
 } from "./handlers/gameHandlers.js";
+import { handleDebugNext, handleDebugPrev } from "./handlers/debugHandlers.js";
 
 function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:create", handleCreate(io, socket));
@@ -30,6 +31,9 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
 
   socket.on("game:place", handlePlaceItem(io, socket));
   socket.on("game:vote", handleVote(io, socket));
+
+  socket.on("debug:next", handleDebugNext(io, socket));
+  socket.on("debug:prev", handleDebugPrev(io, socket));
 }
 
 export function registerSocketHandlers(io: IOServer) {

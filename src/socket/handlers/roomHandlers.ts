@@ -8,9 +8,11 @@ import {
   joinAsPlayer,
   deleteRoomIfEmpty,
   requireRoom,
+  deleteRoom,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
+import { clearRoomTimers } from "../../lib/timing.js";
 
 export function handleCreate(io: IOServer, socket: IOSocket) {
   return async ({ role }: { role: Role }) => {
@@ -85,12 +87,12 @@ export function handleCloseRoom(io: IOServer, socket: IOSocket) {
   return () => {
     const room = requireRoom(socket);
     if (!room) return;
-
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
 
+    clearRoomTimers(room.code);
     io.to(room.code).emit("room:closed");
     io.in(room.code).disconnectSockets(true);
-    deleteRoomIfEmpty(room);
+    deleteRoom(room);
   };
 }

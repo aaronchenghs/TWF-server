@@ -1,12 +1,13 @@
 import { TierId, VoteValue } from "@twf/contracts";
 import {
   beginResults,
+  beginVote,
   fillMissingVotesAsAgree,
   gameStart,
   getPlayerId,
 } from "../../lib/game";
 import { requireRoom } from "../../lib/rooms";
-import { reschedule, VOTE_MS } from "../../lib/timing";
+import { reschedule } from "../../lib/timing";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
@@ -60,21 +61,12 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
     room.state = {
       ...room.state,
       pendingTierId: tierId,
-      phase: "VOTE",
       votes: {},
-      timers: {
-        ...room.state.timers,
-        placeEndsAt: null,
-        voteEndsAt: Date.now() + VOTE_MS,
-      },
     };
 
+    beginVote(room, Date.now());
     emitState(io, room.code, room.state);
-    reschedule(
-      room,
-      (room) => emitState(io, room.code, room.state),
-      getTierSet
-    );
+    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
   };
 }
 

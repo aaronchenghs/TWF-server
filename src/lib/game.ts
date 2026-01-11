@@ -17,6 +17,7 @@ import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
 import { getErrorMessage } from "./errors.js";
 import { computeResolution } from "./computations.js";
+import { recordPhaseStart } from "./debug.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items;
@@ -83,6 +84,7 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
       voteEndsAt: null,
     },
   };
+  recordPhaseStart(room);
 }
 
 // #region direct socket helpers
@@ -133,6 +135,7 @@ export function beginTurn(room: Room, now: number) {
       driftEndsAt: null,
     },
   };
+  recordPhaseStart(room);
 }
 
 export function beginPlace(room: Room, now: number) {
@@ -145,6 +148,7 @@ export function beginPlace(room: Room, now: number) {
       placeEndsAt: now + PLACE_MS,
     },
   };
+  recordPhaseStart(room);
 }
 
 export function beginVote(room: Room, now: number) {
@@ -157,6 +161,7 @@ export function beginVote(room: Room, now: number) {
       voteEndsAt: now + VOTE_MS,
     },
   };
+  recordPhaseStart(room);
 }
 
 export function finalizeTurn(room: Room) {
@@ -207,6 +212,7 @@ export function beginResults(room: Room, now: number) {
       driftEndsAt: null,
     },
   };
+  recordPhaseStart(room);
 }
 
 export function beginDrift(room: Room, now: number) {
@@ -231,6 +237,7 @@ export function beginDrift(room: Room, now: number) {
       driftEndsAt: now + DRIFT_MS,
     },
   };
+  recordPhaseStart(room);
 }
 
 export function commitDriftResolution(room: Room) {

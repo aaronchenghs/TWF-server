@@ -9,6 +9,7 @@ import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 import { getErrorMessage } from "./errors.js";
 import { emitError, IOSocket } from "../socket/emit.js";
+import { NULL_TIMERS } from "./timing.js";
 
 const rooms = new Map<RoomCode, Room>();
 
@@ -32,14 +33,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     votes: {},
     lastResolution: null,
     tierOrder: [],
-    timers: {
-      buildEndsAt: null,
-      revealEndsAt: null,
-      placeEndsAt: null,
-      voteEndsAt: null,
-      resultsEndsAt: null,
-      driftEndsAt: null,
-    },
+    timers: NULL_TIMERS,
     tierSetId: null,
     pendingTierId: null,
   };
@@ -53,6 +47,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     itemQueue: [],
     timer: null,
     scheduleNonce: 0,
+    debugHistory: [],
   };
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
@@ -107,6 +102,10 @@ export function deleteRoomIfEmpty(room: Room) {
     room.displayConnectionIds.size > 0 || room.state.players.length > 0;
   if (!hasAnyConnections) rooms.delete(room.code);
   return !hasAnyConnections;
+}
+
+export function deleteRoom(room: Room) {
+  rooms.delete(room.code);
 }
 
 export function getAllRooms(): IterableIterator<Room> {
