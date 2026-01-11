@@ -90,14 +90,8 @@ export function handleDebugPrev(io: IOServer, socket: IOSocket) {
 
     room.debugHistory ??= [];
 
-    console.log("debug:prev", {
-      histLen: room.debugHistory.length,
-      phase: room.state.phase,
-    });
-
-    if (room.debugHistory.length < 2) {
-      return emitError(socket, "No previous phase snapshot yet.");
-    }
+    if (room.debugHistory.length < 2)
+      return emitError(socket, getErrorMessage("NO_PREV_SNAPSHOT"));
 
     const now = Date.now();
     restoreToSnapshot(room, room.debugHistory.length - 2, now);
