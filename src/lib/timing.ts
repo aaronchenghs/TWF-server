@@ -16,12 +16,14 @@ import {
   fillMissingVotesAsAgree,
 } from "./game.js";
 
-export const BUILD_MS = 5_000;
-export const REVEAL_MS = 2_000;
-export const PLACE_MS = 20_000;
-export const VOTE_MS = 60_000;
-export const RESULTS_MS = 3_000;
-export const DRIFT_MS = 1_000;
+export const TIMERS = {
+  BUILD_MS: 5_000,
+  REVEAL_MS: 2_000,
+  PLACE_MS: 20_000,
+  VOTE_MS: 60_000,
+  RESULTS_MS: 3_000,
+  DRIFT_MS: 1_000,
+} as const;
 
 export const NULL_TIMERS: RoomPublicState["timers"] = {
   buildEndsAt: null,
@@ -32,22 +34,22 @@ export const NULL_TIMERS: RoomPublicState["timers"] = {
   driftEndsAt: null,
 };
 
+const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
+
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
 
-const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
+function addTimer(roomCode: RoomCode, timer: NodeJS.Timeout) {
+  const roomTimers = timersByRoom.get(roomCode) ?? [];
+  roomTimers.push(timer);
+  timersByRoom.set(roomCode, roomTimers);
+}
 
 export function clearRoomTimers(roomCode: RoomCode) {
   const timers = timersByRoom.get(roomCode);
   if (!timers) return;
   for (const t of timers) clearTimeout(t);
   timersByRoom.delete(roomCode);
-}
-
-function addTimer(roomCode: RoomCode, t: NodeJS.Timeout) {
-  const arr = timersByRoom.get(roomCode) ?? [];
-  arr.push(t);
-  timersByRoom.set(roomCode, arr);
 }
 
 /** reschedule: timer engine for game state */
@@ -153,9 +155,7 @@ export function reschedule(
         if (room.state.phase === "DRIFT") {
           try {
             finalizeTurn(room);
-          } catch {
-            // phase guards elsewhere will keep the engine moving
-          }
+          } catch {}
         }
 
         emit(room);

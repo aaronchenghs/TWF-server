@@ -1,14 +1,6 @@
 import type { Room } from "../types/types.js";
 import type { RoomPublicState } from "@twf/contracts";
-import {
-  BUILD_MS,
-  REVEAL_MS,
-  PLACE_MS,
-  VOTE_MS,
-  RESULTS_MS,
-  DRIFT_MS,
-  NULL_TIMERS,
-} from "./timing.js";
+import { NULL_TIMERS, TIMERS } from "./timing.js";
 
 /**
  * Rebuilds timers so the restored state behaves like the *start* of its phase.
@@ -24,17 +16,17 @@ export function resetTimersForPhase(
 ): RoomPublicState["timers"] {
   switch (state.phase) {
     case "STARTING":
-      return { ...NULL_TIMERS, buildEndsAt: now + BUILD_MS };
+      return { ...NULL_TIMERS, buildEndsAt: now + TIMERS.BUILD_MS };
     case "REVEAL":
-      return { ...NULL_TIMERS, revealEndsAt: now + REVEAL_MS };
+      return { ...NULL_TIMERS, revealEndsAt: now + TIMERS.REVEAL_MS };
     case "PLACE":
-      return { ...NULL_TIMERS, placeEndsAt: now + PLACE_MS };
+      return { ...NULL_TIMERS, placeEndsAt: now + TIMERS.PLACE_MS };
     case "VOTE":
-      return { ...NULL_TIMERS, voteEndsAt: now + VOTE_MS };
+      return { ...NULL_TIMERS, voteEndsAt: now + TIMERS.VOTE_MS };
     case "RESULTS":
-      return { ...NULL_TIMERS, resultsEndsAt: now + RESULTS_MS };
+      return { ...NULL_TIMERS, resultsEndsAt: now + TIMERS.RESULTS_MS };
     case "DRIFT":
-      return { ...NULL_TIMERS, driftEndsAt: now + DRIFT_MS };
+      return { ...NULL_TIMERS, driftEndsAt: now + TIMERS.DRIFT_MS };
     default:
       return NULL_TIMERS;
   }

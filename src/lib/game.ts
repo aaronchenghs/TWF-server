@@ -7,15 +7,7 @@ import type {
   VoteValue,
 } from "@twf/contracts";
 import type { Room } from "../types/types.js";
-import {
-  BUILD_MS,
-  REVEAL_MS,
-  PLACE_MS,
-  VOTE_MS,
-  RESULTS_MS,
-  DRIFT_MS,
-  NULL_TIMERS,
-} from "./timing.js";
+import { NULL_TIMERS, TIMERS } from "./timing.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
 import { getErrorMessage } from "./errors.js";
@@ -83,7 +75,7 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
     timers: {
       ...NULL_TIMERS,
       ...room.state.timers,
-      buildEndsAt: now + BUILD_MS,
+      buildEndsAt: now + TIMERS.BUILD_MS,
     },
   };
 
@@ -128,7 +120,7 @@ export function beginTurn(room: Room, now: number) {
     timers: {
       ...NULL_TIMERS,
       ...room.state.timers,
-      revealEndsAt: now + REVEAL_MS,
+      revealEndsAt: now + TIMERS.REVEAL_MS,
     },
   };
   recordPhaseStart(room);
@@ -141,7 +133,7 @@ export function beginPlace(room: Room, now: number) {
     timers: {
       ...room.state.timers,
       revealEndsAt: null,
-      placeEndsAt: now + PLACE_MS,
+      placeEndsAt: now + TIMERS.PLACE_MS,
     },
   };
   recordPhaseStart(room);
@@ -154,7 +146,7 @@ export function beginVote(room: Room, now: number) {
     timers: {
       ...room.state.timers,
       placeEndsAt: null,
-      voteEndsAt: now + VOTE_MS,
+      voteEndsAt: now + TIMERS.VOTE_MS,
     },
   };
   recordPhaseStart(room);
@@ -204,7 +196,7 @@ export function beginResults(room: Room, now: number) {
     timers: {
       ...room.state.timers,
       voteEndsAt: null,
-      resultsEndsAt: now + RESULTS_MS,
+      resultsEndsAt: now + TIMERS.RESULTS_MS,
       driftEndsAt: null,
     },
   };
@@ -230,7 +222,7 @@ export function beginDrift(room: Room, now: number) {
     timers: {
       ...room.state.timers,
       resultsEndsAt: null,
-      driftEndsAt: now + DRIFT_MS,
+      driftEndsAt: now + TIMERS.DRIFT_MS,
     },
   };
   recordPhaseStart(room);
