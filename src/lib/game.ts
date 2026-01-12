@@ -180,19 +180,31 @@ export function finalizeTurn(room: Room) {
 }
 
 export function beginResults(room: Room, now: number) {
-  if (!room.state.currentItem)
-    throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
-  if (!room.state.pendingTierId)
-    throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
+  const { currentItem, pendingTierId, currentTurnPlayerId, votes, players } =
+    room.state;
+  if (!currentItem) throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
+  if (!pendingTierId) throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
 
-  const eligibleVoterIds = room.state.players
+  const placerId = currentTurnPlayerId;
+  const eligibleVoters = players
     .map((p) => p.id)
-    .filter((id) => id !== room.state.currentTurnPlayerId);
+    .filter((id) => id !== placerId);
+  const actualVoters = Object.keys(votes).filter((id) =>
+    eligibleVoters.includes(id)
+  );
+  const didNobodyVote = actualVoters.length === 0;
+
+  // Policy:
+  // - If nobody voted, pretend everyone agreed (0).
+  // - If some voted, only those votes count toward drift.
+  const votersToCount = didNobodyVote ? eligibleVoters : actualVoters;
+
+  if (didNobodyVote) for (const id of eligibleVoters) votes[id] = 0;
 
   const { resolution } = computeResolution({
-    votes: room.state.votes,
-    eligibleVoterIds,
-    fromTierId: room.state.pendingTierId,
+    votes,
+    eligibleVoterIds: votersToCount,
+    fromTierId: pendingTierId,
     tierOrder: room.state.tierOrder,
   });
 
@@ -207,6 +219,7 @@ export function beginResults(room: Room, now: number) {
       driftEndsAt: null,
     },
   };
+
   recordPhaseStart(room);
 }
 

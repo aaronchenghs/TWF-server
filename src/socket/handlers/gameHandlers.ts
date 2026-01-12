@@ -93,11 +93,9 @@ export function handleVote(io: IOServer, socket: IOSocket) {
 
     if (have >= needed) {
       const now = Date.now();
-
       fillMissingVotesAsAgree(room);
       beginResults(room, now);
       emitState(io, room.code, room.state);
-
       reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
       return;
     }

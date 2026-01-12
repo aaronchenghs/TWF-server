@@ -13,7 +13,6 @@ import {
   beginResults,
   beginDrift,
   commitDriftResolution,
-  fillMissingVotesAsAgree,
   getNextTurn,
 } from "./game.js";
 
@@ -135,9 +134,7 @@ export function reschedule(
       room.code,
       setTimeout(() => {
         if (room.state.phase !== "VOTE") return;
-
         const now2 = Date.now();
-        fillMissingVotesAsAgree(room);
         beginResults(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
