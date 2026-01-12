@@ -21,6 +21,22 @@ function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
     .filter((id): id is TierItemId => typeof id === "string" && id.length > 0);
 }
 
+export function getNextTurn(
+  room: Room,
+  delta = 1
+): {
+  turnIndex: number;
+  currentTurnPlayerId: (typeof room.state.turnOrderPlayerIds)[number] | null;
+} {
+  const ids = room.state.turnOrderPlayerIds;
+  const playersLength = ids.length;
+  if (playersLength <= 0) return { turnIndex: 0, currentTurnPlayerId: null };
+
+  const turnIndex = (room.state.turnIndex + delta) % playersLength;
+  const currentTurnPlayerId = ids[turnIndex] ?? null;
+  return { turnIndex, currentTurnPlayerId };
+}
+
 export function fillMissingVotesAsAgree(room: Room) {
   const placerId = room.state.currentTurnPlayerId;
   if (!placerId) return;
@@ -86,7 +102,6 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
 
 export function beginTurn(room: Room, now: number) {
   const nextItem = popNextUnplacedItem(room);
-
   if (!nextItem) {
     room.state = {
       ...room.state,
@@ -102,14 +117,7 @@ export function beginTurn(room: Room, now: number) {
     return;
   }
 
-  const turnIndex = room.state.turnIndex;
-  const currentTurnPlayerId =
-    room.state.turnOrderPlayerIds.length > 0
-      ? room.state.turnOrderPlayerIds[
-          turnIndex % room.state.turnOrderPlayerIds.length
-        ] ?? null
-      : null;
-
+  const { currentTurnPlayerId } = getNextTurn(room, 0);
   room.state = {
     ...room.state,
     phase: "REVEAL",
@@ -123,6 +131,7 @@ export function beginTurn(room: Room, now: number) {
       revealEndsAt: now + TIMERS.REVEAL_MS,
     },
   };
+
   recordPhaseStart(room);
 }
 
@@ -155,16 +164,14 @@ export function beginVote(room: Room, now: number) {
 export function finalizeTurn(room: Room) {
   if (room.state.phase !== "VOTE" && room.state.phase !== "DRIFT")
     throw new Error(getErrorMessage("FINALIZE_OUTSIDE_VOTE"));
-
-  const playersCount = room.state.turnOrderPlayerIds.length;
-
+  const { turnIndex } = getNextTurn(room, 1);
   room.state = {
     ...room.state,
     phase: "RESOLVE",
     currentItem: null,
     currentTurnPlayerId: null,
     votes: {},
-    turnIndex: playersCount > 0 ? (room.state.turnIndex + 1) % playersCount : 0,
+    turnIndex,
     timers: {
       ...room.state.timers,
       voteEndsAt: null,

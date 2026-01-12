@@ -14,6 +14,7 @@ import {
   beginDrift,
   commitDriftResolution,
   fillMissingVotesAsAgree,
+  getNextTurn,
 } from "./game.js";
 
 export const TIMERS = {
@@ -100,8 +101,26 @@ export function reschedule(
       room.code,
       setTimeout(() => {
         if (room.state.phase !== "PLACE") return;
-
         const now2 = Date.now();
+
+        // If no tier has been selected by the placer (they timed out), skip their
+        // turn and give the next player a chance to place the same item.  Otherwise
+        // proceed directly to voting.
+        if (!room.state.pendingTierId) {
+          const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
+          room.state = {
+            ...room.state,
+            turnIndex,
+            currentTurnPlayerId,
+            pendingTierId: null,
+            votes: {},
+          };
+          beginPlace(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+          return;
+        }
+
         beginVote(room, now2);
         emit(room);
         reschedule(room, emit, _getTierSet);
