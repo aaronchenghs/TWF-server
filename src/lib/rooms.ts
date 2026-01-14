@@ -38,6 +38,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     pendingTierId: null,
   };
 
+  const now = Date.now();
   const room: Room = {
     code,
     state,
@@ -48,6 +49,8 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     timer: null,
     scheduleNonce: 0,
     debugHistory: [],
+    createdAt: now,
+    lastActivityAt: now,
   };
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
@@ -57,6 +60,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
 
 export function joinAsHost(room: Room, socketId: string) {
   room.displayConnectionIds.add(socketId);
+  touchRoom(room);
 }
 
 export function joinAsPlayer(room: Room, socketId: string, name: string) {
@@ -74,6 +78,7 @@ export function joinAsPlayer(room: Room, socketId: string, name: string) {
     name: safeName,
     joinedAt: Date.now(),
   });
+  touchRoom(room);
 
   return playerId as string;
 }
@@ -124,4 +129,8 @@ export function requireRoom(socket: IOSocket): Room | null {
     return null;
   }
   return room;
+}
+
+export function touchRoom(room: Room) {
+  room.lastActivityAt = Date.now();
 }

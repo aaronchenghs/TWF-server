@@ -6,7 +6,7 @@ import {
   gameStart,
   getPlayerId,
 } from "../../lib/game";
-import { requireRoom } from "../../lib/rooms";
+import { requireRoom, touchRoom } from "../../lib/rooms";
 import { reschedule } from "../../lib/timing";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
@@ -30,6 +30,7 @@ export function handleStart(io: IOServer, socket: IOSocket) {
     if (!selectedTierSet)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
+    touchRoom(room);
     gameStart(room, selectedTierSet, Date.now());
     emitState(io, room.code, room.state);
     reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
@@ -64,6 +65,7 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
       votes: {},
     };
 
+    touchRoom(room);
     beginVote(room, Date.now());
     emitState(io, room.code, room.state);
     reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
@@ -100,6 +102,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
       return;
     }
 
+    touchRoom(room);
     emitState(io, room.code, room.state);
   };
 }

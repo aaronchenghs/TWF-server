@@ -17,4 +17,6 @@ export type Room = {
   scheduleNonce: number;
 
   debugHistory: DebugSnapshot[];
+  lastActivityAt: number;
+  createdAt: number;
 };

@@ -16,7 +16,7 @@ import {
   getNextTurn,
 } from "./game.js";
 
-export const TIMERS = {
+export const PHASE_TIMERS = {
   BUILD_MS: 5_000,
   REVEAL_MS: 2_000,
   PLACE_MS: 20_000,
@@ -24,6 +24,8 @@ export const TIMERS = {
   RESULTS_MS: 3_000,
   DRIFT_MS: 1_000,
 } as const;
+
+export const ONE_HOUR_MS = 1000 * 60 * 60;
 
 export const NULL_TIMERS: RoomPublicState["timers"] = {
   buildEndsAt: null,

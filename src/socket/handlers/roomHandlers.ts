@@ -15,6 +15,7 @@ import {
   joinAsPlayer,
   requireRoom,
   deleteRoom,
+  touchRoom,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
@@ -56,6 +57,7 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
 
       await socket.join(room.code);
       socket.emit("room:state", room.state);
+      touchRoom(room);
       emitState(io, room.code, room.state);
     } catch (e) {
       emitError(
@@ -97,6 +99,7 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
       lastResolution: null,
     };
 
+    touchRoom(room);
     emitState(io, room.code, room.state);
   };
 }
