@@ -36,6 +36,8 @@ npm start
 PORT (default: 3001) - port this API is served from
 CLIENT_ORIGIN (default: http://localhost:5173) - allowed CORS origin for the client
 ENABLE_DEBUG_CONTROLS (default: false) - boolean, determines if the client is allowed to access debug controls
+ROOM_TTL_MS (default: 7200000) - determines game room TTL before automatic removal
+CLEANUP_INTERVAL_MS (default: 3600000) - determines janitor interval for clean up logic
 ```
 
 ## Health Check
