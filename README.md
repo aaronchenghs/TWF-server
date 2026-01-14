@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-# Scripts
+## Scripts
 
 ```bash
 npm run dev
@@ -30,13 +30,14 @@ npm run build
 npm start
 ```
 
-# Environment Variables
+## Environment Variables
 
 ```sh
-PORT (default: 3001)
-CLIENT_ORIGIN (default: http://localhost:5173) — allowed CORS origin for the client
+PORT (default: 3001) - port this API is served from
+CLIENT_ORIGIN (default: http://localhost:5173) - allowed CORS origin for the client
+ENABLE_DEBUG_CONTROLS (default: false) - boolean, determines if the client is allowed to access debug controls
 ```
 
-# Health Check
+## Health Check
 
 GET /health → { ok: true }
