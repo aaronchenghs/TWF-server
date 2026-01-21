@@ -1,4 +1,5 @@
 import {
+  LOBBY_CAPACITY,
   MAX_NAME_LENGTH,
   Role,
   RoomCode,
@@ -64,6 +65,12 @@ export function joinAsHost(room: Room, socketId: string) {
 }
 
 export function joinAsPlayer(room: Room, socketId: string, name: string) {
+  if (room.state.phase !== "LOBBY")
+    throw new Error(getErrorMessage("LOBBY_STARTED"));
+
+  if (room.state.players.length > LOBBY_CAPACITY)
+    throw new Error(getErrorMessage("LOBBY_LIMIT_EXCEEDED"));
+
   const safeName = name.trim().slice(0, MAX_NAME_LENGTH);
   if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));
 
@@ -90,7 +97,7 @@ export function removeConnectionFromRoom(room: Room, socketId: string) {
   if (playerId) {
     room.controllerBySocketId.delete(socketId);
     room.state.players = room.state.players.filter(
-      (player) => player.id !== playerId
+      (player) => player.id !== playerId,
     );
 
     if (room.state.currentTurnPlayerId === playerId) {
@@ -125,7 +132,7 @@ export function requireRoom(socket: IOSocket): Room | null {
   }
   const room = getRoom(roomCode);
   if (!room) {
-    emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
+    emitError(socket, getErrorMessage("LOBBY_NOT_FOUND"));
     return null;
   }
   return room;

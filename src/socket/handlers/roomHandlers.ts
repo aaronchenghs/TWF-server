@@ -43,7 +43,7 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
   }) => {
     const normalized = normalizeCode(code);
     const room = getRoom(normalized);
-    if (!room) return emitError(socket, getErrorMessage("ROOM_NOT_FOUND"));
+    if (!room) return emitError(socket, getErrorMessage("LOBBY_NOT_FOUND"));
 
     try {
       if (role === "host") {
@@ -62,7 +62,7 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
     } catch (e) {
       emitError(
         socket,
-        e instanceof Error ? e.message : getErrorMessage("JOIN_FAILED")
+        e instanceof Error ? e.message : getErrorMessage("JOIN_FAILED"),
       );
     }
   };
