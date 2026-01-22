@@ -60,6 +60,9 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
 }
 
 export function joinAsHost(room: Room, socketId: string) {
+  if (room.state.phase !== "LOBBY")
+    throw new Error(getErrorMessage("LOBBY_STARTED"));
+
   room.displayConnectionIds.add(socketId);
   touchRoom(room);
 }
@@ -68,7 +71,7 @@ export function joinAsPlayer(room: Room, socketId: string, name: string) {
   if (room.state.phase !== "LOBBY")
     throw new Error(getErrorMessage("LOBBY_STARTED"));
 
-  if (room.state.players.length > LOBBY_CAPACITY)
+  if (room.state.players.length >= LOBBY_CAPACITY)
     throw new Error(getErrorMessage("LOBBY_LIMIT_EXCEEDED"));
 
   const safeName = name.trim().slice(0, MAX_NAME_LENGTH);
