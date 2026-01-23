@@ -60,6 +60,9 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
 }
 
 export function joinAsHost(room: Room, socketId: string) {
+  if (room.adminConnectionId !== socketId)
+    throw new Error(getErrorMessage("NOT_AUTHORIZED"));
+
   if (room.state.phase !== "LOBBY")
     throw new Error(getErrorMessage("LOBBY_STARTED"));
 

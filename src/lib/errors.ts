@@ -16,6 +16,7 @@ const ERRORS = {
   MISSING_RESOLUTION: "Missing resolution",
   NAME_REQUIRED: "Name required.",
   NOT_A_PLAYER: "Not a player.",
+  NOT_AUTHORIZED: "Auth Denied",
   NOT_DEBUG_MODE: "Debug controls are disabled.",
   NOT_ENOUGH_PLAYERS: "Need at least one player.",
   NOT_IN_ROOM: "Not in a room.",
