@@ -15,6 +15,7 @@ const ERRORS = {
   MISSING_PENDING_TIER: "Missing pending tier.",
   MISSING_RESOLUTION: "Missing resolution",
   NAME_REQUIRED: "Name required.",
+  NAME_TAKEN: (name: string) => `Name "${name}" is already taken.`,
   NOT_A_PLAYER: "Not a player.",
   NOT_AUTHORIZED: "Auth Denied",
   NOT_DEBUG_MODE: "Debug controls are disabled.",
@@ -31,8 +32,16 @@ const ERRORS = {
   TIER_SET_NOT_SELECTED: "Select a tier set first.",
 } as const;
 
-export type ErrorKey = keyof typeof ERRORS;
+type ErrorsMap = typeof ERRORS;
+
+export type ErrorKey = {
+  [K in keyof ErrorsMap]: ErrorsMap[K] extends string ? K : never;
+}[keyof ErrorsMap];
 
 export function getErrorMessage(key: ErrorKey): string {
   return ERRORS[key];
+}
+
+export function getNameTakenMessage(name: string): string {
+  return ERRORS.NAME_TAKEN(name);
 }

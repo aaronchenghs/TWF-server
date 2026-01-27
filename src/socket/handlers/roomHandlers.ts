@@ -7,7 +7,11 @@ import type {
   TierSetId,
   ClientId,
 } from "@twf/contracts";
-import { makeEmptyTiers, normalizeCode } from "../../lib/general.js";
+import {
+  makeEmptyTiers,
+  normalizeCode,
+  normalizeName,
+} from "../../lib/general.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import {
   createRoom,
@@ -19,7 +23,7 @@ import {
   touchRoom,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
-import { getErrorMessage } from "../../lib/errors";
+import { getErrorMessage, getNameTakenMessage } from "../../lib/errors";
 import { clearRoomTimers } from "../../lib/timing.js";
 
 /**
@@ -36,9 +40,9 @@ export function handleCreate(io: IOServer, socket: IOSocket) {
 }
 
 /**
- * Handles a client’s request to join an existing room.  Accepts a persistent
+ * Handles a client’s request to join an existing room. Accepts a persistent
  * clientId and reattaches the host/player if they have previously joined from
- * the same device.
+ * the same device. Catches joiners with duplicate names and inexistent lobbies.
  */
 export function handleJoin(io: IOServer, socket: IOSocket) {
   return async ({
@@ -60,7 +64,17 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
       if (role === "host") {
         joinAsHost(room, socket.id, clientId);
       } else {
-        const playerId = joinAsPlayer(room, socket.id, clientId, name ?? "");
+        const proposedName = normalizeName(name);
+        const isResumingSession = room.controllerByClientId.has(clientId);
+        if (!isResumingSession) {
+          const isNameDuplicate = room.state.players.some(
+            (p) => normalizeName(p.name) === proposedName,
+          );
+          if (isNameDuplicate)
+            return emitError(socket, getNameTakenMessage(proposedName));
+        }
+
+        const playerId = joinAsPlayer(room, socket.id, clientId, proposedName);
         socket.emit("room:joined", { playerId });
       }
 
