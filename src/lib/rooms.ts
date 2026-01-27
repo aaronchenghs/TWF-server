@@ -8,10 +8,10 @@ import {
   RoomPublicState,
   ClientId,
 } from "@twf/contracts";
-import { makeCode } from "./general.js";
+import { makeCode, normalizeName } from "./general.js";
 import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
-import { getErrorMessage } from "./errors.js";
+import { getErrorMessage, getNameTakenMessage } from "./errors.js";
 import { emitError, IOSocket } from "../socket/emit.js";
 import { NULL_TIMERS } from "./timing.js";
 
@@ -110,9 +110,9 @@ export function joinAsHost(
 
 /**
  * Player join.  If the clientId has played before, this reattaches their socket
- * to the existing player without changing the player’s name.  If the clientId is
- * new, the lobby must still be open and capacity not exceeded.  The returned
- * playerId is used by front‑end to set myPlayerId.
+ * to the existing player without changing the player’s name. If the clientId is
+ * new, the lobby must still be open and capacity not exceeded. The returned
+ * playerId is used by front‑end to set myPlayerId. Catches duplicate names.
  */
 export function joinAsPlayer(
   room: Room,
@@ -120,11 +120,13 @@ export function joinAsPlayer(
   clientId: ClientId,
   name: string,
 ): string {
+  const proposedName = normalizeName(name);
   const existingPlayerId = room.controllerByClientId.get(clientId);
 
-  // RESUME: reattach existing player
+  // =========================
+  // RESUME / RECONNECT
+  // =========================
   if (existingPlayerId) {
-    // Detach old socket (if any)
     const oldSocketId = room.socketIdByControllerId.get(existingPlayerId);
     if (oldSocketId) {
       room.controllerBySocketId.delete(oldSocketId);
@@ -134,23 +136,46 @@ export function joinAsPlayer(
     room.controllerBySocketId.set(socketId, existingPlayerId);
     room.clientIdBySocketId.set(socketId, clientId);
     room.socketIdByControllerId.set(existingPlayerId, socketId);
+
+    const me = room.state.players.find((p) => p.id === existingPlayerId);
+    if (me) me.connected = true;
+
+    // If the game has NOT started, allow this device to change its name
+    if (room.state.phase === "LOBBY") {
+      const safeName = proposedName.trim().slice(0, MAX_NAME_LENGTH);
+      if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));
+
+      const isNameDuplicate = room.state.players.some((p) => {
+        if (p.id === existingPlayerId) return false;
+        return (
+          normalizeName(p.name).toLowerCase() === proposedName.toLowerCase()
+        );
+      });
+
+      if (isNameDuplicate) throw new Error(getNameTakenMessage(proposedName));
+      if (me) me.name = safeName;
+    }
+
     touchRoom(room);
-    return existingPlayerId as string;
+    return existingPlayerId;
   }
 
-  // NEW: must be in lobby and within capacity
-  if (room.state.phase !== "LOBBY") {
+  // =========================
+  // NEW JOIN
+  // =========================
+  if (room.state.phase !== "LOBBY")
     throw new Error(getErrorMessage("LOBBY_STARTED"));
-  }
 
-  if (room.state.players.length >= LOBBY_CAPACITY) {
-    throw new Error(getErrorMessage("LOBBY_LIMIT_EXCEEDED"));
-  }
-
-  const safeName = name.trim().slice(0, MAX_NAME_LENGTH);
+  const safeName = proposedName.trim().slice(0, MAX_NAME_LENGTH);
   if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));
 
+  const isNameDuplicate = room.state.players.some(
+    (p) => normalizeName(p.name).toLowerCase() === proposedName.toLowerCase(),
+  );
+  if (isNameDuplicate) throw new Error(getNameTakenMessage(proposedName));
+
   const playerId = newGuid();
+
   room.controllerByClientId.set(clientId, playerId);
   room.controllerBySocketId.set(socketId, playerId);
   room.clientIdBySocketId.set(socketId, clientId);
@@ -160,10 +185,11 @@ export function joinAsPlayer(
     id: playerId,
     name: safeName,
     joinedAt: Date.now(),
+    connected: true,
   });
 
   touchRoom(room);
-  return playerId as string;
+  return playerId;
 }
 
 /**
@@ -180,17 +206,19 @@ export function detachSocket(room: Room, socketId: string): void {
     room.controllerBySocketId.delete(socketId);
     room.clientIdBySocketId.delete(socketId);
     room.socketIdByControllerId.delete(playerId);
+
+    const p = room.state.players.find((x) => x.id === playerId);
+    if (p) p.connected = false;
   } else {
-    // Might be the host
     const clientId = room.clientIdBySocketId.get(socketId);
-    if (clientId) {
-      room.clientIdBySocketId.delete(socketId);
-    }
+    if (clientId) room.clientIdBySocketId.delete(socketId);
   }
 
   if (room.adminConnectionId === socketId) {
     room.adminConnectionId = null;
   }
+
+  touchRoom(room);
 }
 
 /**

@@ -36,15 +36,14 @@ export function computeResolution(args: {
   const magnitude = abs < 0.3 ? 0 : abs < 0.6 ? 1 : 2;
   const driftDelta = magnitude === 0 ? 0 : score > 0 ? magnitude : -magnitude;
 
-  const safeTierOrder =
-    tierOrder.length > 0 ? tierOrder : ([fromTierId] as TierId[]);
+  const safeTierOrder = tierOrder.length > 0 ? tierOrder : [fromTierId];
 
   const fromIdx = safeTierOrder.indexOf(fromTierId);
   const clampedFromIdx = fromIdx >= 0 ? fromIdx : 0;
 
   const toIdx = Math.min(
     safeTierOrder.length - 1,
-    Math.max(0, clampedFromIdx + driftDelta)
+    Math.max(0, clampedFromIdx + driftDelta),
   );
 
   const toTierId = safeTierOrder[toIdx] ?? fromTierId;

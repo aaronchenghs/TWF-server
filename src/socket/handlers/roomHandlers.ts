@@ -42,7 +42,7 @@ export function handleCreate(io: IOServer, socket: IOSocket) {
 /**
  * Handles a client’s request to join an existing room. Accepts a persistent
  * clientId and reattaches the host/player if they have previously joined from
- * the same device. Catches joiners with duplicate names and inexistent lobbies.
+ * the same device.
  */
 export function handleJoin(io: IOServer, socket: IOSocket) {
   return async ({
@@ -61,20 +61,9 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
     if (!room) return emitError(socket, getErrorMessage("LOBBY_NOT_FOUND"));
 
     try {
-      if (role === "host") {
-        joinAsHost(room, socket.id, clientId);
-      } else {
-        const proposedName = normalizeName(name);
-        const isResumingSession = room.controllerByClientId.has(clientId);
-        if (!isResumingSession) {
-          const isNameDuplicate = room.state.players.some(
-            (p) => normalizeName(p.name) === proposedName,
-          );
-          if (isNameDuplicate)
-            return emitError(socket, getNameTakenMessage(proposedName));
-        }
-
-        const playerId = joinAsPlayer(room, socket.id, clientId, proposedName);
+      if (role === "host") joinAsHost(room, socket.id, clientId);
+      else {
+        const playerId = joinAsPlayer(room, socket.id, clientId, name ?? "");
         socket.emit("room:joined", { playerId });
       }
 

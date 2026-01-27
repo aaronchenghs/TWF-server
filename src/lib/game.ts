@@ -23,7 +23,7 @@ function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
 
 export function getNextTurn(
   room: Room,
-  delta = 1
+  delta = 1,
 ): {
   turnIndex: number;
   currentTurnPlayerId: (typeof room.state.turnOrderPlayerIds)[number] | null;
@@ -190,7 +190,7 @@ export function beginResults(room: Room, now: number) {
     .map((p) => p.id)
     .filter((id) => id !== placerId);
   const actualVoters = Object.keys(votes).filter((id) =>
-    eligibleVoters.includes(id)
+    eligibleVoters.includes(id),
   );
   const didNobodyVote = actualVoters.length === 0;
 
@@ -231,7 +231,7 @@ export function beginDrift(room: Room, now: number) {
   if (!room.state.pendingTierId)
     throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
 
-  const toTierId = res.toTierId as TierId;
+  const toTierId = res.toTierId;
 
   if (!room.state.tiers[toTierId])
     throw new Error(getErrorMessage("INVALID_TIER"));
@@ -260,7 +260,7 @@ export function commitDriftResolution(room: Room) {
   const nextTiers: typeof room.state.tiers = {};
   for (const [tierId, arr] of Object.entries(room.state.tiers)) {
     nextTiers[tierId as keyof typeof room.state.tiers] = arr.filter(
-      (x) => x !== item
+      (x) => x !== item,
     );
   }
 
