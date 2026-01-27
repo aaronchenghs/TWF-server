@@ -1,7 +1,12 @@
 import type { Room } from "../types/types.js";
-import type { RoomPublicState } from "@twf/contracts";
+import type { RoomPublicState, TierItemId } from "@twf/contracts";
 import { NULL_TIMERS, PHASE_TIMERS } from "./timing.js";
 
+export type DebugSnapshot = {
+  at: number;
+  state: RoomPublicState;
+  itemQueue: TierItemId[];
+};
 /**
  * Rebuilds timers so the restored state behaves like the *start* of its phase.
  * This prevents an immediate auto-advance when restoring a snapshot.
@@ -12,7 +17,7 @@ import { NULL_TIMERS, PHASE_TIMERS } from "./timing.js";
  */
 export function resetTimersForPhase(
   state: RoomPublicState,
-  now: number
+  now: number,
 ): RoomPublicState["timers"] {
   switch (state.phase) {
     case "STARTING":
@@ -47,15 +52,16 @@ export function recordPhaseStart(room: Room) {
   if (!isDebugMode) return;
   room.debugHistory ??= [];
 
-  // avoid stacking duplicates of same phase start
   const last = room.debugHistory[room.debugHistory.length - 1];
   if (
     last?.state.phase === room.state.phase &&
     last?.state.currentItem === room.state.currentItem
-  )
+  ) {
     return;
+  }
 
   room.debugHistory.push({
+    at: Date.now(),
     state: structuredClone(room.state),
     itemQueue: [...room.itemQueue],
   });
@@ -72,10 +78,11 @@ export function recordPhaseStart(room: Room) {
 export function restoreToSnapshot(
   room: Room,
   snapShotIndex: number,
-  now: number
+  now: number,
 ) {
   const isDebugMode = process.env.ENABLE_DEBUG_CONTROLS === "true";
   if (!isDebugMode) return;
+
   const history = room.debugHistory ?? [];
   const snapshot = history[snapShotIndex];
   if (!snapshot) return;
@@ -83,7 +90,6 @@ export function restoreToSnapshot(
   room.state = structuredClone(snapshot.state);
   room.itemQueue = [...snapshot.itemQueue];
 
-  // make it the *beginning* of that phase now (prevents instant auto-advance)
   room.state = {
     ...room.state,
     timers: resetTimersForPhase(room.state, now),

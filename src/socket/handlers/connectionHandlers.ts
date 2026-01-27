@@ -1,10 +1,11 @@
-import {
-  getRoom,
-  removeConnectionFromRoom,
-  deleteRoomIfEmpty,
-} from "../../lib/rooms";
+import { getRoom, detachSocket, deleteRoomIfEmpty } from "../../lib/rooms";
 import { IOServer, IOSocket, emitState } from "../emit";
 
+/**
+ * Handles disconnection events.  Detaches sockets without removing players so
+ * that they can reconnect later.  Deletes the room only if there are no active
+ * displays or controllers.
+ */
 export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
   return () => {
     for (const roomCode of socket.rooms) {
@@ -13,7 +14,7 @@ export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
       const room = getRoom(roomCode);
       if (!room) continue;
 
-      removeConnectionFromRoom(room, socket.id);
+      detachSocket(room, socket.id);
 
       const deleted = deleteRoomIfEmpty(room);
       if (!deleted) emitState(io, room.code, room.state);

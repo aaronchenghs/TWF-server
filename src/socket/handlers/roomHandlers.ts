@@ -5,6 +5,7 @@ import type {
   TierItem,
   TierItemId,
   TierSetId,
+  ClientId,
 } from "@twf/contracts";
 import { makeEmptyTiers, normalizeCode } from "../../lib/general.js";
 import { getTierSet } from "../../tierSets/registry.js";
@@ -21,6 +22,9 @@ import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors";
 import { clearRoomTimers } from "../../lib/timing.js";
 
+/**
+ * Handles a client’s request to create a new room.
+ */
 export function handleCreate(io: IOServer, socket: IOSocket) {
   return async ({ role }: { role: Role }) => {
     const room = createRoom(socket.id, role);
@@ -31,15 +35,22 @@ export function handleCreate(io: IOServer, socket: IOSocket) {
   };
 }
 
+/**
+ * Handles a client’s request to join an existing room.  Accepts a persistent
+ * clientId and reattaches the host/player if they have previously joined from
+ * the same device.
+ */
 export function handleJoin(io: IOServer, socket: IOSocket) {
   return async ({
     code,
     role,
     name,
+    clientId,
   }: {
     code: string;
     role: Role;
     name?: string;
+    clientId: ClientId;
   }) => {
     const normalized = normalizeCode(code);
     const room = getRoom(normalized);
@@ -47,11 +58,9 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
 
     try {
       if (role === "host") {
-        joinAsHost(room, socket.id);
+        joinAsHost(room, socket.id, clientId);
       } else {
-        joinAsPlayer(room, socket.id, name ?? "");
-        const playerId = room.controllerBySocketId.get(socket.id) ?? null;
-        if (!playerId) return emitError(socket, getErrorMessage("JOIN_FAILED"));
+        const playerId = joinAsPlayer(room, socket.id, clientId, name ?? "");
         socket.emit("room:joined", { playerId });
       }
 
@@ -68,6 +77,9 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
   };
 }
 
+/**
+ * Allows the host to set the tier list before the game starts.
+ */
 export function handleSetTierSet(io: IOServer, socket: IOSocket) {
   return ({ tierSetId }: { tierSetId: TierSetId }) => {
     const room = requireRoom(socket);
