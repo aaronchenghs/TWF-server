@@ -3,19 +3,11 @@ import type {
   TierSetId,
   TierSetSummary,
 } from "@twf/contracts";
-import {
-  FAST_FOOD_TIERSET,
-  GYM_LIFTS_TIERSET,
-  VIDEO_GAMES_TIERSET,
-} from "./builtIns";
+import { TIERSET_PRESETS } from "./builtIns";
 
-const BUILTINS: TierSetDefinition[] = [
-  VIDEO_GAMES_TIERSET,
-  FAST_FOOD_TIERSET,
-  GYM_LIFTS_TIERSET,
-];
+const BUILTINS: TierSetDefinition[] = TIERSET_PRESETS;
 const byId = new Map<TierSetId, TierSetDefinition>(
-  BUILTINS.map((s) => [s.id, s])
+  BUILTINS.map((s) => [s.id, s]),
 );
 
 export function listTierSets(): TierSetSummary[] {
