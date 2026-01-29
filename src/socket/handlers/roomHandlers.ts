@@ -27,6 +27,7 @@ import {
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage, getNameTakenMessage } from "../../lib/errors";
 import { clearRoomTimers } from "../../lib/timing.js";
+import { Guid } from "../../types/guid.js";
 
 /**
  * Handles a client’s request to create a new room.
@@ -125,28 +126,37 @@ export function handleBootPlayerFromLobby(io: IOServer, socket: IOSocket) {
   return ({ playerId }: { playerId: PlayerId }) => {
     const room = requireRoom(socket);
     if (!room) return;
-
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
-
     if (room.state.phase !== "LOBBY")
       return emitError(socket, getErrorMessage("INVALID_PHASE"));
 
-    const player = room.state.players.find((p) => p.id === playerId);
-    if (!player) return;
+    const playerToBoot = room.state.players.find((p) => p.id === playerId);
+    if (!playerToBoot) return;
 
     room.state = {
       ...room.state,
       players: room.state.players.filter((p) => p.id !== playerId),
     };
 
-    if (player.connected) {
-      const targetSocket = io.sockets.sockets.get(playerId);
+    const socketId = room.socketIdByControllerId.get(playerId as Guid);
+    if (socketId) {
+      const clientId = room.clientIdBySocketId.get(socketId);
+      if (clientId) room.controllerByClientId.delete(clientId);
+      detachSocket(room, socketId);
+
+      const targetSocket = io.sockets.sockets.get(socketId);
       if (targetSocket) {
         targetSocket.emit("room:kicked");
         targetSocket.disconnect(true);
-      } else {
-        detachSocket(room, playerId);
+      }
+    } else {
+      // Fallback: remove any controller mapping for this player
+      for (const [cid, pid] of room.controllerByClientId.entries()) {
+        if (pid === playerId) {
+          room.controllerByClientId.delete(cid);
+          break;
+        }
       }
     }
 
