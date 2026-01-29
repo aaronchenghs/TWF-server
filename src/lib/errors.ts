@@ -1,4 +1,5 @@
 const ERRORS = {
+  CANNOT_BOOT_PLAYER: "Cannot boot player after game start.",
   CANNOT_CHANGE_TIER_SET: "Cannot change tier set after start.",
   CANNOT_FINALIZE_OUTSIDE_VOTE: "Cannot finalize outside VOTE.",
   FINALIZE_OUTSIDE_VOTE: "Cannot finalize outside VOTE.",

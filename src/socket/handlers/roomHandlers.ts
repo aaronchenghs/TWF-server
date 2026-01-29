@@ -6,6 +6,7 @@ import type {
   TierItemId,
   TierSetId,
   ClientId,
+  PlayerId,
 } from "@twf/contracts";
 import {
   makeEmptyTiers,
@@ -21,6 +22,7 @@ import {
   requireRoom,
   deleteRoom,
   touchRoom,
+  detachSocket,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage, getNameTakenMessage } from "../../lib/errors";
@@ -113,6 +115,40 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
       votes: {},
       lastResolution: null,
     };
+
+    touchRoom(room);
+    emitState(io, room.code, room.state);
+  };
+}
+
+export function handleBootPlayerFromLobby(io: IOServer, socket: IOSocket) {
+  return ({ playerId }: { playerId: PlayerId }) => {
+    const room = requireRoom(socket);
+    if (!room) return;
+
+    if (room.adminConnectionId !== socket.id)
+      return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
+
+    if (room.state.phase !== "LOBBY")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
+
+    const player = room.state.players.find((p) => p.id === playerId);
+    if (!player) return;
+
+    room.state = {
+      ...room.state,
+      players: room.state.players.filter((p) => p.id !== playerId),
+    };
+
+    if (player.connected) {
+      const targetSocket = io.sockets.sockets.get(playerId);
+      if (targetSocket) {
+        targetSocket.emit("room:kicked");
+        targetSocket.disconnect(true);
+      } else {
+        detachSocket(room, playerId);
+      }
+    }
 
     touchRoom(room);
     emitState(io, room.code, room.state);
