@@ -825,7 +825,173 @@ export const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
   ],
 };
 
+export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
+  id: "us-national-parks-25-poc",
+  title: "US National Parks (25)",
+  description: "Rank these national parks.",
+  tiers: [
+    { id: "S", name: "S", color: "#E53935" },
+    { id: "A", name: "A", color: "#FB8C00" },
+    { id: "B", name: "B", color: "#FDD835" },
+    { id: "C", name: "C", color: "#43A047" },
+    { id: "D", name: "D", color: "#1E88E5" },
+  ],
+  items: [
+    {
+      id: "yosemite",
+      name: "Yosemite",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/5/50/Yosemitefalls.jpg",
+    },
+    {
+      id: "grand-canyon",
+      name: "Grand Canyon",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/a/a0/Grand_Canyon_view_from_Pima_Point_2010.jpg",
+    },
+    {
+      id: "yellowstone",
+      name: "Yellowstone",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/3/3f/Morning_Glory_Pool.jpg",
+    },
+    {
+      id: "zion",
+      name: "Zion",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/10/Zion_angels_landing_view.jpg",
+    },
+    {
+      id: "bryce-canyon",
+      name: "Bryce Canyon",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/2/2c/Bryce_Canyon_Amphitheater.jpg",
+    },
+    {
+      id: "arches",
+      name: "Arches",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/4/4b/Delicatearch1.jpg",
+    },
+    {
+      id: "rocky-mountain",
+      name: "Rocky Mountain",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/7/73/Bierstadt_Lake_RMNP.jpg",
+    },
+    {
+      id: "glacier",
+      name: "Glacier",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/2/21/St_Mary_Lake_%26_Wild_Goose_Island%2C_Glacier_National_Park.jpg",
+    },
+    {
+      id: "olympic",
+      name: "Olympic",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/4/4d/Hoh_Rain_Forest%2C_Olympic_National_Park.jpg",
+    },
+    {
+      id: "rainier",
+      name: "Mount Rainier",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/5/50/Mount_Rainier_from_west.jpg",
+    },
+    {
+      id: "grand-teton",
+      name: "Grand Teton",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Teton_Range_from_Schwabacher_Landing.jpg",
+    },
+    {
+      id: "acadia",
+      name: "Acadia",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/69/Bass_Harbor_Head_Light_Station_2016.jpg",
+    },
+    {
+      id: "everglades",
+      name: "Everglades",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Everglades_National_Park%2C_florida.jpg",
+    },
+    {
+      id: "great-smoky-mountains",
+      name: "Great Smoky Mountains",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/1a/Great_Smoky_Mountains_National_Park%2C_Tennessee%2C_USA.jpg",
+    },
+    {
+      id: "shenandoah",
+      name: "Shenandoah",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Shenandoah_National_Park_Skyline_Drive.jpg",
+    },
+    {
+      id: "death-valley",
+      name: "Death Valley",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/b/b2/Mesquite_Sand_Dunes_in_Death_Valley.jpg",
+    },
+    {
+      id: "joshua-tree",
+      name: "Joshua Tree",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/0/0a/Joshua_Tree_01.jpg",
+    },
+    {
+      id: "sequoia",
+      name: "Sequoia",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/16/General_Sherman_Tree.jpg",
+    },
+    {
+      id: "kings-canyon",
+      name: "Kings Canyon",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/8/8c/Kings_Canyon_National_Park.jpg",
+    },
+    {
+      id: "redwood",
+      name: "Redwood",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/1b/Redwood_National_Park_fog_in_the_forest.jpg",
+    },
+    {
+      id: "canyonlands",
+      name: "Canyonlands",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/13/Canyonlands_National_Park%2C_Island_in_the_Sky.jpg",
+    },
+    {
+      id: "capitol-reef",
+      name: "Capitol Reef",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Capitol_Reef_National_Park_3.jpg",
+    },
+    {
+      id: "great-sand-dunes",
+      name: "Great Sand Dunes",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/8/83/Great_Sand_Dunes_National_Park_and_Preserve.jpg",
+    },
+    {
+      id: "badlands",
+      name: "Badlands",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/1a/BadlandsView.jpg",
+    },
+    {
+      id: "denali",
+      name: "Denali",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Denali_Mt_McKinley.jpg",
+    },
+  ],
+};
+
 export const TIERSET_PRESETS: TierSetDefinition[] = [
+  US_NATIONAL_PARKS_25_TIERSET,
   VIDEO_GAMES_TIERSET,
   FAST_FOOD_TIERSET,
   GYM_LIFTS_TIERSET,
