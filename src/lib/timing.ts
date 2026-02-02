@@ -17,8 +17,8 @@ import {
 } from "./game.js";
 
 export const PHASE_TIMERS = {
-  BUILD_MS: 5_000,
-  REVEAL_MS: 2_000,
+  BUILD_MS: 3_000,
+  REVEAL_MS: 3_000,
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,
   RESULTS_MS: 3_000,
@@ -58,7 +58,7 @@ export function clearRoomTimers(roomCode: RoomCode) {
 export function reschedule(
   room: Room,
   emit: EmitFn,
-  _getTierSet: GetTierSetFn
+  _getTierSet: GetTierSetFn,
 ) {
   clearRoomTimers(room.code);
   const now = Date.now();
@@ -68,14 +68,17 @@ export function reschedule(
     const dueAt = timers.buildEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        // Phase may have advanced early; guard against stale callback
-        if (room.state.phase !== "STARTING") return;
-        const now2 = Date.now();
-        beginTurn(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+      setTimeout(
+        () => {
+          // Phase may have advanced early; guard against stale callback
+          if (room.state.phase !== "STARTING") return;
+          const now2 = Date.now();
+          beginTurn(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }
@@ -84,14 +87,17 @@ export function reschedule(
     const dueAt = timers.revealEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        if (room.state.phase !== "REVEAL") return;
+      setTimeout(
+        () => {
+          if (room.state.phase !== "REVEAL") return;
 
-        const now2 = Date.now();
-        beginPlace(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+          const now2 = Date.now();
+          beginPlace(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }
@@ -100,32 +106,35 @@ export function reschedule(
     const dueAt = timers.placeEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        if (room.state.phase !== "PLACE") return;
-        const now2 = Date.now();
+      setTimeout(
+        () => {
+          if (room.state.phase !== "PLACE") return;
+          const now2 = Date.now();
 
-        // If no tier has been selected by the placer (they timed out), skip their
-        // turn and give the next player a chance to place the same item.  Otherwise
-        // proceed directly to voting.
-        if (!room.state.pendingTierId) {
-          const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
-          room.state = {
-            ...room.state,
-            turnIndex,
-            currentTurnPlayerId,
-            pendingTierId: null,
-            votes: {},
-          };
-          beginPlace(room, now2);
+          // If no tier has been selected by the placer (they timed out), skip their
+          // turn and give the next player a chance to place the same item.  Otherwise
+          // proceed directly to voting.
+          if (!room.state.pendingTierId) {
+            const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
+            room.state = {
+              ...room.state,
+              turnIndex,
+              currentTurnPlayerId,
+              pendingTierId: null,
+              votes: {},
+            };
+            beginPlace(room, now2);
+            emit(room);
+            reschedule(room, emit, _getTierSet);
+            return;
+          }
+
+          beginVote(room, now2);
           emit(room);
           reschedule(room, emit, _getTierSet);
-          return;
-        }
-
-        beginVote(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }
@@ -134,13 +143,16 @@ export function reschedule(
     const dueAt = timers.voteEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        if (room.state.phase !== "VOTE") return;
-        const now2 = Date.now();
-        beginResults(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+      setTimeout(
+        () => {
+          if (room.state.phase !== "VOTE") return;
+          const now2 = Date.now();
+          beginResults(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }
@@ -149,14 +161,17 @@ export function reschedule(
     const dueAt = timers.resultsEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        if (room.state.phase !== "RESULTS") return;
+      setTimeout(
+        () => {
+          if (room.state.phase !== "RESULTS") return;
 
-        const now2 = Date.now();
-        beginDrift(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+          const now2 = Date.now();
+          beginDrift(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }
@@ -165,22 +180,25 @@ export function reschedule(
     const dueAt = timers.driftEndsAt;
     addTimer(
       room.code,
-      setTimeout(() => {
-        if (room.state.phase !== "DRIFT") return;
-        const now2 = Date.now();
-        commitDriftResolution(room);
+      setTimeout(
+        () => {
+          if (room.state.phase !== "DRIFT") return;
+          const now2 = Date.now();
+          commitDriftResolution(room);
 
-        if (room.state.phase === "DRIFT") {
-          try {
-            finalizeTurn(room);
-          } catch {}
-        }
+          if (room.state.phase === "DRIFT") {
+            try {
+              finalizeTurn(room);
+            } catch {}
+          }
 
-        emit(room);
-        beginTurn(room, now2);
-        emit(room);
-        reschedule(room, emit, _getTierSet);
-      }, Math.max(0, dueAt - now))
+          emit(room);
+          beginTurn(room, now2);
+          emit(room);
+          reschedule(room, emit, _getTierSet);
+        },
+        Math.max(0, dueAt - now),
+      ),
     );
     return;
   }

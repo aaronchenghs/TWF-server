@@ -1,5 +1,11 @@
 import { TierSetDefinition } from "@twf/contracts";
 
+const commons = (file: string) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
+
+const enwiki = (file: string) =>
+  `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
+
 /** This file provides tier set definitions for demonstration/testing purposes. */
 
 export const VIDEO_GAMES_TIERSET: TierSetDefinition = {
@@ -17,50 +23,77 @@ export const VIDEO_GAMES_TIERSET: TierSetDefinition = {
     {
       id: "minecraft",
       name: "Minecraft",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/b/b6/Minecraft_2024_cover_art.png",
+      imageSrc: enwiki("Minecraft_2024_cover_art.png"),
     },
     {
       id: "skyrim",
       name: "Skyrim",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/1/15/The_Elder_Scrolls_V_Skyrim_cover.png",
+      imageSrc: enwiki("The_Elder_Scrolls_V_Skyrim_cover.png"),
     },
     {
       id: "zelda-botw",
       name: "Zelda: BOTW",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg",
+      imageSrc: enwiki("The_Legend_of_Zelda_Breath_of_the_Wild.jpg"),
     },
     {
       id: "gta-v",
       name: "GTA V",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      imageSrc: enwiki("Grand_Theft_Auto_V.png"),
     },
     {
       id: "fortnite",
       name: "Fortnite",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/36/Fortnite.png",
+      imageSrc: commons("Fortnite.png"),
     },
     {
       id: "pac-man",
       name: "Pac-Man",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Original_PacMan.svg/500px-Original_PacMan.svg.png",
+      imageSrc: commons("Original_PacMan.svg"),
     },
     {
       id: "tetris",
       name: "Tetris",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/46/Tetris_logo.png",
+      imageSrc: commons("Tetris_logo.png"),
     },
     {
       id: "super-mario-64",
       name: "Super Mario 64",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/44/Super_Mario_64_logo.png",
+      imageSrc: commons("Super_Mario_64_logo.png"),
+    },
+    {
+      id: "elden-ring",
+      name: "Elden Ring",
+      imageSrc: enwiki("Elden_Ring_Box_art.jpg"),
+    },
+    {
+      id: "red-dead-redemption-2",
+      name: "Red Dead Redemption 2",
+      imageSrc: enwiki("Red_Dead_Redemption_II.jpg"),
+    },
+    {
+      id: "portal-2",
+      name: "Portal 2",
+      imageSrc: commons("Portal_2_Official_Logo.png"),
+    },
+    {
+      id: "witcher-3",
+      name: "The Witcher 3: Wild Hunt",
+      imageSrc: enwiki("Witcher_3_cover_art.jpg"),
+    },
+    {
+      id: "halo-combat-evolved",
+      name: "Halo: Combat Evolved",
+      imageSrc: enwiki("Halo - Combat Evolved (XBox version - box art).jpg"),
+    },
+    {
+      id: "smash-ultimate",
+      name: "Super Smash Bros. Ultimate",
+      imageSrc: commons("Super_Smash_Bros._Ultimate_logo.svg"),
+    },
+    {
+      id: "super-mario-odyssey",
+      name: "Super Mario Odyssey",
+      imageSrc: commons("Super_Mario_logo.svg"),
     },
   ],
 };
@@ -78,57 +111,49 @@ export const FAST_FOOD_TIERSET: TierSetDefinition = {
   items: [
     {
       id: "chickfila",
-      name: "Chick-fil-A",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Chick-fil-a.jpg",
+      name: "Chick‑fil‑A",
+      imageSrc: commons("Chick-fil-A_Logo.svg"),
     },
     {
       id: "mcdonalds",
       name: "McDonald's",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/McDonald%27s_logo.svg/1014px-McDonald%27s_logo.svg.png",
+      imageSrc: commons("McDonald's_Golden_Arches.svg"),
     },
     {
       id: "wendys",
       name: "Wendy's",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wendy%27s_logo_2012.svg/1280px-Wendy%27s_logo_2012.svg.png",
+      imageSrc: commons("Wendy's_logo_2012.svg"),
     },
     {
       id: "tacobell",
       name: "Taco Bell",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Taco_Bell_%2850323181546%29.jpg/1280px-Taco_Bell_%2850323181546%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/b/b7/Taco_Bell_2023.svg",
     },
     {
       id: "popeyes",
       name: "Popeyes",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Popeyes_Logo_2020.svg/1280px-Popeyes_Logo_2020.svg.png",
+      imageSrc: commons("Popeyes_Logo_2020.svg"),
     },
     {
       id: "burger-king",
       name: "Burger King",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/2/2e/Burger_King_logo_2020.png",
+      imageSrc: commons("Burger_King_2020.svg"),
     },
     {
       id: "kfc",
       name: "KFC",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/b/b8/KFC_logo.png",
+      imageSrc: commons("KFC_Logo.svg"),
     },
     {
       id: "subway",
       name: "Subway",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Subway_2016_logo.svg/960px-Subway_2016_logo.svg.png",
+      imageSrc: commons("Subway_2016_logo.svg"),
     },
     {
       id: "dominos",
       name: "Domino's",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Domino%27s_pizza_logo.svg/960px-Domino%27s_pizza_logo.svg.png",
+      imageSrc: commons("Domino's_pizza_logo.svg"),
     },
   ],
 };
@@ -147,68 +172,59 @@ export const GYM_LIFTS_TIERSET: TierSetDefinition = {
     {
       id: "bench",
       name: "Bench Press",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Bench-press-2.png",
+      imageSrc: commons("Bench-press-2.png"),
     },
     {
       id: "squat",
       name: "Back Squat",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Woman_doing_squat_workout_in_gym_with_barbell,_back_view.jpg/960px-Woman_doing_squat_workout_in_gym_with_barbell,_back_view.jpg",
+      imageSrc: commons(
+        "Woman_doing_squat_workout_in_gym_with_barbell,_back_view.jpg",
+      ),
     },
     {
       id: "deadlift",
       name: "Deadlift",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/1f/Dead-lifts-2-2.png",
+      imageSrc: commons("Dead-lifts-2-2.png"),
     },
     {
       id: "ohp",
       name: "Overhead Press",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/15/Dumbbell-shoulder-press-1.png",
+      imageSrc: commons("Dumbbell-shoulder-press-1.png"),
     },
     {
       id: "pullups",
       name: "Pull-Ups",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Pull_ups_1.svg/960px-Pull_ups_1.svg.png",
+      imageSrc: commons("Pull_ups_1.svg"),
     },
     {
       id: "rdl",
       name: "Romanian Deadlift",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/e/e8/Romanian-deadlift-1.png",
+      imageSrc: commons("Romanian-deadlift-1.png"),
     },
     {
       id: "row",
       name: "Bent-Over Row",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Barbell_row.jpg/960px-Barbell_row.jpg",
+      imageSrc: commons("Barbell_row.jpg"),
     },
     {
       id: "lunges",
       name: "Lunges",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Lunges-2.png/900px-Lunges-2.png",
+      imageSrc: commons("Lunges-2.png"),
     },
     {
       id: "bicep-curl",
       name: "Bicep Curl",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/7f/Biceps-curl-1.png",
+      imageSrc: commons("Biceps-curl-1.png"),
     },
     {
       id: "tricep-dip",
       name: "Tricep Dip",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/d/d0/Bench-dips-1.png",
+      imageSrc: commons("Bench-dips-1.png"),
     },
     {
       id: "leg-press",
       name: "Leg Press",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0c/Leg-press-1-1024x670.png",
+      imageSrc: commons("Leg-press-1-1024x670.png"),
     },
   ],
 };
@@ -229,49 +245,45 @@ export const ANIME_TIERSET: TierSetDefinition = {
       id: "attack-on-titan",
       name: "Attack on Titan",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/7/70/Attack_on_Titan_Series_DVD_cover.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_manga_volume_1.jpg",
     },
     {
       id: "one-piece",
       name: "One Piece",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/6/6f/One_Piece%2C_Volume_1.jpg",
+      imageSrc: enwiki("One_Piece,_Volume_1.jpg"),
     },
     {
       id: "naruto",
       name: "Naruto",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg",
+      imageSrc: enwiki("NarutoCoverTankobon1.jpg"),
     },
     {
       id: "death-note",
       name: "Death Note",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/6/6f/Death_Note_Vol_1.jpg",
+      imageSrc: enwiki("Death_Note_Vol_1.jpg"),
     },
     {
       id: "fullmetal-alchemist-brotherhood",
       name: "FMAB",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/7/7f/Fullmetal_Alchemist_Brotherhood_DVD_box_set_cover.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/f1/Fullmetal_Alchemist_Brotherhood_logo.svg",
     },
     {
       id: "demon-slayer",
       name: "Demon Slayer",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/0/0b/Kimetsu_no_Yaiba%2C_volume_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg",
     },
     {
       id: "jujutsu-kaisen",
       name: "Jujutsu Kaisen",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/4/46/Jujutsu_kaisen.jpg",
+      imageSrc: enwiki("Jujutsu_kaisen.jpg"),
     },
     {
       id: "cowboy-bebop",
       name: "Cowboy Bebop",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/7/7c/CowboyBebop.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/a/a9/Cowboy_Bebop_key_visual.jpg",
     },
   ],
 };
@@ -292,50 +304,85 @@ export const MOVIES_TIERSET: TierSetDefinition = {
     {
       id: "the-godfather",
       name: "The Godfather",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+      imageSrc: enwiki("Godfather_ver1.jpg"),
     },
     {
       id: "pulp-fiction",
       name: "Pulp Fiction",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg",
     },
     {
       id: "the-dark-knight",
       name: "The Dark Knight",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg",
+      imageSrc: enwiki("Dark_Knight.jpg"),
     },
     {
       id: "inception",
       name: "Inception",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/7/7f/Inception_ver3.jpg",
+      imageSrc: enwiki("Inception_ver3.jpg"),
     },
     {
       id: "interstellar",
       name: "Interstellar",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
+      imageSrc: enwiki("Interstellar_film_poster.jpg"),
     },
     {
       id: "spirited-away",
       name: "Spirited Away",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/d/db/Spirited_Away_Japanese_poster.png",
+      imageSrc: enwiki("Spirited_Away_Japanese_poster.png"),
     },
     {
       id: "parasite",
       name: "Parasite",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/5/53/Parasite_%282019_film%29.png",
+      imageSrc: enwiki("Parasite_(2019_film).png"),
     },
     {
       id: "the-matrix",
       name: "The Matrix",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg",
+      imageSrc: "https://upload.wikimedia.org/wikipedia/en/d/db/The_Matrix.png",
+    },
+    {
+      id: "fight-club",
+      name: "Fight Club",
+      imageSrc: enwiki("Fight_Club_poster.jpg"),
+    },
+    {
+      id: "forrest-gump",
+      name: "Forrest Gump",
+      imageSrc: enwiki("Forrest_Gump_poster.jpg"),
+    },
+    {
+      id: "the-shawshank-redemption",
+      name: "The Shawshank Redemption",
+      imageSrc: enwiki("ShawshankRedemptionMoviePoster.jpg"),
+    },
+    {
+      id: "goodfellas",
+      name: "Goodfellas",
+      imageSrc: enwiki("Goodfellas.jpg"),
+    },
+    {
+      id: "the-lord-of-the-rings-return-of-the-king",
+      name: "The Lord of the Rings: The Return of the King",
+      imageSrc: enwiki(
+        "The_Lord_of_the_Rings_The_Return_of_the_King_(2003_film).jpg",
+      ),
+    },
+    {
+      id: "gladiator",
+      name: "Gladiator",
+      imageSrc: enwiki("Gladiator_(2000_film_poster).png"),
+    },
+    {
+      id: "whiplash",
+      name: "Whiplash",
+      imageSrc: enwiki("Whiplash_poster.jpg"),
+    },
+    {
+      id: "the-social-network",
+      name: "The Social Network",
+      imageSrc: enwiki("The_Social_Network_film_poster.png"),
     },
   ],
 };
@@ -354,50 +401,43 @@ export const FRUITS_TIERSET: TierSetDefinition = {
     {
       id: "apple",
       name: "Apple",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",
+      imageSrc: commons("Red_Apple.jpg"),
     },
     {
       id: "banana",
       name: "Banana",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+      imageSrc: commons("Banana-Single.jpg"),
     },
     {
       id: "strawberry",
       name: "Strawberry",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg",
+      imageSrc: commons("PerfectStrawberry.jpg"),
     },
     {
       id: "orange",
       name: "Orange",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",
+      imageSrc: commons("Orange-Fruit-Pieces.jpg"),
     },
     {
       id: "pineapple",
       name: "Pineapple",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg",
+      imageSrc: commons("Pineapple_and_cross_section.jpg"),
     },
     {
       id: "mango",
       name: "Mango",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg",
+      imageSrc: commons("Hapus_Mango.jpg"),
     },
     {
       id: "watermelon",
       name: "Watermelon",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/40/Watermelons.jpg",
+      imageSrc: commons("Watermelons.jpg"),
     },
     {
       id: "grapes",
       name: "Grapes",
       imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/1a/Bunch_of_grapes_%28France%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/5e/Wine_grapes03.jpg",
     },
   ],
 };
@@ -417,50 +457,46 @@ export const CARS_TIERSET: TierSetDefinition = {
     {
       id: "tesla-model-3",
       name: "Tesla Model 3",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/58/Tesla_Model_3_parked%2C_front_driver_side.jpg",
+      imageSrc: commons("Tesla_Model_3_parked,_front_driver_side.jpg"),
     },
     {
       id: "toyota-supra",
       name: "Toyota Supra",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0b/2020_Toyota_GR_Supra_3.0_%28UK%29_front.jpg",
+      imageSrc: commons("2020_Toyota_GR_Supra_3.0_(UK)_front.jpg"),
     },
     {
       id: "honda-civic",
       name: "Honda Civic",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/11/2018_Honda_Civic_SR_VTEC_CVT_1.0_Front.jpg",
+      imageSrc: commons("2018_Honda_Civic_SR_VTEC_CVT_1.0_Front.jpg"),
     },
     {
       id: "ford-mustang",
       name: "Ford Mustang",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/7b/2018_Ford_Mustang_GT_5.0.jpg",
+      imageSrc: commons("2018_Ford_Mustang_GT_5.0.jpg"),
     },
     {
       id: "toyota-corolla",
       name: "Toyota Corolla",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/9e/2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8_Front.jpg",
+      imageSrc: commons(
+        "2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8_Front.jpg",
+      ),
     },
     {
       id: "bmw-m3",
       name: "BMW M3",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/4b/2018_BMW_M3_Competition_Package_%2841507142782%29.jpg",
+      imageSrc: commons("2018_BMW_M3_Competition_Package_(41507142782).jpg"),
     },
     {
       id: "jeep-wrangler",
       name: "Jeep Wrangler",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/8/8f/2018_Jeep_Wrangler_Sahara_Unlimited%2C_front_3.17.18.jpg",
+      imageSrc: commons(
+        "2018_Jeep_Wrangler_Sahara_Unlimited,_front_3.17.18.jpg",
+      ),
     },
     {
       id: "porsche-911",
       name: "Porsche 911",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0f/2019_Porsche_911_Carrera_4S_S-A_3.0_Front.jpg",
+      imageSrc: commons("2019_Porsche_911_Carrera_4S_S-A_3.0_Front.jpg"),
     },
   ],
 };
@@ -476,53 +512,107 @@ export const COUNTRIES_TIERSET: TierSetDefinition = {
     { id: "NO", name: "No", color: "#1E88E5" },
   ],
   items: [
-    {
-      id: "japan",
-      name: "Japan",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
-    },
-    {
-      id: "france",
-      name: "France",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
-    },
-    {
-      id: "italy",
-      name: "Italy",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
-    },
-    {
-      id: "brazil",
-      name: "Brazil",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg",
-    },
+    { id: "japan", name: "Japan", imageSrc: commons("Flag_of_Japan.svg") },
+    { id: "france", name: "France", imageSrc: commons("Flag_of_France.svg") },
+    { id: "italy", name: "Italy", imageSrc: commons("Flag_of_Italy.svg") },
+    { id: "brazil", name: "Brazil", imageSrc: commons("Flag_of_Brazil.svg") },
     {
       id: "taiwan",
       name: "Taiwan",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg",
+      imageSrc: commons("Flag_of_the_Republic_of_China.svg"),
     },
-    {
-      id: "mexico",
-      name: "Mexico",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg",
-    },
-    {
-      id: "canada",
-      name: "Canada",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg",
-    },
+    { id: "mexico", name: "Mexico", imageSrc: commons("Flag_of_Mexico.svg") },
+    { id: "canada", name: "Canada", imageSrc: commons("Flag_of_Canada.svg") },
     {
       id: "south-korea",
       name: "South Korea",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg",
+      imageSrc: commons("Flag_of_South_Korea.svg"),
+    },
+
+    // +20 more countries (Commons filenames)
+    {
+      id: "united-states",
+      name: "United States",
+      imageSrc: commons("Flag_of_the_United_States.svg"),
+    },
+    {
+      id: "united-kingdom",
+      name: "United Kingdom",
+      imageSrc: commons("Flag_of_the_United_Kingdom.svg"),
+    },
+    { id: "spain", name: "Spain", imageSrc: commons("Flag_of_Spain.svg") },
+    {
+      id: "germany",
+      name: "Germany",
+      imageSrc: commons("Flag_of_Germany.svg"),
+    },
+    {
+      id: "portugal",
+      name: "Portugal",
+      imageSrc: commons("Flag_of_Portugal.svg"),
+    },
+    {
+      id: "netherlands",
+      name: "Netherlands",
+      imageSrc: commons("Flag_of_the_Netherlands.svg"),
+    },
+    {
+      id: "switzerland",
+      name: "Switzerland",
+      imageSrc: commons("Flag_of_Switzerland.svg"),
+    },
+    { id: "sweden", name: "Sweden", imageSrc: commons("Flag_of_Sweden.svg") },
+    { id: "norway", name: "Norway", imageSrc: commons("Flag_of_Norway.svg") },
+    {
+      id: "finland",
+      name: "Finland",
+      imageSrc: commons("Flag_of_Finland.svg"),
+    },
+    {
+      id: "australia",
+      name: "Australia",
+      imageSrc: commons("Flag_of_Australia.svg"),
+    },
+    {
+      id: "new-zealand",
+      name: "New Zealand",
+      imageSrc: commons("Flag_of_New_Zealand.svg"),
+    },
+    { id: "india", name: "India", imageSrc: commons("Flag_of_India.svg") },
+    {
+      id: "china",
+      name: "China",
+      imageSrc: commons("Flag_of_the_People's_Republic_of_China.svg"),
+    },
+    {
+      id: "thailand",
+      name: "Thailand",
+      imageSrc: commons("Flag_of_Thailand.svg"),
+    },
+    {
+      id: "vietnam",
+      name: "Vietnam",
+      imageSrc: commons("Flag_of_Vietnam.svg"),
+    },
+    {
+      id: "indonesia",
+      name: "Indonesia",
+      imageSrc: commons("Flag_of_Indonesia.svg"),
+    },
+    {
+      id: "philippines",
+      name: "Philippines",
+      imageSrc: commons("Flag_of_the_Philippines.svg"),
+    },
+    {
+      id: "south-africa",
+      name: "South Africa",
+      imageSrc: commons("Flag_of_South_Africa.svg"),
+    },
+    {
+      id: "argentina",
+      name: "Argentina",
+      imageSrc: commons("Flag_of_Argentina.svg"),
     },
   ],
 };
@@ -541,51 +631,31 @@ export const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
     {
       id: "typescript",
       name: "TypeScript",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg",
+      imageSrc: commons("Typescript.svg"),
     },
     {
       id: "javascript",
       name: "JavaScript",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+      imageSrc: commons("JavaScript-logo.png"),
     },
     {
       id: "python",
       name: "Python",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+      imageSrc: commons("Python-logo-notext.svg"),
     },
-    {
-      id: "csharp",
-      name: "C%23",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/b/bd/Logo_C_sharp.svg",
-    },
+    { id: "csharp", name: "C%23", imageSrc: commons("Logo_C_sharp.svg") },
     {
       id: "java",
       name: "Java",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
+      imageSrc: enwiki("Java_programming_language_logo.svg"),
     },
-    {
-      id: "go",
-      name: "Go",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg",
-    },
+    { id: "go", name: "Go", imageSrc: commons("Go_Logo_Blue.svg") },
     {
       id: "rust",
       name: "Rust",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg",
+      imageSrc: commons("Rust_programming_language_black_logo.svg"),
     },
-    {
-      id: "kotlin",
-      name: "Kotlin",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png",
-    },
+    { id: "kotlin", name: "Kotlin", imageSrc: commons("Kotlin_Icon.png") },
   ],
 };
 
@@ -604,78 +674,18 @@ export const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
     { id: "G", name: "G", color: "#546E7A" },
   ],
   items: [
-    {
-      id: "red",
-      name: "Red",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6e/Solid_red.png",
-    },
-    {
-      id: "orange",
-      name: "Orange",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/49/Solid_orange.png",
-    },
-    {
-      id: "yellow",
-      name: "Yellow",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Solid_yellow.png",
-    },
-    {
-      id: "green",
-      name: "Green",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/14/Solid_green.png",
-    },
-    {
-      id: "blue",
-      name: "Blue",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0b/Solid_blue.png",
-    },
-    {
-      id: "purple",
-      name: "Purple",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/9b/Solid_purple.png",
-    },
-    {
-      id: "pink",
-      name: "Pink",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/9a/Solid_pink.png",
-    },
-    {
-      id: "teal",
-      name: "Teal",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/32/Solid_teal.png",
-    },
-    {
-      id: "black",
-      name: "Black",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/3f/Solid_black.png",
-    },
-    {
-      id: "white",
-      name: "White",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/48/Solid_white.png",
-    },
-    {
-      id: "gray",
-      name: "Gray",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/8/8d/Solid_grey.png",
-    },
-    {
-      id: "brown",
-      name: "Brown",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0f/Solid_brown.png",
-    },
+    { id: "red", name: "Red", imageSrc: commons("Solid_red.png") },
+    { id: "orange", name: "Orange", imageSrc: commons("Solid_orange.png") },
+    { id: "yellow", name: "Yellow", imageSrc: commons("Solid_yellow.png") },
+    { id: "green", name: "Green", imageSrc: commons("Solid_green.png") },
+    { id: "blue", name: "Blue", imageSrc: commons("Solid_blue.png") },
+    { id: "purple", name: "Purple", imageSrc: commons("Solid_purple.png") },
+    { id: "pink", name: "Pink", imageSrc: commons("Solid_pink.png") },
+    { id: "teal", name: "Teal", imageSrc: commons("Solid_teal.png") },
+    { id: "black", name: "Black", imageSrc: commons("Solid_black.png") },
+    { id: "white", name: "White", imageSrc: commons("Solid_white.png") },
+    { id: "gray", name: "Gray", imageSrc: commons("Solid_grey.png") },
+    { id: "brown", name: "Brown", imageSrc: commons("Solid_brown.png") },
   ],
 };
 
@@ -698,74 +708,42 @@ export const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
     {
       id: "mercury",
       name: "Mercury",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg",
+      imageSrc: commons("Mercury_in_true_color.jpg"),
     },
-    {
-      id: "venus",
-      name: "Venus",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
-    },
+    { id: "venus", name: "Venus", imageSrc: commons("Venus-real_color.jpg") },
     {
       id: "earth",
       name: "Earth",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg",
+      imageSrc: commons("The_Earth_seen_from_Apollo_17.jpg"),
     },
     {
       id: "mars",
       name: "Mars",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
+      imageSrc: commons("OSIRIS_Mars_true_color.jpg"),
     },
-    {
-      id: "jupiter",
-      name: "Jupiter",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg",
-    },
+    { id: "jupiter", name: "Jupiter", imageSrc: commons("Jupiter.jpg") },
     {
       id: "saturn",
       name: "Saturn",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg",
+      imageSrc: commons("Saturn_during_Equinox.jpg"),
     },
-    {
-      id: "uranus",
-      name: "Uranus",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
-    },
-    {
-      id: "neptune",
-      name: "Neptune",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg",
-    },
+    { id: "uranus", name: "Uranus", imageSrc: commons("Uranus2.jpg") },
+    { id: "neptune", name: "Neptune", imageSrc: commons("Neptune_Full.jpg") },
     {
       id: "pluto",
       name: "Pluto",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg",
+      imageSrc: commons("Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg"),
     },
-    {
-      id: "moon",
-      name: "Moon",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
-    },
+    { id: "moon", name: "Moon", imageSrc: commons("FullMoon2010.jpg") },
     {
       id: "ceres",
       name: "Ceres",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29.jpg",
+      imageSrc: commons("Ceres_-_RC3_-_Haulani_Crater_(22381131691).jpg"),
     },
     {
       id: "io",
       name: "Io",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/7b/Io_highest_resolution_true_color.jpg",
+      imageSrc: commons("Io_highest_resolution_true_color.jpg"),
     },
   ],
 };
@@ -783,45 +761,34 @@ export const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
     {
       id: "espresso",
       name: "Espresso",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG",
+      imageSrc: commons("A_small_cup_of_coffee.JPG"),
     },
     {
       id: "latte",
       name: "Latte",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/7c/Caff%C3%A8_Latte_at_Pulse_Cafe.jpg",
+      imageSrc: commons("Caffè_Latte_at_Pulse_Cafe.jpg"),
     },
     {
       id: "cappuccino",
       name: "Cappuccino",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c8/Cappuccino_at_Sightglass_Coffee.jpg",
+      imageSrc: commons("Cappuccino_at_Sightglass_Coffee.jpg"),
     },
     {
       id: "americano",
       name: "Americano",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/02/Caff%C3%A8_Americano.JPG",
+      imageSrc: commons("Caffè_Americano.JPG"),
     },
     {
       id: "cold-brew",
       name: "Cold Brew",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/9/9c/Iced_coffee_in_glass.jpg",
+      imageSrc: commons("Iced_coffee_in_glass.jpg"),
     },
     {
       id: "mocha",
       name: "Mocha",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f6/Mocaccino-Coffee.jpg",
+      imageSrc: commons("Mocaccino-Coffee.jpg"),
     },
-    {
-      id: "tea",
-      name: "Tea",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/04/Black_tea.jpg",
-    },
+    { id: "tea", name: "Tea", imageSrc: commons("Black_tea.jpg") },
   ],
 };
 
@@ -840,152 +807,123 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "yosemite",
       name: "Yosemite",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/50/Yosemitefalls.jpg",
+      imageSrc: commons("Yosemitefalls.jpg"),
     },
     {
       id: "grand-canyon",
       name: "Grand Canyon",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/a/a0/Grand_Canyon_view_from_Pima_Point_2010.jpg",
+      imageSrc: commons("Grand_Canyon_view_from_Pima_Point_2010.jpg"),
     },
     {
       id: "yellowstone",
       name: "Yellowstone",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/3f/Morning_Glory_Pool.jpg",
+      imageSrc: commons("Morning_Glory_Pool.jpg"),
     },
     {
       id: "zion",
       name: "Zion",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/10/Zion_angels_landing_view.jpg",
+      imageSrc: commons("Zion_angels_landing_view.jpg"),
     },
     {
       id: "bryce-canyon",
       name: "Bryce Canyon",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/2/2c/Bryce_Canyon_Amphitheater.jpg",
+      imageSrc: commons("Bryce_Canyon_Amphitheater.jpg"),
     },
-    {
-      id: "arches",
-      name: "Arches",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/4b/Delicatearch1.jpg",
-    },
+    { id: "arches", name: "Arches", imageSrc: commons("Delicatearch1.jpg") },
     {
       id: "rocky-mountain",
       name: "Rocky Mountain",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/7/73/Bierstadt_Lake_RMNP.jpg",
+      imageSrc: commons("Bierstadt_Lake_RMNP.jpg"),
     },
     {
       id: "glacier",
       name: "Glacier",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/2/21/St_Mary_Lake_%26_Wild_Goose_Island%2C_Glacier_National_Park.jpg",
+      imageSrc: commons(
+        "St_Mary_Lake_&_Wild_Goose_Island,_Glacier_National_Park.jpg",
+      ),
     },
     {
       id: "olympic",
       name: "Olympic",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/4/4d/Hoh_Rain_Forest%2C_Olympic_National_Park.jpg",
+      imageSrc: commons("Hoh_Rain_Forest,_Olympic_National_Park.jpg"),
     },
     {
       id: "rainier",
       name: "Mount Rainier",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/50/Mount_Rainier_from_west.jpg",
+      imageSrc: commons("Mount_Rainier_from_west.jpg"),
     },
     {
       id: "grand-teton",
       name: "Grand Teton",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Teton_Range_from_Schwabacher_Landing.jpg",
+      imageSrc: commons("Teton_Range_from_Schwabacher_Landing.jpg"),
     },
     {
       id: "acadia",
       name: "Acadia",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/69/Bass_Harbor_Head_Light_Station_2016.jpg",
+      imageSrc: commons("Bass_Harbor_Head_Light_Station_2016.jpg"),
     },
     {
       id: "everglades",
       name: "Everglades",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Everglades_National_Park%2C_florida.jpg",
+      imageSrc: commons("Everglades_National_Park,_florida.jpg"),
     },
     {
       id: "great-smoky-mountains",
       name: "Great Smoky Mountains",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/1a/Great_Smoky_Mountains_National_Park%2C_Tennessee%2C_USA.jpg",
+      imageSrc: commons(
+        "Great_Smoky_Mountains_National_Park,_Tennessee,_USA.jpg",
+      ),
     },
     {
       id: "shenandoah",
       name: "Shenandoah",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Shenandoah_National_Park_Skyline_Drive.jpg",
+      imageSrc: commons("Shenandoah_National_Park_Skyline_Drive.jpg"),
     },
     {
       id: "death-valley",
       name: "Death Valley",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/b/b2/Mesquite_Sand_Dunes_in_Death_Valley.jpg",
+      imageSrc: commons("Mesquite_Sand_Dunes_in_Death_Valley.jpg"),
     },
     {
       id: "joshua-tree",
       name: "Joshua Tree",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/0/0a/Joshua_Tree_01.jpg",
+      imageSrc: commons("Joshua_Tree_01.jpg"),
     },
     {
       id: "sequoia",
       name: "Sequoia",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/16/General_Sherman_Tree.jpg",
+      imageSrc: commons("General_Sherman_Tree.jpg"),
     },
     {
       id: "kings-canyon",
       name: "Kings Canyon",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/8/8c/Kings_Canyon_National_Park.jpg",
+      imageSrc: commons("Kings_Canyon_National_Park.jpg"),
     },
     {
       id: "redwood",
       name: "Redwood",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/1b/Redwood_National_Park_fog_in_the_forest.jpg",
+      imageSrc: commons("Redwood_National_Park_fog_in_the_forest.jpg"),
     },
     {
       id: "canyonlands",
       name: "Canyonlands",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/13/Canyonlands_National_Park%2C_Island_in_the_Sky.jpg",
+      imageSrc: commons("Canyonlands_National_Park,_Island_in_the_Sky.jpg"),
     },
     {
       id: "capitol-reef",
       name: "Capitol Reef",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Capitol_Reef_National_Park_3.jpg",
+      imageSrc: commons("Capitol_Reef_National_Park_3.jpg"),
     },
     {
       id: "great-sand-dunes",
       name: "Great Sand Dunes",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/8/83/Great_Sand_Dunes_National_Park_and_Preserve.jpg",
+      imageSrc: commons("Great_Sand_Dunes_National_Park_and_Preserve.jpg"),
     },
-    {
-      id: "badlands",
-      name: "Badlands",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/1/1a/BadlandsView.jpg",
-    },
+    { id: "badlands", name: "Badlands", imageSrc: commons("BadlandsView.jpg") },
     {
       id: "denali",
       name: "Denali",
-      imageSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Denali_Mt_McKinley.jpg",
+      imageSrc: commons("Denali_Mt_McKinley.jpg"),
     },
   ],
 };
