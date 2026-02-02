@@ -194,7 +194,8 @@ export const GYM_LIFTS_TIERSET: TierSetDefinition = {
     {
       id: "pullups",
       name: "Pull-Ups",
-      imageSrc: commons("Pull_ups_1.svg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/67/Marine_Pull-ups.jpg",
     },
     {
       id: "rdl",
@@ -366,7 +367,7 @@ export const MOVIES_TIERSET: TierSetDefinition = {
       id: "the-lord-of-the-rings-return-of-the-king",
       name: "The Lord of the Rings: The Return of the King",
       imageSrc: enwiki(
-        "The_Lord_of_the_Rings_The_Return_of_the_King_(2003_film).jpg",
+        "https://upload.wikimedia.org/wikipedia/en/4/48/Lord_Rings_Return_King.jpg",
       ),
     },
     {
@@ -643,7 +644,7 @@ export const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
       name: "Python",
       imageSrc: commons("Python-logo-notext.svg"),
     },
-    { id: "csharp", name: "C%23", imageSrc: commons("Logo_C_sharp.svg") },
+    { id: "csharp", name: "C#", imageSrc: commons("Logo_C_sharp.svg") },
     {
       id: "java",
       name: "Java",
@@ -807,7 +808,8 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "yosemite",
       name: "Yosemite",
-      imageSrc: commons("Yosemitefalls.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/e/ea/Half_Dome_with_Eastern_Yosemite_Valley_%2850MP%29.jpg",
     },
     {
       id: "grand-canyon",
@@ -833,19 +835,21 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "rocky-mountain",
       name: "Rocky Mountain",
-      imageSrc: commons("Bierstadt_Lake_RMNP.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/3/3e/Rocky_Mountain_National_Park_in_September_2011_-_Glacier_Gorge_from_Bear_Lake.JPG",
     },
     {
       id: "glacier",
       name: "Glacier",
       imageSrc: commons(
-        "St_Mary_Lake_&_Wild_Goose_Island,_Glacier_National_Park.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/51/Mountain_Goat_at_Hidden_Lake.jpg",
       ),
     },
     {
       id: "olympic",
       name: "Olympic",
-      imageSrc: commons("Hoh_Rain_Forest,_Olympic_National_Park.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/a/a8/Cedar_Creek_Abbey_Island_Ruby_Beach.jpg",
     },
     {
       id: "rainier",
@@ -855,7 +859,8 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "grand-teton",
       name: "Grand Teton",
-      imageSrc: commons("Teton_Range_from_Schwabacher_Landing.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/60/Grand_Teton_GTNP1.jpg",
     },
     {
       id: "acadia",
@@ -865,19 +870,21 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "everglades",
       name: "Everglades",
-      imageSrc: commons("Everglades_National_Park,_florida.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/0/0d/Everglades_Pa-Hay-Oke_Swamp.jpg",
     },
     {
       id: "great-smoky-mountains",
       name: "Great Smoky Mountains",
       imageSrc: commons(
-        "Great_Smoky_Mountains_National_Park,_Tennessee,_USA.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/3/3a/Clifftops4-7-07.jpg",
       ),
     },
     {
       id: "shenandoah",
       name: "Shenandoah",
-      imageSrc: commons("Shenandoah_National_Park_Skyline_Drive.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/10/Skyline_Drive_in_the_Fall_%2821852619608%29.jpg",
     },
     {
       id: "death-valley",
@@ -897,29 +904,38 @@ export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "kings-canyon",
       name: "Kings Canyon",
-      imageSrc: commons("Kings_Canyon_National_Park.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/3/3a/KingsCanyonNP.JPG",
     },
     {
       id: "redwood",
       name: "Redwood",
-      imageSrc: commons("Redwood_National_Park_fog_in_the_forest.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/d/de/Redwood_National_Park%2C_fog_in_the_forest.jpg",
     },
     {
       id: "canyonlands",
       name: "Canyonlands",
-      imageSrc: commons("Canyonlands_National_Park,_Island_in_the_Sky.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/9/99/Green_River_Overlook_Ekker_Butte.jpg",
     },
     {
       id: "capitol-reef",
       name: "Capitol Reef",
-      imageSrc: commons("Capitol_Reef_National_Park_3.jpg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/1f/Capitol_Reef_National_Park.jpg",
     },
     {
       id: "great-sand-dunes",
       name: "Great Sand Dunes",
       imageSrc: commons("Great_Sand_Dunes_National_Park_and_Preserve.jpg"),
     },
-    { id: "badlands", name: "Badlands", imageSrc: commons("BadlandsView.jpg") },
+    {
+      id: "badlands",
+      name: "Badlands",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/MK00609_Badlands.jpg",
+    },
     {
       id: "denali",
       name: "Denali",
