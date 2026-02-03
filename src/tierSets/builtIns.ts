@@ -107,6 +107,7 @@ export const FAST_FOOD_TIERSET: TierSetDefinition = {
     { id: "SOLID", name: "Solid", color: "#FB8C00" },
     { id: "MID", name: "Mid", color: "#FDD835" },
     { id: "TRASH", name: "Trash", color: "#43A047" },
+    { id: "NOPE", name: "Nope", color: "#1E88E5" },
   ],
   items: [
     {
@@ -140,20 +141,90 @@ export const FAST_FOOD_TIERSET: TierSetDefinition = {
       name: "Burger King",
       imageSrc: commons("Burger_King_2020.svg"),
     },
-    {
-      id: "kfc",
-      name: "KFC",
-      imageSrc: commons("KFC_Logo.svg"),
-    },
-    {
-      id: "subway",
-      name: "Subway",
-      imageSrc: commons("Subway_2016_logo.svg"),
-    },
+    { id: "kfc", name: "KFC", imageSrc: commons("KFC_Logo.svg") },
+    { id: "subway", name: "Subway", imageSrc: commons("Subway_2016_logo.svg") },
     {
       id: "dominos",
       name: "Domino's",
       imageSrc: commons("Domino's_pizza_logo.svg"),
+    },
+    { id: "arbys", name: "Arby's", imageSrc: commons("Arby's_logo.svg") },
+    {
+      id: "dunkin",
+      name: "Dunkin'",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/1/14/Dunkin%27_2022.svg",
+    },
+    {
+      id: "five-guys",
+      name: "Five Guys",
+      imageSrc: commons("Five_Guys_logo.svg"),
+    },
+    {
+      id: "hardees",
+      name: "Hardee's",
+      imageSrc: commons("Hardee_brand_logo.svg"),
+    },
+    {
+      id: "jimmy-johns",
+      name: "Jimmy John's",
+      imageSrc: commons("Jimmy_John's_logo.svg"),
+    },
+    {
+      id: "jersey-mikes",
+      name: "Jersey Mike's",
+      imageSrc: commons("Jersey_Mike's_logo.svg"),
+    },
+    {
+      id: "little-caesars",
+      name: "Little Caesars",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/f/f9/Little_Caesars_logo.png",
+    },
+    {
+      id: "panda-express",
+      name: "Panda Express",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/id/8/85/Panda_Express_logo.svg",
+    },
+    {
+      id: "panera",
+      name: "Panera Bread",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/de/e/ea/Panera_Bread_Logo.svg",
+    },
+    {
+      id: "papajohns",
+      name: "Papa Johns",
+      imageSrc: commons("Papa_Johns_logo.svg"),
+    },
+    {
+      id: "pizza-hut",
+      name: "Pizza Hut",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pizza_Hut_2025.svg",
+    },
+    {
+      id: "sonic",
+      name: "Sonic Drive‑In",
+      imageSrc: commons("SONIC_New_Logo_2020.svg"),
+    },
+    {
+      id: "starbucks",
+      name: "Starbucks",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Corporation_Logo_2011.svg",
+    },
+    {
+      id: "whataburger",
+      name: "Whataburger",
+      imageSrc: commons("Whataburger_logo.svg"),
+    },
+    {
+      id: "chipotle",
+      name: "Chipotle",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/de/f/f8/Chipotle-Mexican-Grill-Logo.svg",
     },
   ],
 };
@@ -443,65 +514,6 @@ export const FRUITS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const CARS_TIERSET: TierSetDefinition = {
-  id: "cars-poc",
-  title: "Cars",
-  description: "Rank these cars.",
-  tiers: [
-    { id: "DREAM", name: "Dream", color: "#E53935" },
-    { id: "WANT", name: "Want", color: "#FB8C00" },
-    { id: "OK", name: "Ok", color: "#FDD835" },
-    { id: "PASS", name: "Pass", color: "#43A047" },
-    { id: "NO", name: "No", color: "#1E88E5" },
-  ],
-  items: [
-    {
-      id: "tesla-model-3",
-      name: "Tesla Model 3",
-      imageSrc: commons("Tesla_Model_3_parked,_front_driver_side.jpg"),
-    },
-    {
-      id: "toyota-supra",
-      name: "Toyota Supra",
-      imageSrc: commons("2020_Toyota_GR_Supra_3.0_(UK)_front.jpg"),
-    },
-    {
-      id: "honda-civic",
-      name: "Honda Civic",
-      imageSrc: commons("2018_Honda_Civic_SR_VTEC_CVT_1.0_Front.jpg"),
-    },
-    {
-      id: "ford-mustang",
-      name: "Ford Mustang",
-      imageSrc: commons("2018_Ford_Mustang_GT_5.0.jpg"),
-    },
-    {
-      id: "toyota-corolla",
-      name: "Toyota Corolla",
-      imageSrc: commons(
-        "2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8_Front.jpg",
-      ),
-    },
-    {
-      id: "bmw-m3",
-      name: "BMW M3",
-      imageSrc: commons("2018_BMW_M3_Competition_Package_(41507142782).jpg"),
-    },
-    {
-      id: "jeep-wrangler",
-      name: "Jeep Wrangler",
-      imageSrc: commons(
-        "2018_Jeep_Wrangler_Sahara_Unlimited,_front_3.17.18.jpg",
-      ),
-    },
-    {
-      id: "porsche-911",
-      name: "Porsche 911",
-      imageSrc: commons("2019_Porsche_911_Carrera_4S_S-A_3.0_Front.jpg"),
-    },
-  ],
-};
-
 export const COUNTRIES_TIERSET: TierSetDefinition = {
   id: "countries-poc",
   title: "Countries",
@@ -662,7 +674,7 @@ export const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
 
 export const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
   id: "colors-8-tiers-poc",
-  title: "Colors (8 tiers)",
+  title: "Colors",
   description: "Rank these colors.",
   tiers: [
     { id: "S", name: "S", color: "#E53935" },
@@ -692,7 +704,7 @@ export const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
 
 export const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
   id: "planets-9-tiers-poc",
-  title: "Planets (9 tiers)",
+  title: "Planets",
   description: "Rank these space bodies.",
   tiers: [
     { id: "S", name: "S", color: "#E53935" },
@@ -751,7 +763,7 @@ export const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
 
 export const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
   id: "coffee-3-tiers-poc",
-  title: "Coffee (3 tiers)",
+  title: "Coffee",
   description: "Fast tier list for drink choices.",
   tiers: [
     { id: "LOVE", name: "Love", color: "#E53935" },
@@ -952,7 +964,6 @@ export const TIERSET_PRESETS: TierSetDefinition[] = [
   ANIME_TIERSET,
   MOVIES_TIERSET,
   FRUITS_TIERSET,
-  CARS_TIERSET,
   COUNTRIES_TIERSET,
   PROGRAMMING_LANGUAGES_TIERSET,
   COLORS_8_TIERS_TIERSET,
