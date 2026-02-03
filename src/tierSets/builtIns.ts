@@ -168,7 +168,8 @@ export const FAST_FOOD_TIERSET: TierSetDefinition = {
     {
       id: "jimmy-johns",
       name: "Jimmy John's",
-      imageSrc: commons("Jimmy_John's_logo.svg"),
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/en/7/7b/Jimmy_John%27s_%28logo%29.svg",
     },
     {
       id: "jersey-mikes",
