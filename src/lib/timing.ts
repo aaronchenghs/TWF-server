@@ -18,7 +18,6 @@ import {
 
 export const PHASE_TIMERS = {
   BUILD_MS: 3_000,
-  REVEAL_MS: 3_000,
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,
   RESULTS_MS: 3_000,
@@ -29,7 +28,6 @@ export const ONE_HOUR_MS = 1000 * 60 * 60;
 
 export const NULL_TIMERS: RoomPublicState["timers"] = {
   buildEndsAt: null,
-  revealEndsAt: null,
   placeEndsAt: null,
   voteEndsAt: null,
   resultsEndsAt: null,
@@ -70,29 +68,9 @@ export function reschedule(
       room.code,
       setTimeout(
         () => {
-          // Phase may have advanced early; guard against stale callback
           if (room.state.phase !== "STARTING") return;
           const now2 = Date.now();
-          beginTurn(room, now2);
-          emit(room);
-          reschedule(room, emit, _getTierSet);
-        },
-        Math.max(0, dueAt - now),
-      ),
-    );
-    return;
-  }
-
-  if (phase === "REVEAL" && timers.revealEndsAt) {
-    const dueAt = timers.revealEndsAt;
-    addTimer(
-      room.code,
-      setTimeout(
-        () => {
-          if (room.state.phase !== "REVEAL") return;
-
-          const now2 = Date.now();
-          beginPlace(room, now2);
+          beginTurn(room, now2); // beginTurn now enters PLACE directly
           emit(room);
           reschedule(room, emit, _getTierSet);
         },
@@ -112,7 +90,7 @@ export function reschedule(
           const now2 = Date.now();
 
           // If no tier has been selected by the placer (they timed out), skip their
-          // turn and give the next player a chance to place the same item.  Otherwise
+          // turn and give the next player a chance to place the same item. Otherwise
           // proceed directly to voting.
           if (!room.state.pendingTierId) {
             const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
@@ -123,6 +101,7 @@ export function reschedule(
               pendingTierId: null,
               votes: {},
             };
+
             beginPlace(room, now2);
             emit(room);
             reschedule(room, emit, _getTierSet);
@@ -164,7 +143,6 @@ export function reschedule(
       setTimeout(
         () => {
           if (room.state.phase !== "RESULTS") return;
-
           const now2 = Date.now();
           beginDrift(room, now2);
           emit(room);

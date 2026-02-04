@@ -22,8 +22,6 @@ export function resetTimersForPhase(
   switch (state.phase) {
     case "STARTING":
       return { ...NULL_TIMERS, buildEndsAt: now + PHASE_TIMERS.BUILD_MS };
-    case "REVEAL":
-      return { ...NULL_TIMERS, revealEndsAt: now + PHASE_TIMERS.REVEAL_MS };
     case "PLACE":
       return { ...NULL_TIMERS, placeEndsAt: now + PHASE_TIMERS.PLACE_MS };
     case "VOTE":

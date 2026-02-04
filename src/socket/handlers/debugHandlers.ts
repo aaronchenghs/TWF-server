@@ -38,10 +38,6 @@ export function handleDebugNext(io: IOServer, socket: IOSocket) {
         beginTurn(room, now);
         break;
       }
-      case "REVEAL": {
-        beginPlace(room, now);
-        break;
-      }
       case "PLACE": {
         const tierIds = room.state.tierOrder;
         const randTier = tierIds[Math.floor(Math.random() * tierIds.length)];

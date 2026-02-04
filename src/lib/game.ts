@@ -118,9 +118,10 @@ export function beginTurn(room: Room, now: number) {
   }
 
   const { currentTurnPlayerId } = getNextTurn(room, 0);
+
   room.state = {
     ...room.state,
-    phase: "REVEAL",
+    phase: "PLACE",
     currentItem: nextItem,
     pendingTierId: null,
     votes: {},
@@ -128,7 +129,7 @@ export function beginTurn(room: Room, now: number) {
     timers: {
       ...NULL_TIMERS,
       ...room.state.timers,
-      revealEndsAt: now + PHASE_TIMERS.REVEAL_MS,
+      placeEndsAt: now + PHASE_TIMERS.PLACE_MS,
     },
   };
 
@@ -141,7 +142,6 @@ export function beginPlace(room: Room, now: number) {
     phase: "PLACE",
     timers: {
       ...room.state.timers,
-      revealEndsAt: null,
       placeEndsAt: now + PHASE_TIMERS.PLACE_MS,
     },
   };
