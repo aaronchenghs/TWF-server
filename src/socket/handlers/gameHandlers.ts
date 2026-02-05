@@ -5,12 +5,13 @@ import {
   fillMissingVotesAsAgree,
   gameStart,
   getPlayerId,
-} from "../../lib/game";
-import { requireRoom, touchRoom } from "../../lib/rooms";
-import { reschedule } from "../../lib/timing";
+  isItemPlaced,
+} from "../../lib/game.js";
+import { requireRoom, touchRoom } from "../../lib/rooms.js";
+import { reschedule } from "../../lib/timing.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
-import { getErrorMessage } from "../../lib/errors";
+import { getErrorMessage } from "../../lib/errors.js";
 
 export function handleStart(io: IOServer, socket: IOSocket) {
   return () => {
@@ -53,10 +54,7 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
     if (!room.state.tiers[tierId])
       return emitError(socket, getErrorMessage("INVALID_TIER"));
 
-    const isAlreadyPlaced = Object.values(room.state.tiers).some((arr) =>
-      arr.includes(room.state.currentItem!)
-    );
-    if (isAlreadyPlaced)
+    if (isItemPlaced(room, room.state.currentItem))
       return emitError(socket, getErrorMessage("ITEM_ALREADY_PLACED"));
 
     room.state = {
@@ -94,6 +92,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
     const have = Object.keys(room.state.votes).length;
 
     if (have >= needed) {
+      touchRoom(room);
       const now = Date.now();
       fillMissingVotesAsAgree(room);
       beginResults(room, now);

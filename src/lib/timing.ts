@@ -39,6 +39,26 @@ const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
 
+export function getPhaseTimers(
+  phase: RoomPublicState["phase"],
+  now: number,
+): RoomPublicState["timers"] {
+  switch (phase) {
+    case "STARTING":
+      return { ...NULL_TIMERS, buildEndsAt: now + PHASE_TIMERS.BUILD_MS };
+    case "PLACE":
+      return { ...NULL_TIMERS, placeEndsAt: now + PHASE_TIMERS.PLACE_MS };
+    case "VOTE":
+      return { ...NULL_TIMERS, voteEndsAt: now + PHASE_TIMERS.VOTE_MS };
+    case "RESULTS":
+      return { ...NULL_TIMERS, resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS };
+    case "DRIFT":
+      return { ...NULL_TIMERS, driftEndsAt: now + PHASE_TIMERS.DRIFT_MS };
+    default:
+      return NULL_TIMERS;
+  }
+}
+
 function addTimer(roomCode: RoomCode, timer: NodeJS.Timeout) {
   const roomTimers = timersByRoom.get(roomCode) ?? [];
   roomTimers.push(timer);

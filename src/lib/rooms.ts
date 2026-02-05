@@ -13,7 +13,7 @@ import { newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 import { getErrorMessage, getNameTakenMessage } from "./errors.js";
 import { emitError, IOSocket } from "../socket/emit.js";
-import { NULL_TIMERS } from "./timing.js";
+import { NULL_TIMERS, clearRoomTimers } from "./timing.js";
 
 /**
  * In-memory registry of active rooms.
@@ -64,8 +64,6 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     clientIdBySocketId: new Map<string, ClientId>(),
     socketIdByControllerId: new Map<ReturnType<typeof newGuid>, string>(),
     itemQueue: [],
-    timer: null,
-    scheduleNonce: 0,
     debugHistory: [],
     createdAt: now,
     lastActivityAt: now,
@@ -229,11 +227,16 @@ export function detachSocket(room: Room, socketId: string): void {
 export function deleteRoomIfEmpty(room: Room): boolean {
   const hasAnyConnections =
     room.displayConnectionIds.size > 0 || room.controllerBySocketId.size > 0;
-  if (!hasAnyConnections) rooms.delete(room.code);
-  return !hasAnyConnections;
+  if (!hasAnyConnections) {
+    clearRoomTimers(room.code);
+    rooms.delete(room.code);
+    return true;
+  }
+  return false;
 }
 
 export function deleteRoom(room: Room): void {
+  clearRoomTimers(room.code);
   rooms.delete(room.code);
 }
 

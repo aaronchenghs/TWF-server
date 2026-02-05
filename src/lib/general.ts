@@ -2,8 +2,10 @@ import { Filter } from "bad-words";
 import {
   RoomCode,
   CODE_LENGTH,
+  Tier,
   TierId,
   TierSetDefinition,
+  TierItem,
   TierItemId,
 } from "@twf/contracts";
 
@@ -30,4 +32,17 @@ export function makeEmptyTiers(
   const out: Record<TierId, TierItemId[]> = {};
   for (const t of def.tiers) out[t.id] = [];
   return out;
+}
+
+export function buildTierSetMeta(def: TierSetDefinition): {
+  tierMetaById: Record<TierId, Tier>;
+  itemMetaById: Record<TierItemId, TierItem>;
+} {
+  const tierMetaById: Record<TierId, Tier> = {};
+  for (const tier of def.tiers) tierMetaById[tier.id] = tier;
+
+  const itemMetaById: Record<TierItemId, TierItem> = {};
+  for (const item of def.items ?? []) itemMetaById[item.id] = item;
+
+  return { tierMetaById, itemMetaById };
 }

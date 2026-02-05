@@ -3,7 +3,7 @@ import type {
   TierSetId,
   TierSetSummary,
 } from "@twf/contracts";
-import { TIERSET_PRESETS } from "./builtIns";
+import { TIERSET_PRESETS } from "./builtIns.js";
 
 const BUILTINS: TierSetDefinition[] = TIERSET_PRESETS;
 const byId = new Map<TierSetId, TierSetDefinition>(

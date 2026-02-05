@@ -4,8 +4,8 @@ import {
   TierItemId,
   ClientId,
 } from "@twf/contracts";
-import { Guid } from "./guid";
-import { DebugSnapshot } from "../lib/debug";
+import { Guid } from "./guid.js";
+import { DebugSnapshot } from "../lib/debug.js";
 
 /**
  * Server‑side representation of a room.  Tracks both public state and internal
@@ -31,8 +31,6 @@ export type Room = {
   socketIdByControllerId: Map<Guid, string>;
 
   itemQueue: TierItemId[];
-  timer: NodeJS.Timeout | null;
-  scheduleNonce: number;
 
   debugHistory: DebugSnapshot[];
   lastActivityAt: number;

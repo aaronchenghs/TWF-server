@@ -5,12 +5,16 @@ import type {
   ClientToServerEvents,
   ServerToClientEvents,
 } from "@twf/contracts";
-import { registerSocketHandlers } from "./socket";
+import { registerSocketHandlers } from "./socket/index.js";
 import "dotenv/config";
-import { runRoomJanitor, stopRoomJanitor } from "./lib/roomCleanup";
+import { runRoomJanitor, stopRoomJanitor } from "./lib/roomCleanup.js";
+import { readNumberEnv, readStringEnv } from "./lib/env.js";
 
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN ?? "http://localhost:5173";
-const PORT = Number(process.env.PORT ?? 3001);
+const CLIENT_ORIGIN = readStringEnv(
+  "CLIENT_ORIGIN",
+  "http://localhost:5173",
+);
+const PORT = readNumberEnv("PORT", 3001);
 
 const app = express();
 app.get("/health", (_req, res) => res.status(200).send("ok"));

@@ -1,9 +1,11 @@
 import { getAllRooms, deleteRoom, deleteRoomIfEmpty } from "./rooms.js";
 import { clearRoomTimers, ONE_HOUR_MS } from "./timing.js";
+import { readNumberEnv } from "./env.js";
 
-const ROOM_TTL_MS = Number(process.env.ROOM_TTL_MS ?? ONE_HOUR_MS);
-const CLEANUP_INTERVAL_MS = Number(
-  process.env.CLEANUP_INTERVAL_MS ?? ONE_HOUR_MS,
+const ROOM_TTL_MS = readNumberEnv("ROOM_TTL_MS", ONE_HOUR_MS);
+const CLEANUP_INTERVAL_MS = readNumberEnv(
+  "CLEANUP_INTERVAL_MS",
+  ONE_HOUR_MS,
 );
 
 let interval: NodeJS.Timeout | null = null;
@@ -17,7 +19,6 @@ export function runRoomJanitor() {
 
     for (const room of getAllRooms()) {
       if (deleteRoomIfEmpty(room)) {
-        clearRoomTimers(room.code);
         continue;
       }
 

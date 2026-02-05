@@ -1,6 +1,6 @@
 import type { Room } from "../types/types.js";
 import type { RoomPublicState, TierItemId } from "@twf/contracts";
-import { NULL_TIMERS, PHASE_TIMERS } from "./timing.js";
+import { getPhaseTimers } from "./timing.js";
 
 export type DebugSnapshot = {
   at: number;
@@ -19,20 +19,7 @@ export function resetTimersForPhase(
   state: RoomPublicState,
   now: number,
 ): RoomPublicState["timers"] {
-  switch (state.phase) {
-    case "STARTING":
-      return { ...NULL_TIMERS, buildEndsAt: now + PHASE_TIMERS.BUILD_MS };
-    case "PLACE":
-      return { ...NULL_TIMERS, placeEndsAt: now + PHASE_TIMERS.PLACE_MS };
-    case "VOTE":
-      return { ...NULL_TIMERS, voteEndsAt: now + PHASE_TIMERS.VOTE_MS };
-    case "RESULTS":
-      return { ...NULL_TIMERS, resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS };
-    case "DRIFT":
-      return { ...NULL_TIMERS, driftEndsAt: now + PHASE_TIMERS.DRIFT_MS };
-    default:
-      return NULL_TIMERS;
-  }
+  return getPhaseTimers(state.phase, now);
 }
 
 /**

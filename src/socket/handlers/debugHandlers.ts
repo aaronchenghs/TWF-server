@@ -1,6 +1,6 @@
 import { IOServer, IOSocket, emitError, emitState } from "../emit.js";
-import { requireRoom } from "../../lib/rooms";
-import { getErrorMessage } from "../../lib/errors";
+import { requireRoom } from "../../lib/rooms.js";
+import { getErrorMessage } from "../../lib/errors.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import {
   beginTurn,

@@ -1,18 +1,17 @@
 import type {
-  Tier,
   TierId,
-  TierItem,
   TierItemId,
   TierSetDefinition,
   VoteValue,
 } from "@twf/contracts";
 import type { Room } from "../types/types.js";
-import { NULL_TIMERS, PHASE_TIMERS } from "./timing.js";
+import { NULL_TIMERS, getPhaseTimers } from "./timing.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
 import { getErrorMessage } from "./errors.js";
 import { computeResolution } from "./computations.js";
 import { recordPhaseStart } from "./debug.js";
+import { buildTierSetMeta } from "./general.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items ?? [];
@@ -32,7 +31,9 @@ export function getNextTurn(
   const playersLength = ids.length;
   if (playersLength <= 0) return { turnIndex: 0, currentTurnPlayerId: null };
 
-  const turnIndex = (room.state.turnIndex + delta) % playersLength;
+  const rawIndex = room.state.turnIndex + delta;
+  const turnIndex =
+    ((rawIndex % playersLength) + playersLength) % playersLength;
   const currentTurnPlayerId = ids[turnIndex] ?? null;
   return { turnIndex, currentTurnPlayerId };
 }
@@ -48,7 +49,7 @@ export function fillMissingVotesAsAgree(room: Room) {
   }
 }
 
-function isItemPlaced(room: Room, itemId: TierItemId): boolean {
+export function isItemPlaced(room: Room, itemId: TierItemId): boolean {
   return Object.values(room.state.tiers).some((arr) => arr.includes(itemId));
 }
 
@@ -73,25 +74,20 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
     throw new Error(getErrorMessage("TIER_SET_HAS_NO_ITEMS"));
   room.itemQueue = shuffle(items);
 
-  const tiersMeta: Record<TierId, Tier> = {};
-  for (const tier of tierSet.tiers) tiersMeta[tier.id] = tier;
-  const itemMetaById: Record<TierItemId, TierItem> = {};
-  for (const item of tierSet.items ?? []) itemMetaById[item.id] = item;
+  const { tierMetaById, itemMetaById } = buildTierSetMeta(tierSet);
 
   room.state = {
     ...room.state,
     phase: "STARTING",
     turnOrderPlayerIds: shuffle(playerIds),
     turnIndex: 0,
-    tierMetaById: tiersMeta,
+    tierMetaById,
     itemMetaById,
     currentTurnPlayerId: null,
     currentItem: null,
     votes: {},
     timers: {
-      ...NULL_TIMERS,
-      ...room.state.timers,
-      buildEndsAt: now + PHASE_TIMERS.BUILD_MS,
+      ...getPhaseTimers("STARTING", now),
     },
   };
 
@@ -107,12 +103,10 @@ export function beginTurn(room: Room, now: number) {
       ...room.state,
       phase: "FINISHED",
       currentItem: null,
+      currentTurnPlayerId: null,
       pendingTierId: null,
       votes: {},
-      timers: {
-        ...NULL_TIMERS,
-        ...room.state.timers,
-      },
+      timers: NULL_TIMERS,
     };
     return;
   }
@@ -126,11 +120,7 @@ export function beginTurn(room: Room, now: number) {
     pendingTierId: null,
     votes: {},
     currentTurnPlayerId,
-    timers: {
-      ...NULL_TIMERS,
-      ...room.state.timers,
-      placeEndsAt: now + PHASE_TIMERS.PLACE_MS,
-    },
+    timers: getPhaseTimers("PLACE", now),
   };
 
   recordPhaseStart(room);
@@ -140,10 +130,7 @@ export function beginPlace(room: Room, now: number) {
   room.state = {
     ...room.state,
     phase: "PLACE",
-    timers: {
-      ...room.state.timers,
-      placeEndsAt: now + PHASE_TIMERS.PLACE_MS,
-    },
+    timers: getPhaseTimers("PLACE", now),
   };
   recordPhaseStart(room);
 }
@@ -152,11 +139,7 @@ export function beginVote(room: Room, now: number) {
   room.state = {
     ...room.state,
     phase: "VOTE",
-    timers: {
-      ...room.state.timers,
-      placeEndsAt: null,
-      voteEndsAt: now + PHASE_TIMERS.VOTE_MS,
-    },
+    timers: getPhaseTimers("VOTE", now),
   };
   recordPhaseStart(room);
 }
@@ -172,10 +155,7 @@ export function finalizeTurn(room: Room) {
     currentTurnPlayerId: null,
     votes: {},
     turnIndex,
-    timers: {
-      ...room.state.timers,
-      voteEndsAt: null,
-    },
+    timers: NULL_TIMERS,
   };
 }
 
@@ -212,12 +192,7 @@ export function beginResults(room: Room, now: number) {
     ...room.state,
     phase: "RESULTS",
     lastResolution: resolution,
-    timers: {
-      ...room.state.timers,
-      voteEndsAt: null,
-      resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS,
-      driftEndsAt: null,
-    },
+    timers: getPhaseTimers("RESULTS", now),
   };
 
   recordPhaseStart(room);
@@ -239,11 +214,7 @@ export function beginDrift(room: Room, now: number) {
   room.state = {
     ...room.state,
     phase: "DRIFT",
-    timers: {
-      ...room.state.timers,
-      resultsEndsAt: null,
-      driftEndsAt: now + PHASE_TIMERS.DRIFT_MS,
-    },
+    timers: getPhaseTimers("DRIFT", now),
   };
   recordPhaseStart(room);
 }

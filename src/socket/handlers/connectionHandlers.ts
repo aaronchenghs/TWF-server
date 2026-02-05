@@ -1,5 +1,5 @@
-import { getRoom, detachSocket, deleteRoomIfEmpty } from "../../lib/rooms";
-import { IOServer, IOSocket, emitState } from "../emit";
+import { getRoom, detachSocket, deleteRoomIfEmpty } from "../../lib/rooms.js";
+import { IOServer, IOSocket, emitState } from "../emit.js";
 
 /**
  * Handles disconnection events.  Detaches sockets without removing players so
