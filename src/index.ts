@@ -10,10 +10,7 @@ import "dotenv/config";
 import { runRoomJanitor, stopRoomJanitor } from "./lib/roomCleanup.js";
 import { readNumberEnv, readStringEnv } from "./lib/env.js";
 
-const CLIENT_ORIGIN = readStringEnv(
-  "CLIENT_ORIGIN",
-  "http://localhost:5173",
-);
+const CLIENT_ORIGIN = readStringEnv("CLIENT_ORIGIN", "http://localhost:5173");
 const PORT = readNumberEnv("PORT", 3001);
 
 const app = express();
@@ -32,8 +29,8 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(httpServer, {
 registerSocketHandlers(io);
 runRoomJanitor();
 
-process.on("SIGINT", () => shutdown("SIGINT"));
-process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.once("SIGINT", () => shutdown("SIGINT"));
+process.once("SIGTERM", () => shutdown("SIGTERM"));
 
 httpServer.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on :${PORT}`);
@@ -41,17 +38,24 @@ httpServer.listen(PORT, "0.0.0.0", () => {
 });
 
 function shutdown(signal: string) {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
   console.log(`[${signal}] shutting down...`);
   stopRoomJanitor();
 
-  httpServer.close(() => {
-    console.log("HTTP server closed.");
-    process.exit(0);
-  });
-
-  // safety exit if something hangs
-  setTimeout(() => {
+  const safetyExitForHang = setTimeout(() => {
     console.log("Force exit.");
     process.exit(1);
   }, 5_000).unref();
+
+  io.close(() => {
+    httpServer.close(() => {
+      clearTimeout(safetyExitForHang);
+      console.log("Socket.IO and HTTP server closed.");
+      process.exit(0);
+    });
+  });
 }
+
+let isShuttingDown = false;

@@ -20,7 +20,7 @@ export const PHASE_TIMERS = {
   BUILD_MS: 3_000,
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,
-  RESULTS_MS: 3_000,
+  RESULTS_MS: 4_500,
   DRIFT_MS: 1_000,
 } as const;
 

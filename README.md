@@ -19,6 +19,7 @@ Backend for **Tiers With Friends**, built with **Express** + **socket.io**. Host
 
 ```bash
 npm install
+cp .env.example .env
 npm run dev
 ```
 
@@ -42,4 +43,4 @@ CLEANUP_INTERVAL_MS (default: 3600000) - determines janitor interval for clean u
 
 ## Health Check
 
-GET /health → { ok: true }
+GET /health -> ok
