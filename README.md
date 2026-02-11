@@ -1,4 +1,4 @@
-# Tiers With Friends Server
+# Tiers! With Friends Server
 
 Socket.IO + Express backend for the Tiers With Friends app. Client-side Repo Here: https://github.com/aaronchenghs/TWF-client
 
@@ -12,7 +12,7 @@ This service manages:
 
 ## Table of Contents
 
-- [Tiers With Friends Server](#tiers-with-friends-server)
+- [Tiers! With Friends Server](#tiers-with-friends-server)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
   - [Requirements](#requirements)
