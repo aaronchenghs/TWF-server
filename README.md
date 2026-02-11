@@ -57,7 +57,7 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-Server default URL: `http://localhost:3001`
+Server URL: `http://localhost:<PORT>`
 
 ## Requirements
 
@@ -69,13 +69,15 @@ Server default URL: `http://localhost:3001`
 
 Create `.env` in the repo root.
 
-| Variable                | Default                 | Description                                                                                        |
-| ----------------------- | ----------------------- | -------------------------------------------------------------------------------------------------- |
-| `PORT`                  | `3001`                  | HTTP + Socket.IO port. Server binds to `0.0.0.0`.                                                  |
-| `CLIENT_ORIGIN`         | `http://localhost:5173` | Allowed CORS origin for client requests/websocket handshake.                                       |
-| `ENABLE_DEBUG_CONTROLS` | `false`                 | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
-| `ROOM_TTL_MS`           | `7200000`               | Max inactive room age in ms before janitor removes it (2 hours).                                   |
-| `CLEANUP_INTERVAL_MS`   | `3600000`               | Janitor sweep interval in ms (1 hour).                                                             |
+The source of truth for env defaults is `.env.example`.
+
+| Variable                | Description                                                                                        |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `PORT`                  | HTTP + Socket.IO port. Server binds to `0.0.0.0`.                                                  |
+| `CLIENT_ORIGIN`         | Allowed CORS origin for client requests/websocket handshake.                                       |
+| `ENABLE_DEBUG_CONTROLS` | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
+| `ROOM_TTL_MS`           | Max inactive room age before janitor removes a room.                                               |
+| `CLEANUP_INTERVAL_MS`   | Janitor sweep interval.                                                                            |
 
 Notes:
 
@@ -118,7 +120,7 @@ On startup, server logs:
 Example:
 
 ```bash
-curl http://localhost:3001/health
+curl http://localhost:<PORT>/health
 ```
 
 ## Socket API
@@ -165,8 +167,7 @@ Note:
 
 ## Runtime Constraints
 
-- Room code length is `4` characters.
-- Player name is trimmed and capped at `18` characters.
+- Room and player input constraints are enforced server-side and defined in `@twf/contracts`.
 - `room:join` normalizes room code to uppercase.
 - Rejoining with the same `clientId` restores host/player identity for reconnect flow.
 
@@ -175,7 +176,7 @@ Note:
 ```ts
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3001", {
+const socket = io("http://localhost:<PORT>", {
   withCredentials: true,
 });
 
@@ -202,15 +203,8 @@ Phases:
 
 `LOBBY -> STARTING -> PLACE -> VOTE -> RESULTS -> DRIFT -> RESOLVE -> ... -> FINISHED`
 
-Default phase timers:
-
-| Phase      | Duration |
-| ---------- | -------- |
-| `STARTING` | 3s       |
-| `PLACE`    | 20s      |
-| `VOTE`     | 60s      |
-| `RESULTS`  | 4.5s     |
-| `DRIFT`    | 1s       |
+Phase timings are intentionally not duplicated here.
+Use `src/lib/timing.ts` as the source of truth.
 
 Behavior notes:
 
