@@ -1,8 +1,9 @@
 # Tiers With Friends Server
 
-Socket.IO + Express backend for the Tiers With Friends app.
+Socket.IO + Express backend for the Tiers With Friends app. Client-side Repo Here: https://github.com/aaronchenghs/TWF-client
 
 This service manages:
+
 - Room create/join/close flow
 - Tier set listing and selection
 - Turn-based placement and voting
@@ -11,19 +12,24 @@ This service manages:
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-- [Requirements](#requirements)
-- [Configuration](#configuration)
-- [Scripts](#scripts)
-- [Run Modes](#run-modes)
-- [Health Check](#health-check)
-- [Socket API](#socket-api)
-- [Runtime Constraints](#runtime-constraints)
-- [Game Lifecycle](#game-lifecycle)
-- [Room Lifetime and Cleanup](#room-lifetime-and-cleanup)
-- [Project Structure](#project-structure)
-- [Deployment Notes](#deployment-notes)
-- [Troubleshooting](#troubleshooting)
+- [Tiers With Friends Server](#tiers-with-friends-server)
+  - [Table of Contents](#table-of-contents)
+  - [Quick Start](#quick-start)
+  - [Requirements](#requirements)
+  - [Configuration](#configuration)
+  - [Scripts](#scripts)
+  - [Run Modes](#run-modes)
+  - [Health Check](#health-check)
+  - [Socket API](#socket-api)
+    - [Client -\> Server events](#client---server-events)
+    - [Server -\> Client events](#server---client-events)
+  - [Runtime Constraints](#runtime-constraints)
+    - [Minimal client connection example](#minimal-client-connection-example)
+  - [Game Lifecycle](#game-lifecycle)
+  - [Room Lifetime and Cleanup](#room-lifetime-and-cleanup)
+  - [Project Structure](#project-structure)
+  - [Deployment Notes](#deployment-notes)
+  - [Troubleshooting](#troubleshooting)
 
 ## Quick Start
 
@@ -63,25 +69,26 @@ Server default URL: `http://localhost:3001`
 
 Create `.env` in the repo root.
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `PORT` | `3001` | HTTP + Socket.IO port. Server binds to `0.0.0.0`. |
-| `CLIENT_ORIGIN` | `http://localhost:5173` | Allowed CORS origin for client requests/websocket handshake. |
-| `ENABLE_DEBUG_CONTROLS` | `false` | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
-| `ROOM_TTL_MS` | `7200000` | Max inactive room age in ms before janitor removes it (2 hours). |
-| `CLEANUP_INTERVAL_MS` | `3600000` | Janitor sweep interval in ms (1 hour). |
+| Variable                | Default                 | Description                                                                                        |
+| ----------------------- | ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `PORT`                  | `3001`                  | HTTP + Socket.IO port. Server binds to `0.0.0.0`.                                                  |
+| `CLIENT_ORIGIN`         | `http://localhost:5173` | Allowed CORS origin for client requests/websocket handshake.                                       |
+| `ENABLE_DEBUG_CONTROLS` | `false`                 | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
+| `ROOM_TTL_MS`           | `7200000`               | Max inactive room age in ms before janitor removes it (2 hours).                                   |
+| `CLEANUP_INTERVAL_MS`   | `3600000`               | Janitor sweep interval in ms (1 hour).                                                             |
 
 Notes:
+
 - Numeric env values fall back to defaults if missing/invalid.
 - Empty string env values also fall back to defaults.
 
 ## Scripts
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Run with `tsx watch` (hot reload on file changes). |
-| `npm run build` | Compile TypeScript to `dist/`. |
-| `npm start` | Run compiled server from `dist/index.js`. |
+| Command         | Purpose                                            |
+| --------------- | -------------------------------------------------- |
+| `npm run dev`   | Run with `tsx watch` (hot reload on file changes). |
+| `npm run build` | Compile TypeScript to `dist/`.                     |
+| `npm start`     | Run compiled server from `dist/index.js`.          |
 
 ## Run Modes
 
@@ -99,6 +106,7 @@ npm start
 ```
 
 On startup, server logs:
+
 - `Server listening on :<PORT>`
 - `CLIENT_ORIGIN=<value>`
 
@@ -116,41 +124,43 @@ curl http://localhost:3001/health
 ## Socket API
 
 Authoritative event and payload types come from `@twf/contracts`:
+
 - `node_modules/@twf/contracts/dist/socket.d.ts`
 - `node_modules/@twf/contracts/dist/room.d.ts`
 
 ### Client -> Server events
 
-| Event | Payload |
-| --- | --- |
-| `room:create` | `{ role: "host" \| "player" }` |
-| `room:join` | `{ code, role, name?, clientId }` |
-| `room:setTierSet` | `{ tierSetId }` |
-| `room:bootPlayerFromLobby` | `{ playerId }` |
-| `room:start` | `{ code }` |
-| `room:close` | none |
-| `tierSets:list` | none |
-| `tierSets:get` | `{ id }` |
-| `game:place` | `{ tierId }` |
-| `game:vote` | `{ vote }` where vote is `-1`, `0`, or `1` |
-| `debug:togglePause` | none |
-| `debug:next` | none |
-| `debug:prev` | none |
+| Event                      | Payload                                    |
+| -------------------------- | ------------------------------------------ |
+| `room:create`              | `{ role: "host" \| "player" }`             |
+| `room:join`                | `{ code, role, name?, clientId }`          |
+| `room:setTierSet`          | `{ tierSetId }`                            |
+| `room:bootPlayerFromLobby` | `{ playerId }`                             |
+| `room:start`               | `{ code }`                                 |
+| `room:close`               | none                                       |
+| `tierSets:list`            | none                                       |
+| `tierSets:get`             | `{ id }`                                   |
+| `game:place`               | `{ tierId }`                               |
+| `game:vote`                | `{ vote }` where vote is `-1`, `0`, or `1` |
+| `debug:togglePause`        | none                                       |
+| `debug:next`               | none                                       |
+| `debug:prev`               | none                                       |
 
 ### Server -> Client events
 
-| Event | Payload |
-| --- | --- |
-| `room:created` | `{ code }` |
-| `room:joined` | `{ playerId }` |
-| `room:state` | full `RoomPublicState` |
-| `room:error` | `string` error message |
-| `room:closed` | none |
-| `room:kicked` | none |
-| `tierSets:listed` | `{ tierSets }` |
-| `tierSets:got` | `{ tierSet }` |
+| Event             | Payload                |
+| ----------------- | ---------------------- |
+| `room:created`    | `{ code }`             |
+| `room:joined`     | `{ playerId }`         |
+| `room:state`      | full `RoomPublicState` |
+| `room:error`      | `string` error message |
+| `room:closed`     | none                   |
+| `room:kicked`     | none                   |
+| `tierSets:listed` | `{ tierSets }`         |
+| `tierSets:got`    | `{ tierSet }`          |
 
 Note:
+
 - `room:start` is typed in contracts as `{ code }`, but current server logic starts the game based on the socket's joined room and does not read the payload value.
 
 ## Runtime Constraints
@@ -194,15 +204,16 @@ Phases:
 
 Default phase timers:
 
-| Phase | Duration |
-| --- | --- |
-| `STARTING` | 3s |
-| `PLACE` | 20s |
-| `VOTE` | 60s |
-| `RESULTS` | 4.5s |
-| `DRIFT` | 1s |
+| Phase      | Duration |
+| ---------- | -------- |
+| `STARTING` | 3s       |
+| `PLACE`    | 20s      |
+| `VOTE`     | 60s      |
+| `RESULTS`  | 4.5s     |
+| `DRIFT`    | 1s       |
 
 Behavior notes:
+
 - Host must choose a tier set before `room:start`.
 - If current player does not place before `PLACE` timeout, turn advances and same item continues.
 - Placing player cannot vote on their own item.
@@ -215,6 +226,7 @@ Behavior notes:
 Rooms are stored in memory (no database).
 
 A room can be removed by:
+
 - Host closing room (`room:close`)
 - All sockets disconnecting (room deleted when empty)
 - Janitor TTL expiry (`ROOM_TTL_MS`) on periodic cleanup (`CLEANUP_INTERVAL_MS`)
@@ -248,16 +260,21 @@ src/
 ## Troubleshooting
 
 `npm install` fails for `@twf/contracts`:
+
 - Install Git and retry. The package is pulled from GitHub.
 
 CORS/websocket handshake blocked:
+
 - Ensure `CLIENT_ORIGIN` exactly matches your frontend origin.
 
 Port already in use:
+
 - Change `PORT` in `.env` or stop the process using that port.
 
 Debug controls not working:
+
 - Set `ENABLE_DEBUG_CONTROLS=true` and reconnect as host.
 
 Room disappears unexpectedly:
+
 - Check `ROOM_TTL_MS`, `CLEANUP_INTERVAL_MS`, or empty-room disconnect behavior.
