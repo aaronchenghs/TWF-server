@@ -8,7 +8,7 @@ import { Guid } from "./guid.js";
 import { DebugSnapshot } from "../lib/debug.js";
 
 /**
- * Server‑side representation of a room.  Tracks both public state and internal
+ * Server-side representation of a room. Tracks both public state and internal
  * connection maps to support reattachment of controllers and host after refresh.
  */
 export type Room = {
@@ -35,4 +35,24 @@ export type Room = {
   debugHistory: DebugSnapshot[];
   lastActivityAt: number;
   createdAt: number;
+  rematch: RematchState;
+};
+
+export type DeferredPlayer = {
+  id: Guid;
+  name: string;
+  joinedAt: number;
+  clientId: ClientId;
+  socketIds: Set<string>;
+};
+
+export type RematchState = {
+  /** Players who clicked play again while waiting for host to restart */
+  queuedPlayerIds: Set<Guid>;
+  /** Host has started a new lobby after FINISHED */
+  hostStarted: boolean;
+  /** Players held in finished view until they click play again */
+  deferredByClientId: Map<ClientId, DeferredPlayer>;
+  /** Quick lookup for deferred sockets */
+  deferredClientIdBySocketId: Map<string, ClientId>;
 };

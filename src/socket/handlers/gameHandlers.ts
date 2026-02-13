@@ -31,6 +31,15 @@ export function handleStart(io: IOServer, socket: IOSocket) {
     if (!selectedTierSet)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
+    // Once a new game starts, any deferred rematch players are considered gone.
+    for (const sid of room.rematch.deferredClientIdBySocketId.keys()) {
+      room.clientIdBySocketId.delete(sid);
+    }
+    room.rematch.deferredClientIdBySocketId.clear();
+    room.rematch.deferredByClientId.clear();
+    room.rematch.queuedPlayerIds.clear();
+    room.rematch.hostStarted = false;
+
     touchRoom(room);
     gameStart(room, selectedTierSet, Date.now());
     emitState(io, room.code, room.state);
