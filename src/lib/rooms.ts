@@ -11,6 +11,7 @@ import type { Room } from "../types/types.js";
 import { getErrorMessage, getNameTakenMessage } from "./errors.js";
 import { emitError, IOSocket } from "../socket/emit.js";
 import { NULL_TIMERS, clearRoomTimers } from "./timing.js";
+import { createRandomAvatar } from "./avatar.js";
 
 /**
  * In-memory registry of active rooms.
@@ -188,6 +189,7 @@ export function joinAsPlayer(
     room.state.players.push({
       id: deferred.id,
       name: safeName,
+      avatar: deferred.avatar,
       joinedAt: deferred.joinedAt,
       connected: true,
     });
@@ -220,6 +222,7 @@ export function joinAsPlayer(
   room.state.players.push({
     id: playerId,
     name: safeName,
+    avatar: createRandomAvatar(),
     joinedAt: Date.now(),
     connected: true,
   });

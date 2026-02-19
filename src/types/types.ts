@@ -3,6 +3,7 @@ import {
   RoomPublicState,
   TierItemId,
   ClientId,
+  Avatar,
 } from "@twf/contracts";
 import { Guid } from "./guid.js";
 import { DebugSnapshot } from "../lib/debug.js";
@@ -41,6 +42,7 @@ export type Room = {
 export type DeferredPlayer = {
   id: Guid;
   name: string;
+  avatar: Avatar;
   joinedAt: number;
   clientId: ClientId;
   socketIds: Set<string>;

@@ -183,6 +183,7 @@ async function startRematchLobby(io: IOServer, room: Room) {
     const deferred = room.rematch.deferredByClientId.get(clientId) ?? {
       id: playerId,
       name: player.name,
+      avatar: player.avatar,
       joinedAt: player.joinedAt,
       clientId,
       socketIds: new Set<string>(),
@@ -190,6 +191,7 @@ async function startRematchLobby(io: IOServer, room: Room) {
 
     deferred.id = playerId;
     deferred.name = player.name;
+    deferred.avatar = player.avatar;
     deferred.joinedAt = player.joinedAt;
     room.rematch.deferredByClientId.set(clientId, deferred);
 
@@ -262,6 +264,7 @@ async function rejoinDeferredPlayer(
     room.state.players.push({
       id: deferred.id,
       name: deferred.name,
+      avatar: deferred.avatar,
       joinedAt: deferred.joinedAt,
       connected: true,
     });
