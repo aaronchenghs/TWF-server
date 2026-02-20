@@ -5,6 +5,7 @@
   "description": "Tiers With Friends!",
   "main": "index.js",
   "scripts": {
+    "predev": "npm i",
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js"
@@ -22,7 +23,7 @@
   },
   "homepage": "https://github.com/aaronchenghs/TWF-server#readme",
   "dependencies": {
-    "@twf/contracts": "github:aaronchenghs/TWF-contracts#254e35fae6afdd31dbe343b39872a349d5504a75",
+    "@twf/contracts": "github:aaronchenghs/TWF-contracts#2649fa19333da46c8ce5b27133f29f235c5751d3",
     "bad-words": "^4.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
