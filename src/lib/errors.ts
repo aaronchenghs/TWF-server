@@ -35,7 +35,7 @@ const ERRORS = {
 
 type ErrorsMap = typeof ERRORS;
 
-export type ErrorKey = {
+type ErrorKey = {
   [K in keyof ErrorsMap]: ErrorsMap[K] extends string ? K : never;
 }[keyof ErrorsMap];
 

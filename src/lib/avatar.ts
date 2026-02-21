@@ -11,7 +11,7 @@ function randomPartIndex(count: number): number {
   return Math.floor(Math.random() * count);
 }
 
-export function avatarFromParts(parts: AvatarParts): Avatar {
+function avatarFromParts(parts: AvatarParts): Avatar {
   const encoded = `${parts.body.toString(AVATAR_BASE)}.${parts.mouth.toString(
     AVATAR_BASE,
   )}.${parts.eyes.toString(AVATAR_BASE)}`;

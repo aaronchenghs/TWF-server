@@ -39,7 +39,7 @@ export type Room = {
   rematch: RematchState;
 };
 
-export type DeferredPlayer = {
+type DeferredPlayer = {
   id: Guid;
   name: string;
   avatar: Avatar;
@@ -48,7 +48,7 @@ export type DeferredPlayer = {
   socketIds: Set<string>;
 };
 
-export type RematchState = {
+type RematchState = {
   /** Players who clicked play again while waiting for host to restart */
   queuedPlayerIds: Set<Guid>;
   /** Host has started a new lobby after FINISHED */

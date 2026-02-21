@@ -1,4 +1,4 @@
-export function isPrivateNetworkHostname(hostname: string): boolean {
+function isPrivateNetworkHostname(hostname: string): boolean {
   if (
     hostname === "localhost" ||
     hostname === "127.0.0.1" ||

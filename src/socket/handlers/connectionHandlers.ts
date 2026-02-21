@@ -6,7 +6,22 @@ import {
   deleteRoomIfEmpty,
   deleteRoom,
 } from "../../lib/rooms.js";
+import { beginResults, getEligibleVoterIds } from "../../lib/game.js";
+import { reschedule } from "../../lib/timing.js";
+import { getTierSet } from "../../tierSets/registry.js";
 import { IOServer, IOSocket, emitState } from "../emit.js";
+import type { Room } from "../../types/types.js";
+
+function shouldFinalizeVoteImmediately(room: Room): boolean {
+  if (room.state.phase !== "VOTE") return false;
+
+  const eligibleVoterIds = getEligibleVoterIds(room);
+  const have = eligibleVoterIds.filter(
+    (playerId) => room.state.votes[playerId] !== undefined,
+  ).length;
+
+  return have >= eligibleVoterIds.length;
+}
 
 /**
  * Handles disconnection events.
@@ -48,6 +63,17 @@ export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
       }
 
       detachSocket(room, socket.id);
+
+      if (shouldFinalizeVoteImmediately(room)) {
+        beginResults(room, Date.now());
+
+        const deleted = deleteRoomIfEmpty(room);
+        if (!deleted) {
+          emitState(io, room.code, room.state);
+          reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+        }
+        continue;
+      }
 
       const deleted = deleteRoomIfEmpty(room);
       if (!deleted) emitState(io, room.code, room.state);

@@ -23,13 +23,6 @@ export function readBooleanEnv(name: string, fallback: boolean): boolean {
   return fallback;
 }
 
-export function readStringEnv(name: string, fallback: string): string {
-  const value = process.env[name];
-  if (!value) return fallback;
-  const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : fallback;
-}
-
 export function readNumberEnv(
   name: string,
   fallback: number,

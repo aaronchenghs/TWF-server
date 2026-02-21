@@ -16,7 +16,8 @@ import {
   getNextTurn,
 } from "./game.js";
 
-export const PHASE_TIMERS = {
+/** This object acts as the single source of truth for the length of game phases */
+const PHASE_TIMERS = {
   BUILD_MS: 3_000,
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,

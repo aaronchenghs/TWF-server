@@ -8,7 +8,7 @@ const enwiki = (file: string) =>
 
 /** This file provides tier set definitions for demonstration/testing purposes. */
 
-export const VIDEO_GAMES_TIERSET: TierSetDefinition = {
+const VIDEO_GAMES_TIERSET: TierSetDefinition = {
   id: "video-games-poc",
   title: "Video Games",
   description: "Rank these games.",
@@ -98,7 +98,7 @@ export const VIDEO_GAMES_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const FAST_FOOD_TIERSET: TierSetDefinition = {
+const FAST_FOOD_TIERSET: TierSetDefinition = {
   id: "fast-food-poc",
   title: "Fast Food",
   description: "Rank these chains based on your overall preference.",
@@ -230,7 +230,7 @@ export const FAST_FOOD_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const GYM_LIFTS_TIERSET: TierSetDefinition = {
+const GYM_LIFTS_TIERSET: TierSetDefinition = {
   id: "gym-lifts-poc",
   title: "Gym Lifts",
   description: "Rank these lifts by how much you like doing them.",
@@ -302,7 +302,7 @@ export const GYM_LIFTS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const ANIME_TIERSET: TierSetDefinition = {
+const ANIME_TIERSET: TierSetDefinition = {
   id: "anime-poc",
   title: "Anime",
   description: "Rank these shows.",
@@ -361,7 +361,7 @@ export const ANIME_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const MOVIES_TIERSET: TierSetDefinition = {
+const MOVIES_TIERSET: TierSetDefinition = {
   id: "movies-poc",
   title: "Movies",
   description: "Rank these movies.",
@@ -460,7 +460,7 @@ export const MOVIES_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const FRUITS_TIERSET: TierSetDefinition = {
+const FRUITS_TIERSET: TierSetDefinition = {
   id: "fruits-poc",
   title: "Fruits",
   description: "Rank these fruits.",
@@ -515,7 +515,7 @@ export const FRUITS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const COUNTRIES_TIERSET: TierSetDefinition = {
+const COUNTRIES_TIERSET: TierSetDefinition = {
   id: "countries-poc",
   title: "Countries",
   description: "Rank these places to visit.",
@@ -631,7 +631,7 @@ export const COUNTRIES_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
+const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
   id: "programming-languages-poc",
   title: "Programming Languages",
   description: "Rank these languages.",
@@ -673,7 +673,7 @@ export const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
+const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
   id: "colors-8-tiers-poc",
   title: "Colors",
   description: "Rank these colors.",
@@ -703,7 +703,7 @@ export const COLORS_8_TIERS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
+const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
   id: "planets-9-tiers-poc",
   title: "Planets",
   description: "Rank these space bodies.",
@@ -762,7 +762,7 @@ export const PLANETS_9_TIERS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
+const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
   id: "coffee-3-tiers-poc",
   title: "Coffee",
   description: "Fast tier list for drink choices.",
@@ -806,7 +806,7 @@ export const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
   ],
 };
 
-export const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
+const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
   id: "us-national-parks-25-poc",
   title: "US National Parks (25)",
   description: "Rank these national parks.",

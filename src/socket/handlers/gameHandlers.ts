@@ -2,8 +2,8 @@ import { TierId, VoteValue } from "@twf/contracts";
 import {
   beginResults,
   beginVote,
-  fillMissingVotesAsAgree,
-  gameStart,
+  startGame,
+  getEligibleVoterIds,
   getPlayerId,
   isItemPlaced,
 } from "../../lib/game.js";
@@ -12,6 +12,42 @@ import { reschedule } from "../../lib/timing.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
+import type { Room } from "../../types/types.js";
+
+function getVoteProgress(room: Room): { needed: number; have: number } {
+  const eligibleVoterIds = getEligibleVoterIds(room);
+  const have = eligibleVoterIds.filter(
+    (playerId) => room.state.votes[playerId] !== undefined,
+  ).length;
+
+  return { needed: eligibleVoterIds.length, have };
+}
+
+function pruneDisconnectedLobbyPlayers(room: Room): void {
+  const connectedPlayers = room.state.players.filter(
+    (player) => player.connected !== false,
+  );
+  if (connectedPlayers.length === room.state.players.length) return;
+
+  room.state = { ...room.state, players: connectedPlayers };
+  const connectedPlayerIds = new Set(connectedPlayers.map((p) => p.id));
+
+  for (const [clientId, playerId] of room.controllerByClientId.entries()) {
+    if (connectedPlayerIds.has(playerId)) continue;
+    room.controllerByClientId.delete(clientId);
+  }
+
+  for (const [socketId, playerId] of room.controllerBySocketId.entries()) {
+    if (connectedPlayerIds.has(playerId)) continue;
+    room.controllerBySocketId.delete(socketId);
+    room.clientIdBySocketId.delete(socketId);
+  }
+
+  for (const [playerId] of room.socketIdByControllerId.entries()) {
+    if (connectedPlayerIds.has(playerId)) continue;
+    room.socketIdByControllerId.delete(playerId);
+  }
+}
 
 export function handleStart(io: IOServer, socket: IOSocket) {
   return () => {
@@ -24,12 +60,15 @@ export function handleStart(io: IOServer, socket: IOSocket) {
       return emitError(socket, getErrorMessage("GAME_ALREADY_STARTED"));
     if (!room.state.tierSetId)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_SELECTED"));
-    if (room.state.players.length < 1)
-      return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
 
     const selectedTierSet = getTierSet(room.state.tierSetId);
     if (!selectedTierSet)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
+
+    // Players who are disconnected in LOBBY should not be part of the new game.
+    pruneDisconnectedLobbyPlayers(room);
+    if (room.state.players.length < 1)
+      return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
 
     // Once a new game starts, any deferred rematch players are considered gone.
     for (const sid of room.rematch.deferredClientIdBySocketId.keys()) {
@@ -41,7 +80,7 @@ export function handleStart(io: IOServer, socket: IOSocket) {
     room.rematch.hostStarted = false;
 
     touchRoom(room);
-    gameStart(room, selectedTierSet, Date.now());
+    startGame(room, selectedTierSet, Date.now());
     emitState(io, room.code, room.state);
     reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
   };
@@ -97,14 +136,11 @@ export function handleVote(io: IOServer, socket: IOSocket) {
       votes: { ...room.state.votes, [pid]: vote },
     };
 
-    const needed = Math.max(0, room.state.players.length - 1);
-    const have = Object.keys(room.state.votes).length;
+    const { needed, have } = getVoteProgress(room);
 
     if (have >= needed) {
       touchRoom(room);
-      const now = Date.now();
-      fillMissingVotesAsAgree(room);
-      beginResults(room, now);
+      beginResults(room, Date.now());
       emitState(io, room.code, room.state);
       reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
       return;

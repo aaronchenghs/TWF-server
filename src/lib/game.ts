@@ -1,9 +1,4 @@
-import type {
-  TierId,
-  TierItemId,
-  TierSetDefinition,
-  VoteValue,
-} from "@twf/contracts";
+import type { TierItemId, TierSetDefinition, VoteValue } from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import { NULL_TIMERS, getPhaseTimers } from "./timing.js";
 import { shuffle } from "lodash-es";
@@ -39,13 +34,9 @@ export function getNextTurn(
 }
 
 export function fillMissingVotesAsAgree(room: Room) {
-  const placerId = room.state.currentTurnPlayerId;
-  if (!placerId) return;
-  for (const p of room.state.players) {
-    if (p.id === placerId) continue;
-    if (room.state.votes[p.id] === undefined) {
-      room.state.votes[p.id] = 0 satisfies VoteValue;
-    }
+  for (const voterId of getEligibleVoterIds(room)) {
+    if (room.state.votes[voterId] === undefined)
+      room.state.votes[voterId] = 0 satisfies VoteValue;
   }
 }
 
@@ -65,7 +56,17 @@ export function getPlayerId(room: Room, socket: IOSocket) {
   return room.controllerBySocketId.get(socket.id) ?? null;
 }
 
-export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
+/** Eligible voters are currently active in their game, excluding the current turn player. */
+export function getEligibleVoterIds(room: Room): string[] {
+  const placerId = room.state.currentTurnPlayerId;
+  return room.state.players
+    .filter((player) => player.id !== placerId && player.connected !== false)
+    .map((player) => player.id);
+}
+
+// #region direct socket helpers
+
+export function startGame(room: Room, tierSet: TierSetDefinition, now: number) {
   const playerIds = room.state.players.map((player) => player.id);
   if (playerIds.length < 1) throw new Error(getErrorMessage("NO_PLAYERS"));
 
@@ -93,8 +94,6 @@ export function gameStart(room: Room, tierSet: TierSetDefinition, now: number) {
 
   recordPhaseStart(room);
 }
-
-// #region direct socket helpers
 
 export function beginTurn(room: Room, now: number) {
   const nextItem = popNextUnplacedItem(room);
@@ -160,18 +159,12 @@ export function finalizeTurn(room: Room) {
 }
 
 export function beginResults(room: Room, now: number) {
-  const { currentItem, pendingTierId, currentTurnPlayerId, votes, players } =
-    room.state;
+  const { currentItem, pendingTierId, votes } = room.state;
   if (!currentItem) throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
   if (!pendingTierId) throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
 
-  const placerId = currentTurnPlayerId;
-  const eligibleVoters = players
-    .map((p) => p.id)
-    .filter((id) => id !== placerId);
-  const actualVoters = Object.keys(votes).filter((id) =>
-    eligibleVoters.includes(id),
-  );
+  const eligibleVoters = getEligibleVoterIds(room);
+  const actualVoters = eligibleVoters.filter((id) => votes[id] !== undefined);
   const didNobodyVote = actualVoters.length === 0;
 
   // Policy:
@@ -229,11 +222,10 @@ export function commitDriftResolution(room: Room) {
   if (!toTier) throw new Error(getErrorMessage("INVALID_TIER"));
 
   const nextTiers: typeof room.state.tiers = {};
-  for (const [tierId, arr] of Object.entries(room.state.tiers)) {
+  for (const [tierId, arr] of Object.entries(room.state.tiers))
     nextTiers[tierId as keyof typeof room.state.tiers] = arr.filter(
       (x) => x !== item,
     );
-  }
 
   nextTiers[toTierId] = [...toTier, item];
   room.state = {

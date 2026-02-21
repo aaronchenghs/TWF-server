@@ -4,7 +4,6 @@ import { getErrorMessage } from "../../lib/errors.js";
 import { getTierSet } from "../../tierSets/registry.js";
 import {
   beginTurn,
-  beginPlace,
   beginVote,
   beginResults,
   beginDrift,
