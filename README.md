@@ -75,6 +75,7 @@ The source of truth for env defaults is `.env.example`.
 | ----------------------- | -------------------------------------------------------------------------------------------------- |
 | `PORT`                  | HTTP + Socket.IO port. Server binds to `0.0.0.0`.                                                  |
 | `CLIENT_ORIGINS`        | Comma-separated allowed CORS origins for client requests/websocket handshake.                      |
+| `ALLOW_PRIVATE_NETWORK_ORIGINS` | If `true`, also allows `localhost`, `127.0.0.1`, and RFC1918 LAN origins (for phone testing). |
 | `ENABLE_DEBUG_CONTROLS` | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
 | `ROOM_TTL_MS`           | Max inactive room age before janitor removes a room.                                               |
 | `CLEANUP_INTERVAL_MS`   | Janitor sweep interval.                                                                            |
@@ -84,6 +85,7 @@ Notes:
 - Numeric env values fall back to defaults if missing/invalid.
 - Empty string env values also fall back to defaults.
 - `CLIENT_ORIGINS` defaults to `http://localhost:5173,http://127.0.0.1:5173`.
+- `ALLOW_PRIVATE_NETWORK_ORIGINS` defaults to `true`.
 
 ## Scripts
 
@@ -261,6 +263,7 @@ src/
 CORS/websocket handshake blocked:
 
 - Ensure your frontend origin is included in `CLIENT_ORIGINS`.
+- Or keep `ALLOW_PRIVATE_NETWORK_ORIGINS=true` for LAN phone testing.
 
 Port already in use:
 
