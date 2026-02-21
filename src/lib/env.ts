@@ -3,6 +3,16 @@ type NumberEnvOptions = {
   max?: number;
 };
 
+export function readStringListEnv(name: string): string[] {
+  const value = process.env[name];
+  if (!value) return [];
+
+  return value
+    .split(",")
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0);
+}
+
 export function readStringEnv(name: string, fallback: string): string {
   const value = process.env[name];
   if (!value) return fallback;

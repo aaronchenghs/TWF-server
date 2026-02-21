@@ -74,7 +74,7 @@ The source of truth for env defaults is `.env.example`.
 | Variable                | Description                                                                                        |
 | ----------------------- | -------------------------------------------------------------------------------------------------- |
 | `PORT`                  | HTTP + Socket.IO port. Server binds to `0.0.0.0`.                                                  |
-| `CLIENT_ORIGIN`         | Allowed CORS origin for client requests/websocket handshake.                                       |
+| `CLIENT_ORIGINS`        | Comma-separated allowed CORS origins for client requests/websocket handshake.                      |
 | `ENABLE_DEBUG_CONTROLS` | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
 | `ROOM_TTL_MS`           | Max inactive room age before janitor removes a room.                                               |
 | `CLEANUP_INTERVAL_MS`   | Janitor sweep interval.                                                                            |
@@ -83,6 +83,7 @@ Notes:
 
 - Numeric env values fall back to defaults if missing/invalid.
 - Empty string env values also fall back to defaults.
+- `CLIENT_ORIGINS` defaults to `http://localhost:5173,http://127.0.0.1:5173`.
 
 ## Scripts
 
@@ -110,7 +111,7 @@ npm start
 On startup, server logs:
 
 - `Server listening on :<PORT>`
-- `CLIENT_ORIGIN=<value>`
+- `CLIENT_ORIGINS=<value>`
 
 ## Health Check
 
@@ -246,7 +247,7 @@ src/
 
 ## Deployment Notes
 
-- Set `CLIENT_ORIGIN` to your frontend origin (exact scheme/host/port).
+- Set `CLIENT_ORIGINS` to your frontend origin list (exact scheme/host/port).
 - This server is stateful and in-memory. Horizontal scaling is not safe without shared room state + shared Socket.IO adapter.
 - If running behind a reverse proxy/load balancer, ensure WebSocket upgrade support is enabled.
 - Use process manager/service supervisor (PM2, systemd, container orchestrator) for restart policy.
@@ -259,7 +260,7 @@ src/
 
 CORS/websocket handshake blocked:
 
-- Ensure `CLIENT_ORIGIN` exactly matches your frontend origin.
+- Ensure your frontend origin is included in `CLIENT_ORIGINS`.
 
 Port already in use:
 
