@@ -7,7 +7,9 @@ import {
   TierSetDefinition,
   TierItem,
   TierItemId,
+  MAX_NAME_LENGTH,
 } from "@twf/contracts";
+import { getErrorMessage } from "./errors.js";
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const PROFANITY = new Filter({ placeHolder: "*" });
@@ -25,6 +27,12 @@ export function makeCode(): RoomCode {
 
 export const normalizeCode = (code: string) => code.trim().toUpperCase();
 export const normalizeName = (name: string | undefined) => name?.trim() ?? "";
+
+export function getSafeNameOrThrow(proposedName: string): string {
+  const safeName = proposedName.trim().slice(0, MAX_NAME_LENGTH);
+  if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));
+  return safeName;
+}
 
 export function makeEmptyTiers(
   def: TierSetDefinition,
