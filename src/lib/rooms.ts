@@ -162,8 +162,41 @@ export function joinAsPlayer(
   // =========================
   const deferred = room.rematch.deferredByClientId.get(clientId);
   if (deferred) {
-    if (room.state.phase !== "LOBBY")
-      throw new Error(getErrorMessage("LOBBY_STARTED"));
+    if (room.state.phase !== "LOBBY") {
+      room.rematch.deferredByClientId.delete(clientId);
+
+      room.controllerByClientId.set(clientId, deferred.id);
+      room.controllerBySocketId.set(socketId, deferred.id);
+      room.clientIdBySocketId.set(socketId, clientId);
+      room.socketIdByControllerId.set(deferred.id, socketId);
+
+      if (!room.state.players.some((p) => p.id === deferred.id)) {
+        room.state.players.push({
+          id: deferred.id,
+          name: deferred.name,
+          avatar: deferred.avatar,
+          joinedAt: deferred.joinedAt,
+          connected: true,
+        });
+      } else {
+        const existing = room.state.players.find((p) => p.id === deferred.id);
+        if (existing) existing.connected = true;
+      }
+
+      const isActiveGamePhase = room.state.phase !== "FINISHED";
+      if (
+        isActiveGamePhase &&
+        !room.state.turnOrderPlayerIds.includes(deferred.id)
+      ) {
+        room.state = {
+          ...room.state,
+          turnOrderPlayerIds: [...room.state.turnOrderPlayerIds, deferred.id],
+        };
+      }
+
+      touchRoom(room);
+      return deferred.id;
+    }
 
     const safeName = proposedName.trim().slice(0, MAX_NAME_LENGTH);
     if (!safeName) throw new Error(getErrorMessage("NAME_REQUIRED"));

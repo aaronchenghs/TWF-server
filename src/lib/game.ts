@@ -7,6 +7,7 @@ import { getErrorMessage } from "./errors.js";
 import { computeResolution } from "./computations.js";
 import { recordPhaseStart } from "./debug.js";
 import { buildTierSetMeta } from "./general.js";
+import { normalizeCircularIndex } from "./array.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items ?? [];
@@ -26,9 +27,10 @@ export function getNextTurn(
   const playersLength = ids.length;
   if (playersLength <= 0) return { turnIndex: 0, currentTurnPlayerId: null };
 
-  const rawIndex = room.state.turnIndex + delta;
-  const turnIndex =
-    ((rawIndex % playersLength) + playersLength) % playersLength;
+  const turnIndex = normalizeCircularIndex(
+    room.state.turnIndex + delta,
+    playersLength,
+  );
   const currentTurnPlayerId = ids[turnIndex] ?? null;
   return { turnIndex, currentTurnPlayerId };
 }
