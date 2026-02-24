@@ -56,11 +56,11 @@ export function handleDebugNext(io: IOServer, socket: IOSocket) {
       }
       case "RESULTS": {
         commitDriftResolution(room);
-        beginTurn(room, now);
+        beginTurn(room, now, 1);
         break;
       }
       case "RESOLVE": {
-        beginTurn(room, now);
+        beginTurn(room, now, 1);
         break;
       }
       default:

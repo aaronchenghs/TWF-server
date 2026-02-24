@@ -98,7 +98,7 @@ export function startGame(room: Room, tierSet: TierSetDefinition, now: number) {
   recordPhaseStart(room);
 }
 
-export function beginTurn(room: Room, now: number) {
+export function beginTurn(room: Room, now: number, turnDelta = 0) {
   const nextItem = popNextUnplacedItem(room);
   if (!nextItem) {
     room.state = {
@@ -113,11 +113,12 @@ export function beginTurn(room: Room, now: number) {
     return;
   }
 
-  const { currentTurnPlayerId } = getNextTurn(room, 0);
+  const { turnIndex, currentTurnPlayerId } = getNextTurn(room, turnDelta);
 
   room.state = {
     ...room.state,
     phase: "PLACE",
+    turnIndex,
     currentItem: nextItem,
     pendingTierId: null,
     votes: {},
@@ -139,9 +140,18 @@ export function beginPlace(room: Room, now: number) {
 }
 
 export function beginVote(room: Room, now: number) {
+  const nextVotes = getEligibleVoterIds(room).reduce(
+    (acc, voterId) => {
+      acc[voterId] = 0;
+      return acc;
+    },
+    {} as typeof room.state.votes,
+  );
+
   room.state = {
     ...room.state,
     phase: "VOTE",
+    votes: nextVotes,
     voteConfirmedByPlayerId: {},
     timers: getPhaseTimers("VOTE", now),
   };

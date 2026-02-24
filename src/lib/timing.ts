@@ -19,7 +19,7 @@ const PHASE_TIMERS = {
   BUILD_MS: 3_000,
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,
-  RESULTS_MS: 6_000,
+  RESULTS_MS: 3_000,
 } as const;
 
 export const ONE_HOUR_MS = 1000 * 60 * 60;
@@ -161,7 +161,7 @@ export function reschedule(
           if (room.state.phase !== "RESULTS") return;
           const now2 = Date.now();
           commitDriftResolution(room);
-          beginTurn(room, now2);
+          beginTurn(room, now2, 1);
           emit(room);
           reschedule(room, emit, _getTierSet);
         },
