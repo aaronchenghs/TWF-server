@@ -43,6 +43,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     tiers: {},
     currentItem: null,
     votes: {},
+    voteConfirmedByPlayerId: {},
     lastResolution: null,
     tierOrder: [],
     timers: NULL_TIMERS,

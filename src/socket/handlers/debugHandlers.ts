@@ -42,7 +42,12 @@ export function handleDebugNext(io: IOServer, socket: IOSocket) {
         const randTier = tierIds[Math.floor(Math.random() * tierIds.length)];
         if (!randTier) return;
 
-        room.state = { ...room.state, pendingTierId: randTier, votes: {} };
+        room.state = {
+          ...room.state,
+          pendingTierId: randTier,
+          votes: {},
+          voteConfirmedByPlayerId: {},
+        };
         beginVote(room, now);
         break;
       }

@@ -106,6 +106,7 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
       currentTurnPlayerId: null,
       pendingTierId: null,
       votes: {},
+      voteConfirmedByPlayerId: {},
       lastResolution: null,
     };
 
@@ -229,6 +230,7 @@ async function startRematchLobby(io: IOServer, room: Room) {
     currentItem: null,
     pendingTierId: null,
     votes: {},
+    voteConfirmedByPlayerId: {},
     lastResolution: null,
     timers: NULL_TIMERS,
     tiers: resetTiers,

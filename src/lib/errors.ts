@@ -31,6 +31,7 @@ const ERRORS = {
   TIER_SET_HAS_NO_ITEMS: "Tier set has no items.",
   TIER_SET_NOT_FOUND: "Unknown tier set.",
   TIER_SET_NOT_SELECTED: "Select a tier set first.",
+  VOTE_ALREADY_CONFIRMED: "Vote already confirmed.",
 } as const;
 
 type ErrorsMap = typeof ERRORS;

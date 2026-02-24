@@ -4,10 +4,10 @@ import { NULL_TIMERS, getPhaseTimers } from "./timing.js";
 import { shuffle } from "lodash-es";
 import { IOSocket } from "../socket/emit.js";
 import { getErrorMessage } from "./errors.js";
-import { computeResolution } from "./computations.js";
 import { recordPhaseStart } from "./debug.js";
 import { buildTierSetMeta } from "./general.js";
 import { normalizeCircularIndex } from "./array.js";
+import { computeVoteResolution } from "./voting.js";
 
 function getItemIds(tierSet: TierSetDefinition): TierItemId[] {
   const items = tierSet.items ?? [];
@@ -89,6 +89,7 @@ export function startGame(room: Room, tierSet: TierSetDefinition, now: number) {
     currentTurnPlayerId: null,
     currentItem: null,
     votes: {},
+    voteConfirmedByPlayerId: {},
     timers: {
       ...getPhaseTimers("STARTING", now),
     },
@@ -120,6 +121,7 @@ export function beginTurn(room: Room, now: number) {
     currentItem: nextItem,
     pendingTierId: null,
     votes: {},
+    voteConfirmedByPlayerId: {},
     currentTurnPlayerId,
     timers: getPhaseTimers("PLACE", now),
   };
@@ -140,6 +142,7 @@ export function beginVote(room: Room, now: number) {
   room.state = {
     ...room.state,
     phase: "VOTE",
+    voteConfirmedByPlayerId: {},
     timers: getPhaseTimers("VOTE", now),
   };
   recordPhaseStart(room);
@@ -155,6 +158,7 @@ export function finalizeTurn(room: Room) {
     currentItem: null,
     currentTurnPlayerId: null,
     votes: {},
+    voteConfirmedByPlayerId: {},
     turnIndex,
     timers: NULL_TIMERS,
   };
@@ -166,21 +170,18 @@ export function beginResults(room: Room, now: number) {
   if (!pendingTierId) throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
 
   const eligibleVoters = getEligibleVoterIds(room);
-  const actualVoters = eligibleVoters.filter((id) => votes[id] !== undefined);
-  const didNobodyVote = actualVoters.length === 0;
+  const didNobodyVote = eligibleVoters.every((id) => votes[id] === undefined);
 
-  // Policy:
-  // - If nobody voted, pretend everyone agreed (0).
-  // - If some voted, only those votes count toward drift.
-  const votersToCount = didNobodyVote ? eligibleVoters : actualVoters;
-
+  // Policy: if nobody voted, pretend everyone agreed (0)
   if (didNobodyVote) for (const id of eligibleVoters) votes[id] = 0;
 
-  const { resolution } = computeResolution({
+  const resolution = computeVoteResolution({
     votes,
-    eligibleVoterIds: votersToCount,
+    eligibleVoterIds: eligibleVoters,
     fromTierId: pendingTierId,
     tierOrder: room.state.tierOrder,
+    tiers: room.state.tiers,
+    currentItemId: currentItem,
   });
 
   room.state = {
@@ -220,6 +221,7 @@ export function commitDriftResolution(room: Room) {
   const res = room.state.lastResolution;
   if (!res) throw new Error(getErrorMessage("MISSING_RESOLUTION"));
   const toTierId = res.toTierId;
+  const insertIndex = res.insertIndex;
   const toTier = room.state.tiers[toTierId];
   if (!toTier) throw new Error(getErrorMessage("INVALID_TIER"));
 
@@ -229,7 +231,16 @@ export function commitDriftResolution(room: Room) {
       (x) => x !== item,
     );
 
-  nextTiers[toTierId] = [...toTier, item];
+  const safeInsertIndex = Math.min(
+    Math.max(0, insertIndex),
+    toTier.filter((x) => x !== item).length,
+  );
+  const filteredToTier = toTier.filter((x) => x !== item);
+  nextTiers[toTierId] = [
+    ...filteredToTier.slice(0, safeInsertIndex),
+    item,
+    ...filteredToTier.slice(safeInsertIndex),
+  ];
   room.state = {
     ...room.state,
     tiers: nextTiers,

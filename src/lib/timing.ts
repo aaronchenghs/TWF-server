@@ -121,6 +121,7 @@ export function reschedule(
               currentTurnPlayerId,
               pendingTierId: null,
               votes: {},
+              voteConfirmedByPlayerId: {},
             };
 
             beginPlace(room, now2);

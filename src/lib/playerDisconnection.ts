@@ -7,8 +7,9 @@ export function shouldFinalizeVoteImmediately(room: Room): boolean {
   if (room.state.phase !== "VOTE") return false;
 
   const eligibleVoterIds = getEligibleVoterIds(room);
+  const confirmed = room.state.voteConfirmedByPlayerId ?? {};
   const have = eligibleVoterIds.filter(
-    (playerId) => room.state.votes[playerId] !== undefined,
+    (playerId) => confirmed[playerId],
   ).length;
 
   return have >= eligibleVoterIds.length;
@@ -37,6 +38,8 @@ export function removePlayerFromTurnQueue(
   const nextQueue = currentQueue.filter((id) => id !== playerId);
   const nextVotes = { ...room.state.votes };
   delete nextVotes[playerId];
+  const nextVoteConfirmedByPlayerId = { ...room.state.voteConfirmedByPlayerId };
+  delete nextVoteConfirmedByPlayerId[playerId];
 
   if (nextQueue.length === 0) {
     room.state = {
@@ -48,6 +51,7 @@ export function removePlayerFromTurnQueue(
       currentItem: null,
       pendingTierId: null,
       votes: {},
+      voteConfirmedByPlayerId: {},
       timers: NULL_TIMERS,
     };
     return { changed: true, requiresReschedule: true };
@@ -88,6 +92,9 @@ export function removePlayerFromTurnQueue(
     currentTurnPlayerId: nextCurrentTurnPlayerId,
     pendingTierId: shouldAdvancePlaceTurnNow ? null : room.state.pendingTierId,
     votes: shouldAdvancePlaceTurnNow ? {} : nextVotes,
+    voteConfirmedByPlayerId: shouldAdvancePlaceTurnNow
+      ? {}
+      : nextVoteConfirmedByPlayerId,
   };
 
   if (shouldAdvancePlaceTurnNow) {
@@ -109,11 +116,14 @@ export function removePlayerFromPublicState(
 
   const nextVotes = { ...room.state.votes };
   delete nextVotes[playerId];
+  const nextVoteConfirmedByPlayerId = { ...room.state.voteConfirmedByPlayerId };
+  delete nextVoteConfirmedByPlayerId[playerId];
 
   room.state = {
     ...room.state,
     players: nextPlayers,
     votes: nextVotes,
+    voteConfirmedByPlayerId: nextVoteConfirmedByPlayerId,
   };
   return true;
 }

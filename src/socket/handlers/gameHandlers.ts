@@ -14,13 +14,11 @@ import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import type { Room } from "../../types/types.js";
 
-function getVoteProgress(room: Room): { needed: number; have: number } {
+function allEligibleVotersConfirmed(room: Room): boolean {
   const eligibleVoterIds = getEligibleVoterIds(room);
-  const have = eligibleVoterIds.filter(
-    (playerId) => room.state.votes[playerId] !== undefined,
-  ).length;
-
-  return { needed: eligibleVoterIds.length, have };
+  if (eligibleVoterIds.length === 0) return true;
+  const confirmed = room.state.voteConfirmedByPlayerId ?? {};
+  return eligibleVoterIds.every((playerId) => confirmed[playerId]);
 }
 
 function pruneDisconnectedLobbyPlayers(room: Room): void {
@@ -109,6 +107,7 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
       ...room.state,
       pendingTierId: tierId,
       votes: {},
+      voteConfirmedByPlayerId: {},
     };
 
     touchRoom(room);
@@ -122,7 +121,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
   return ({ vote }: { vote: VoteValue }) => {
     const room = requireRoom(socket);
     if (!room) return;
-    if (vote !== -1 && vote !== 0 && vote !== 1)
+    if (vote !== -2 && vote !== -1 && vote !== 0 && vote !== 1 && vote !== 2)
       return emitError(socket, getErrorMessage("INVALID_VOTE"));
     const pid = getPlayerId(room, socket);
     if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
@@ -130,15 +129,46 @@ export function handleVote(io: IOServer, socket: IOSocket) {
       return emitError(socket, getErrorMessage("INVALID_PHASE"));
     if (room.state.currentTurnPlayerId === pid)
       return emitError(socket, getErrorMessage("PLACER_CANNOT_VOTE"));
+    if (room.state.voteConfirmedByPlayerId?.[pid])
+      return emitError(socket, getErrorMessage("VOTE_ALREADY_CONFIRMED"));
 
     room.state = {
       ...room.state,
       votes: { ...room.state.votes, [pid]: vote },
     };
 
-    const { needed, have } = getVoteProgress(room);
+    touchRoom(room);
+    emitState(io, room.code, room.state);
+  };
+}
 
-    if (have >= needed) {
+export function handleVoteConfirm(io: IOServer, socket: IOSocket) {
+  return () => {
+    const room = requireRoom(socket);
+    if (!room) return;
+    const pid = getPlayerId(room, socket);
+    if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+    if (room.state.phase !== "VOTE")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
+    if (room.state.currentTurnPlayerId === pid)
+      return emitError(socket, getErrorMessage("PLACER_CANNOT_VOTE"));
+
+    // If the player confirms without explicitly voting, treat it as an agree (0).
+    const votesById = room.state.votes as Record<string, VoteValue | undefined>;
+    const existingVote = votesById[pid];
+    const nextVotes = { ...room.state.votes } as typeof room.state.votes;
+    if (existingVote === undefined) nextVotes[pid] = 0 satisfies VoteValue;
+
+    room.state = {
+      ...room.state,
+      votes: nextVotes,
+      voteConfirmedByPlayerId: {
+        ...(room.state.voteConfirmedByPlayerId ?? {}),
+        [pid]: true,
+      },
+    };
+
+    if (allEligibleVotersConfirmed(room)) {
       touchRoom(room);
       beginResults(room, Date.now());
       emitState(io, room.code, room.state);
