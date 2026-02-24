@@ -6,10 +6,8 @@ import {
   beginTurn,
   beginVote,
   beginResults,
-  beginDrift,
   commitDriftResolution,
   fillMissingVotesAsAgree,
-  finalizeTurn,
 } from "../../lib/game.js";
 import { clearRoomTimers, NULL_TIMERS, reschedule } from "../../lib/timing.js";
 import { resetTimersForPhase, restoreToSnapshot } from "../../lib/debug.js";
@@ -57,14 +55,7 @@ export function handleDebugNext(io: IOServer, socket: IOSocket) {
         break;
       }
       case "RESULTS": {
-        beginDrift(room, now);
-        break;
-      }
-      case "DRIFT": {
         commitDriftResolution(room);
-        try {
-          finalizeTurn(room);
-        } catch {}
         beginTurn(room, now);
         break;
       }

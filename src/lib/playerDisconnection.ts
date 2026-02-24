@@ -68,7 +68,7 @@ export function removePlayerFromTurnQueue(
   } else if (removedIndex === normalizedTurnIndex) {
     const wasCurrentTurnPlayer = room.state.currentTurnPlayerId === playerId;
     if (wasCurrentTurnPlayer && room.state.phase !== "PLACE") {
-      // Keep progression stable for finalize->next-turn math during VOTE/RESULTS/DRIFT.
+      // Keep progression stable for next-turn math during VOTE/RESULTS.
       nextTurnIndex = normalizeCircularIndex(
         removedIndex - 1,
         nextQueue.length,

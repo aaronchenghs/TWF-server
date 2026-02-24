@@ -148,22 +148,6 @@ export function beginVote(room: Room, now: number) {
   recordPhaseStart(room);
 }
 
-export function finalizeTurn(room: Room) {
-  if (room.state.phase !== "VOTE" && room.state.phase !== "DRIFT")
-    throw new Error(getErrorMessage("FINALIZE_OUTSIDE_VOTE"));
-  const { turnIndex } = getNextTurn(room, 1);
-  room.state = {
-    ...room.state,
-    phase: "RESOLVE",
-    currentItem: null,
-    currentTurnPlayerId: null,
-    votes: {},
-    voteConfirmedByPlayerId: {},
-    turnIndex,
-    timers: NULL_TIMERS,
-  };
-}
-
 export function beginResults(room: Room, now: number) {
   const { currentItem, pendingTierId, votes } = room.state;
   if (!currentItem) throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
@@ -191,27 +175,6 @@ export function beginResults(room: Room, now: number) {
     timers: getPhaseTimers("RESULTS", now),
   };
 
-  recordPhaseStart(room);
-}
-
-export function beginDrift(room: Room, now: number) {
-  const res = room.state.lastResolution;
-  if (!res) throw new Error(getErrorMessage("MISSING_RESOLUTION"));
-  if (!room.state.currentItem)
-    throw new Error(getErrorMessage("NO_CURRENT_ITEM"));
-  if (!room.state.pendingTierId)
-    throw new Error(getErrorMessage("MISSING_PENDING_TIER"));
-
-  const toTierId = res.toTierId;
-
-  if (!room.state.tiers[toTierId])
-    throw new Error(getErrorMessage("INVALID_TIER"));
-
-  room.state = {
-    ...room.state,
-    phase: "DRIFT",
-    timers: getPhaseTimers("DRIFT", now),
-  };
   recordPhaseStart(room);
 }
 

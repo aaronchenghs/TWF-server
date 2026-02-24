@@ -9,9 +9,7 @@ import {
   beginTurn,
   beginPlace,
   beginVote,
-  finalizeTurn,
   beginResults,
-  beginDrift,
   commitDriftResolution,
   getNextTurn,
 } from "./game.js";
@@ -22,7 +20,6 @@ const PHASE_TIMERS = {
   PLACE_MS: 20_000,
   VOTE_MS: 60_000,
   RESULTS_MS: 6_000,
-  DRIFT_MS: 1_000,
 } as const;
 
 export const ONE_HOUR_MS = 1000 * 60 * 60;
@@ -32,7 +29,6 @@ export const NULL_TIMERS: RoomPublicState["timers"] = {
   placeEndsAt: null,
   voteEndsAt: null,
   resultsEndsAt: null,
-  driftEndsAt: null,
 };
 
 const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
@@ -53,8 +49,6 @@ export function getPhaseTimers(
       return { ...NULL_TIMERS, voteEndsAt: now + PHASE_TIMERS.VOTE_MS };
     case "RESULTS":
       return { ...NULL_TIMERS, resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS };
-    case "DRIFT":
-      return { ...NULL_TIMERS, driftEndsAt: now + PHASE_TIMERS.DRIFT_MS };
     default:
       return NULL_TIMERS;
   }
@@ -166,33 +160,7 @@ export function reschedule(
         () => {
           if (room.state.phase !== "RESULTS") return;
           const now2 = Date.now();
-          beginDrift(room, now2);
-          emit(room);
-          reschedule(room, emit, _getTierSet);
-        },
-        Math.max(0, dueAt - now),
-      ),
-    );
-    return;
-  }
-
-  if (phase === "DRIFT" && timers.driftEndsAt) {
-    const dueAt = timers.driftEndsAt;
-    addTimer(
-      room.code,
-      setTimeout(
-        () => {
-          if (room.state.phase !== "DRIFT") return;
-          const now2 = Date.now();
           commitDriftResolution(room);
-
-          if (room.state.phase === "DRIFT") {
-            try {
-              finalizeTurn(room);
-            } catch {}
-          }
-
-          emit(room);
           beginTurn(room, now2);
           emit(room);
           reschedule(room, emit, _getTierSet);
