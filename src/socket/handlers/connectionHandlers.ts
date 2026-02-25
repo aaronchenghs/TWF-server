@@ -24,7 +24,7 @@ import {
  * Handles disconnection events.
  * - Player quits/close-tab remove that player from room state.
  * - If the current PLACE player leaves, turn advances immediately.
- * - If all LOBBY players leave, the lobby is closed and cleaned up.
+ * - If all active game players leave, the game is ended (FINISHED).
  * - Host disconnect in FINISHED (before rematch start) closes the room for all.
  * - Deferred rematch sockets are cleaned up even though they are not in socket.rooms.
  */
@@ -103,13 +103,6 @@ export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
 
         queueChanged = queueResult.changed || wasRemovedFromPlayers;
         queueNeedsReschedule = queueResult.requiresReschedule;
-
-        if (room.state.phase === "LOBBY" && room.state.players.length === 0) {
-          io.to(room.code).emit("room:closed");
-          io.in(room.code).disconnectSockets(true);
-          deleteRoom(room);
-          continue;
-        }
       }
 
       if (shouldFinalizeVoteImmediately(room)) {
