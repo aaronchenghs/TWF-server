@@ -5,15 +5,46 @@ import type {
 } from "@twf/contracts";
 import { TIERSET_PRESETS } from "./builtIns.js";
 
+const LOBBY_PREVIEW_WIDTH_PX = 120;
+
 const BUILTINS: TierSetDefinition[] = TIERSET_PRESETS;
 const byId = new Map<TierSetId, TierSetDefinition>(
   BUILTINS.map((s) => [s.id, s]),
 );
 
+function toPreviewImageSrc(src?: string): string | undefined {
+  if (!src) return undefined;
+
+  try {
+    const url = new URL(src);
+    const filePathPrefix = "/wiki/Special:FilePath/";
+
+    if (!url.pathname.startsWith(filePathPrefix)) return src;
+
+    const encodedFileName = url.pathname.slice(filePathPrefix.length);
+    if (!encodedFileName) return src;
+
+    url.pathname = "/w/index.php";
+    url.search = new URLSearchParams({
+      title: `Special:Redirect/file/${decodeURIComponent(encodedFileName)}`,
+      width: String(LOBBY_PREVIEW_WIDTH_PX),
+    }).toString();
+
+    return url.toString();
+  } catch {
+    return src;
+  }
+}
+
 export function listTierSets(): TierSetSummary[] {
-  return BUILTINS.map((s) => ({
-    ...s,
-  }));
+  return BUILTINS.map((s) => {
+    const firstItem = s.items[0];
+    return {
+      ...s,
+      firstItemName: firstItem?.name,
+      firstItemImageSrc: toPreviewImageSrc(firstItem?.imageSrc),
+    } as TierSetSummary;
+  });
 }
 
 export function getTierSet(id: TierSetId): TierSetDefinition | undefined {

@@ -21,32 +21,6 @@ function allEligibleVotersConfirmed(room: Room): boolean {
   return eligibleVoterIds.every((playerId) => confirmed[playerId]);
 }
 
-function pruneDisconnectedLobbyPlayers(room: Room): void {
-  const connectedPlayers = room.state.players.filter(
-    (player) => player.connected !== false,
-  );
-  if (connectedPlayers.length === room.state.players.length) return;
-
-  room.state = { ...room.state, players: connectedPlayers };
-  const connectedPlayerIds = new Set(connectedPlayers.map((p) => p.id));
-
-  for (const [clientId, playerId] of room.controllerByClientId.entries()) {
-    if (connectedPlayerIds.has(playerId)) continue;
-    room.controllerByClientId.delete(clientId);
-  }
-
-  for (const [socketId, playerId] of room.controllerBySocketId.entries()) {
-    if (connectedPlayerIds.has(playerId)) continue;
-    room.controllerBySocketId.delete(socketId);
-    room.clientIdBySocketId.delete(socketId);
-  }
-
-  for (const [playerId] of room.socketIdByControllerId.entries()) {
-    if (connectedPlayerIds.has(playerId)) continue;
-    room.socketIdByControllerId.delete(playerId);
-  }
-}
-
 export function handleStart(io: IOServer, socket: IOSocket) {
   return () => {
     const room = requireRoom(socket);
@@ -63,8 +37,6 @@ export function handleStart(io: IOServer, socket: IOSocket) {
     if (!selectedTierSet)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
 
-    // Players who are disconnected in LOBBY should not be part of the new game.
-    pruneDisconnectedLobbyPlayers(room);
     if (room.state.players.length < 1)
       return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
 
