@@ -11,11 +11,11 @@ import {
   joinAsHost,
   joinAsPlayer,
   requireRoom,
-  deleteRoom,
   touchRoom,
   detachSocket,
   findRoomBySocket,
   getClientIdForPlayer,
+  closeRoomAndDisconnect,
 } from "../../lib/rooms.js";
 import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
@@ -335,21 +335,6 @@ export function handleCloseRoom(io: IOServer, socket: IOSocket) {
     if (!room) return;
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
-
-    const deferredSocketIds = [
-      ...room.rematch.deferredClientIdBySocketId.keys(),
-    ];
-
-    io.to(room.code).emit("room:closed");
-    io.in(room.code).disconnectSockets(true);
-
-    for (const sid of deferredSocketIds) {
-      const deferredSocket = io.sockets.sockets.get(sid);
-      if (!deferredSocket) continue;
-      deferredSocket.emit("room:closed");
-      deferredSocket.disconnect(true);
-    }
-
-    deleteRoom(room);
+    closeRoomAndDisconnect(io, room);
   };
 }

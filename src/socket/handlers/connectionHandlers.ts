@@ -4,8 +4,8 @@ import {
   detachSocket,
   removeDeferredSocket,
   deleteRoomIfEmpty,
-  deleteRoom,
   getClientIdForPlayer,
+  closeRoomAndDisconnect,
 } from "../../lib/rooms.js";
 import { beginResults } from "../../lib/game.js";
 import { reschedule } from "../../lib/timing.js";
@@ -44,22 +44,7 @@ export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
         room.state.phase === "FINISHED" &&
         !room.rematch.hostStarted
       ) {
-        const deferredSocketIds = [
-          ...room.rematch.deferredClientIdBySocketId.keys(),
-        ];
-
-        io.to(room.code).emit("room:closed");
-        io.in(room.code).disconnectSockets(true);
-
-        for (const sid of deferredSocketIds) {
-          if (sid === socket.id) continue;
-          const deferredSocket = io.sockets.sockets.get(sid);
-          if (!deferredSocket) continue;
-          deferredSocket.emit("room:closed");
-          deferredSocket.disconnect(true);
-        }
-
-        deleteRoom(room);
+        closeRoomAndDisconnect(io, room, socket.id);
         continue;
       }
 

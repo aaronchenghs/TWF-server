@@ -9,7 +9,7 @@ import { getSafeNameOrThrow, makeCode, normalizeName } from "./general.js";
 import { Guid, newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
 import { getErrorMessage, getNameTakenMessage } from "./errors.js";
-import { emitError, IOSocket } from "../socket/emit.js";
+import { emitError, type IOServer, type IOSocket } from "../socket/emit.js";
 import { NULL_TIMERS, clearRoomTimers } from "./timing.js";
 import { createRandomAvatar } from "./avatar.js";
 
@@ -233,6 +233,42 @@ export function deleteRoomIfEmpty(room: Room): boolean {
 export function deleteRoom(room: Room): void {
   clearRoomTimers(room.code);
   rooms.delete(room.code);
+}
+
+export function closeRoomAndDisconnect(
+  io: IOServer,
+  room: Room,
+  excludingSocketId?: string,
+): void {
+  const activeSocketIds = [
+    ...(io.sockets.adapter.rooms.get(room.code) ?? new Set<string>()),
+  ];
+  const deferredSocketIds = [...room.rematch.deferredClientIdBySocketId.keys()];
+
+  // Remove the room from the registry first so disconnect handlers do not
+  // attempt to close it again while these socket disconnects cascade.
+  deleteRoom(room);
+
+  io.to(room.code).emit("room:closed");
+
+  for (const socketId of activeSocketIds) {
+    if (socketId === excludingSocketId) continue;
+
+    const targetSocket = io.sockets.sockets.get(socketId);
+    if (!targetSocket) continue;
+
+    targetSocket.disconnect(true);
+  }
+
+  for (const socketId of deferredSocketIds) {
+    if (socketId === excludingSocketId) continue;
+
+    const deferredSocket = io.sockets.sockets.get(socketId);
+    if (!deferredSocket) continue;
+
+    deferredSocket.emit("room:closed");
+    deferredSocket.disconnect(true);
+  }
 }
 
 export function getAllRooms(): IterableIterator<Room> {
