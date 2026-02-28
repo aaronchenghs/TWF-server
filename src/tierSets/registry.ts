@@ -5,9 +5,10 @@ import type {
 } from "@twf/contracts";
 import { TIERSET_PRESETS } from "./builtIns.js";
 
+type TierSetRecord = TierSetDefinition & { coverImageSrc?: string };
 const LOBBY_PREVIEW_WIDTH_PX = 120;
 
-const BUILTINS: TierSetDefinition[] = TIERSET_PRESETS;
+const BUILTINS: TierSetRecord[] = TIERSET_PRESETS as TierSetRecord[];
 const byId = new Map<TierSetId, TierSetDefinition>(
   BUILTINS.map((s) => [s.id, s]),
 );
@@ -41,6 +42,8 @@ export function listTierSets(): TierSetSummary[] {
     const firstItem = s.items[0];
     return {
       ...s,
+      ...(s.coverImageSrc ? { coverImageSrc: s.coverImageSrc } : {}),
+      itemCount: s.items.length,
       firstItemName: firstItem?.name,
       firstItemImageSrc: toPreviewImageSrc(firstItem?.imageSrc),
     } as TierSetSummary;
