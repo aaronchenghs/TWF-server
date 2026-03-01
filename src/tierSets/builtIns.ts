@@ -358,6 +358,18 @@ const ANIME_TIERSET: TierSetDefinition = {
       imageSrc:
         "https://upload.wikimedia.org/wikipedia/en/a/a9/Cowboy_Bebop_key_visual.jpg",
     },
+    {
+      id: "dragon-ball",
+      name: "Dragon Ball",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/en/2/24/Weekly_Sh%C5%8Dnen_Jump_No._51_%28Dec._1984%29_is_the_first_appearance_of_Goku._Cover_art_by_Akira_Toriyama.jpg",
+    },
+    {
+      id: "bleach",
+      name: "Bleach",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/en/7/72/Bleachanime.png",
+    },
   ],
 };
 
@@ -438,9 +450,7 @@ const MOVIES_TIERSET: TierSetDefinition = {
     {
       id: "the-lord-of-the-rings-return-of-the-king",
       name: "The Lord of the Rings: The Return of the King",
-      imageSrc: enwiki(
-        "https://upload.wikimedia.org/wikipedia/en/4/48/Lord_Rings_Return_King.jpg",
-      ),
+      imageSrc: enwiki("Lord_Rings_Return_King.jpg"),
     },
     {
       id: "gladiator",
@@ -511,6 +521,16 @@ const FRUITS_TIERSET: TierSetDefinition = {
       name: "Grapes",
       imageSrc:
         "https://upload.wikimedia.org/wikipedia/commons/5/5e/Wine_grapes03.jpg",
+    },
+    {
+      id: "pear",
+      name: "Pear",
+      imageSrc: commons("Pears.jpg"),
+    },
+    {
+      id: "kiwi",
+      name: "Kiwi",
+      imageSrc: commons("Kiwi.jpg"),
     },
   ],
 };
@@ -670,6 +690,8 @@ const PROGRAMMING_LANGUAGES_TIERSET: TierSetDefinition = {
       imageSrc: commons("Rust_programming_language_black_logo.svg"),
     },
     { id: "kotlin", name: "Kotlin", imageSrc: commons("Kotlin_Icon.png") },
+    { id: "php", name: "PHP", imageSrc: commons("Ruby_logo.svg") },
+    { id: "ruby", name: "Ruby", imageSrc: commons("PHP-logo.svg") },
   ],
 };
 
@@ -803,12 +825,30 @@ const COFFEE_3_TIERS_TIERSET: TierSetDefinition = {
       imageSrc: commons("Mocaccino-Coffee.jpg"),
     },
     { id: "tea", name: "Tea", imageSrc: commons("Black_tea.jpg") },
+    {
+      id: "macchiato",
+      name: "Macchiato",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/f/fc/Macchiato_%287199366530%29.jpg",
+    },
+    {
+      id: "flat-white",
+      name: "Flat White",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Flat_white_coffee_with_pretty_feather_pattern.jpg",
+    },
+    {
+      id: "iced-latte",
+      name: "Iced Latte",
+      imageSrc:
+        "https://upload.wikimedia.org/wikipedia/commons/7/78/Glass_of_Coffee_Latte_with_Pastry_%282%29.jpg",
+    },
   ],
 };
 
 const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
   id: "us-national-parks-25-poc",
-  title: "US National Parks (25)",
+  title: "US National Parks",
   description: "Rank these national parks.",
   tiers: [
     { id: "S", name: "S", color: "#E53935" },
@@ -854,9 +894,7 @@ const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "glacier",
       name: "Glacier",
-      imageSrc: commons(
-        "https://upload.wikimedia.org/wikipedia/commons/5/51/Mountain_Goat_at_Hidden_Lake.jpg",
-      ),
+      imageSrc: commons("Mountain_Goat_at_Hidden_Lake.jpg"),
     },
     {
       id: "olympic",
@@ -889,9 +927,7 @@ const US_NATIONAL_PARKS_25_TIERSET: TierSetDefinition = {
     {
       id: "great-smoky-mountains",
       name: "Great Smoky Mountains",
-      imageSrc: commons(
-        "https://upload.wikimedia.org/wikipedia/commons/3/3a/Clifftops4-7-07.jpg",
-      ),
+      imageSrc: commons("Clifftops4-7-07.jpg"),
     },
     {
       id: "shenandoah",
