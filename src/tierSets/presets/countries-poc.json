@@ -1,0 +1,169 @@
+{
+  "id": "countries-poc",
+  "title": "Countries",
+  "description": "Rank these places to visit.",
+  "tiers": [
+    {
+      "id": "MUST",
+      "name": "Must Visit",
+      "color": "#E53935"
+    },
+    {
+      "id": "SOON",
+      "name": "Soon",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "SOMEDAY",
+      "name": "Someday",
+      "color": "#FDD835"
+    },
+    {
+      "id": "NO",
+      "name": "No",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "japan",
+      "name": "Japan",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Japan.svg"
+    },
+    {
+      "id": "france",
+      "name": "France",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_France.svg"
+    },
+    {
+      "id": "italy",
+      "name": "Italy",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Italy.svg"
+    },
+    {
+      "id": "brazil",
+      "name": "Brazil",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Brazil.svg"
+    },
+    {
+      "id": "taiwan",
+      "name": "Taiwan",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Republic_of_China.svg"
+    },
+    {
+      "id": "mexico",
+      "name": "Mexico",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Mexico.svg"
+    },
+    {
+      "id": "canada",
+      "name": "Canada",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Canada.svg"
+    },
+    {
+      "id": "south-korea",
+      "name": "South Korea",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_South_Korea.svg"
+    },
+    {
+      "id": "united-states",
+      "name": "United States",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_United_States.svg"
+    },
+    {
+      "id": "united-kingdom",
+      "name": "United Kingdom",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_United_Kingdom.svg"
+    },
+    {
+      "id": "spain",
+      "name": "Spain",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Spain.svg"
+    },
+    {
+      "id": "germany",
+      "name": "Germany",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Germany.svg"
+    },
+    {
+      "id": "portugal",
+      "name": "Portugal",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Portugal.svg"
+    },
+    {
+      "id": "netherlands",
+      "name": "Netherlands",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Netherlands.svg"
+    },
+    {
+      "id": "switzerland",
+      "name": "Switzerland",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Switzerland.svg"
+    },
+    {
+      "id": "sweden",
+      "name": "Sweden",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Sweden.svg"
+    },
+    {
+      "id": "norway",
+      "name": "Norway",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Norway.svg"
+    },
+    {
+      "id": "finland",
+      "name": "Finland",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Finland.svg"
+    },
+    {
+      "id": "australia",
+      "name": "Australia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Australia.svg"
+    },
+    {
+      "id": "new-zealand",
+      "name": "New Zealand",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_New_Zealand.svg"
+    },
+    {
+      "id": "india",
+      "name": "India",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_India.svg"
+    },
+    {
+      "id": "china",
+      "name": "China",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_People's_Republic_of_China.svg"
+    },
+    {
+      "id": "thailand",
+      "name": "Thailand",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Thailand.svg"
+    },
+    {
+      "id": "vietnam",
+      "name": "Vietnam",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Vietnam.svg"
+    },
+    {
+      "id": "indonesia",
+      "name": "Indonesia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Indonesia.svg"
+    },
+    {
+      "id": "philippines",
+      "name": "Philippines",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_the_Philippines.svg"
+    },
+    {
+      "id": "south-africa",
+      "name": "South Africa",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_South_Africa.svg"
+    },
+    {
+      "id": "argentina",
+      "name": "Argentina",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Argentina.svg"
+    }
+  ]
+}

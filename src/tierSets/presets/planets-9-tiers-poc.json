@@ -1,0 +1,114 @@
+{
+  "id": "planets-9-tiers-poc",
+  "title": "Planets",
+  "description": "Rank these space bodies.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    },
+    {
+      "id": "E",
+      "name": "E",
+      "color": "#3949AB"
+    },
+    {
+      "id": "F",
+      "name": "F",
+      "color": "#8E24AA"
+    },
+    {
+      "id": "G",
+      "name": "G",
+      "color": "#546E7A"
+    },
+    {
+      "id": "H",
+      "name": "H",
+      "color": "#6D4C41"
+    }
+  ],
+  "items": [
+    {
+      "id": "mercury",
+      "name": "Mercury",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Mercury_in_true_color.jpg"
+    },
+    {
+      "id": "venus",
+      "name": "Venus",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Venus-real_color.jpg"
+    },
+    {
+      "id": "earth",
+      "name": "Earth",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/The_Earth_seen_from_Apollo_17.jpg"
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/OSIRIS_Mars_true_color.jpg"
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter.jpg"
+    },
+    {
+      "id": "saturn",
+      "name": "Saturn",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Saturn_during_Equinox.jpg"
+    },
+    {
+      "id": "uranus",
+      "name": "Uranus",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Uranus2.jpg"
+    },
+    {
+      "id": "neptune",
+      "name": "Neptune",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Neptune_Full.jpg"
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Nh-pluto-in-true-color_2x_JPEG-edit-frame.jpg"
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/FullMoon2010.jpg"
+    },
+    {
+      "id": "ceres",
+      "name": "Ceres",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Ceres_-_RC3_-_Haulani_Crater_(22381131691).jpg"
+    },
+    {
+      "id": "io",
+      "name": "Io",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Io_highest_resolution_true_color.jpg"
+    }
+  ]
+}

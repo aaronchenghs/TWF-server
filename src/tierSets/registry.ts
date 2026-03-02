@@ -8,7 +8,7 @@ import { TIERSET_PRESETS } from "./builtIns.js";
 type TierSetRecord = TierSetDefinition & { coverImageSrc?: string };
 const LOBBY_PREVIEW_WIDTH_PX = 120;
 
-const BUILTINS: TierSetRecord[] = TIERSET_PRESETS as TierSetRecord[];
+const BUILTINS: TierSetRecord[] = TIERSET_PRESETS;
 const byId = new Map<TierSetId, TierSetDefinition>(
   BUILTINS.map((s) => [s.id, s]),
 );

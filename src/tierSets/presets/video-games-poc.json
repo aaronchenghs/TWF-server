@@ -1,0 +1,109 @@
+{
+  "id": "video-games-poc",
+  "title": "Video Games",
+  "description": "Rank these games.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "minecraft",
+      "name": "Minecraft",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Minecraft_2024_cover_art.png"
+    },
+    {
+      "id": "skyrim",
+      "name": "Skyrim",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Elder_Scrolls_V_Skyrim_cover.png"
+    },
+    {
+      "id": "zelda-botw",
+      "name": "Zelda: BOTW",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Legend_of_Zelda_Breath_of_the_Wild.jpg"
+    },
+    {
+      "id": "gta-v",
+      "name": "GTA V",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Grand_Theft_Auto_V.png"
+    },
+    {
+      "id": "fortnite",
+      "name": "Fortnite",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Fortnite.png"
+    },
+    {
+      "id": "pac-man",
+      "name": "Pac-Man",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Original_PacMan.svg"
+    },
+    {
+      "id": "tetris",
+      "name": "Tetris",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Tetris_logo.png"
+    },
+    {
+      "id": "super-mario-64",
+      "name": "Super Mario 64",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Mario_64_logo.png"
+    },
+    {
+      "id": "elden-ring",
+      "name": "Elden Ring",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Elden_Ring_Box_art.jpg"
+    },
+    {
+      "id": "red-dead-redemption-2",
+      "name": "Red Dead Redemption 2",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Red_Dead_Redemption_II.jpg"
+    },
+    {
+      "id": "portal-2",
+      "name": "Portal 2",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Portal_2_Official_Logo.png"
+    },
+    {
+      "id": "witcher-3",
+      "name": "The Witcher 3: Wild Hunt",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Witcher_3_cover_art.jpg"
+    },
+    {
+      "id": "halo-combat-evolved",
+      "name": "Halo: Combat Evolved",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Halo%20-%20Combat%20Evolved%20(XBox%20version%20-%20box%20art).jpg"
+    },
+    {
+      "id": "smash-ultimate",
+      "name": "Super Smash Bros. Ultimate",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Smash_Bros._Ultimate_logo.svg"
+    },
+    {
+      "id": "super-mario-odyssey",
+      "name": "Super Mario Odyssey",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Mario_logo.svg"
+    }
+  ]
+}

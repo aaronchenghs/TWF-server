@@ -1,0 +1,159 @@
+{
+  "id": "us-national-parks-25-poc",
+  "title": "US National Parks",
+  "description": "Rank these national parks.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "yosemite",
+      "name": "Yosemite",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Half_Dome_with_Eastern_Yosemite_Valley_%2850MP%29.jpg"
+    },
+    {
+      "id": "grand-canyon",
+      "name": "Grand Canyon",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Canyon_view_from_Pima_Point_2010.jpg"
+    },
+    {
+      "id": "yellowstone",
+      "name": "Yellowstone",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Morning_Glory_Pool.jpg"
+    },
+    {
+      "id": "zion",
+      "name": "Zion",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Zion_angels_landing_view.jpg"
+    },
+    {
+      "id": "bryce-canyon",
+      "name": "Bryce Canyon",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canyon_Amphitheater.jpg"
+    },
+    {
+      "id": "arches",
+      "name": "Arches",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Delicatearch1.jpg"
+    },
+    {
+      "id": "rocky-mountain",
+      "name": "Rocky Mountain",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Rocky_Mountain_National_Park_in_September_2011_-_Glacier_Gorge_from_Bear_Lake.JPG"
+    },
+    {
+      "id": "glacier",
+      "name": "Glacier",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Mountain_Goat_at_Hidden_Lake.jpg"
+    },
+    {
+      "id": "olympic",
+      "name": "Olympic",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Cedar_Creek_Abbey_Island_Ruby_Beach.jpg"
+    },
+    {
+      "id": "rainier",
+      "name": "Mount Rainier",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Mount_Rainier_from_west.jpg"
+    },
+    {
+      "id": "grand-teton",
+      "name": "Grand Teton",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/6/60/Grand_Teton_GTNP1.jpg"
+    },
+    {
+      "id": "acadia",
+      "name": "Acadia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Bass_Harbor_Head_Light_Station_2016.jpg"
+    },
+    {
+      "id": "everglades",
+      "name": "Everglades",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Everglades_Pa-Hay-Oke_Swamp.jpg"
+    },
+    {
+      "id": "great-smoky-mountains",
+      "name": "Great Smoky Mountains",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Clifftops4-7-07.jpg"
+    },
+    {
+      "id": "shenandoah",
+      "name": "Shenandoah",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/1/10/Skyline_Drive_in_the_Fall_%2821852619608%29.jpg"
+    },
+    {
+      "id": "death-valley",
+      "name": "Death Valley",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Mesquite_Sand_Dunes_in_Death_Valley.jpg"
+    },
+    {
+      "id": "joshua-tree",
+      "name": "Joshua Tree",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Joshua_Tree_01.jpg"
+    },
+    {
+      "id": "sequoia",
+      "name": "Sequoia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/General_Sherman_Tree.jpg"
+    },
+    {
+      "id": "kings-canyon",
+      "name": "Kings Canyon",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/3/3a/KingsCanyonNP.JPG"
+    },
+    {
+      "id": "redwood",
+      "name": "Redwood",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/d/de/Redwood_National_Park%2C_fog_in_the_forest.jpg"
+    },
+    {
+      "id": "canyonlands",
+      "name": "Canyonlands",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/9/99/Green_River_Overlook_Ekker_Butte.jpg"
+    },
+    {
+      "id": "capitol-reef",
+      "name": "Capitol Reef",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Capitol_Reef_National_Park.jpg"
+    },
+    {
+      "id": "great-sand-dunes",
+      "name": "Great Sand Dunes",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Sand_Dunes_National_Park_and_Preserve.jpg"
+    },
+    {
+      "id": "badlands",
+      "name": "Badlands",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MK00609_Badlands.jpg"
+    },
+    {
+      "id": "denali",
+      "name": "Denali",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Denali_Mt_McKinley.jpg"
+    }
+  ]
+}

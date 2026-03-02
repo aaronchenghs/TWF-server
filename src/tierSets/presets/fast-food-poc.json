@@ -1,0 +1,154 @@
+{
+  "id": "fast-food-poc",
+  "title": "Fast Food",
+  "description": "Rank these chains based on your overall preference.",
+  "tiers": [
+    {
+      "id": "GOAT",
+      "name": "GOAT",
+      "color": "#E53935"
+    },
+    {
+      "id": "SOLID",
+      "name": "Solid",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "MID",
+      "name": "Mid",
+      "color": "#FDD835"
+    },
+    {
+      "id": "TRASH",
+      "name": "Trash",
+      "color": "#43A047"
+    },
+    {
+      "id": "NOPE",
+      "name": "Nope",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "chickfila",
+      "name": "Chick-fil-A",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Chick-fil-A_Logo.svg"
+    },
+    {
+      "id": "mcdonalds",
+      "name": "McDonald's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/McDonald's_Golden_Arches.svg"
+    },
+    {
+      "id": "wendys",
+      "name": "Wendy's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Wendy's_logo_2012.svg"
+    },
+    {
+      "id": "tacobell",
+      "name": "Taco Bell",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/b7/Taco_Bell_2023.svg"
+    },
+    {
+      "id": "popeyes",
+      "name": "Popeyes",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Popeyes_Logo_2020.svg"
+    },
+    {
+      "id": "burger-king",
+      "name": "Burger King",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Burger_King_2020.svg"
+    },
+    {
+      "id": "kfc",
+      "name": "KFC",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/KFC_Logo.svg"
+    },
+    {
+      "id": "subway",
+      "name": "Subway",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Subway_2016_logo.svg"
+    },
+    {
+      "id": "dominos",
+      "name": "Domino's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Domino's_pizza_logo.svg"
+    },
+    {
+      "id": "arbys",
+      "name": "Arby's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Arby's_logo.svg"
+    },
+    {
+      "id": "dunkin",
+      "name": "Dunkin'",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/1/14/Dunkin%27_2022.svg"
+    },
+    {
+      "id": "five-guys",
+      "name": "Five Guys",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Five_Guys_logo.svg"
+    },
+    {
+      "id": "hardees",
+      "name": "Hardee's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Hardee_brand_logo.svg"
+    },
+    {
+      "id": "jimmy-johns",
+      "name": "Jimmy John's",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/7/7b/Jimmy_John%27s_%28logo%29.svg"
+    },
+    {
+      "id": "jersey-mikes",
+      "name": "Jersey Mike's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Jersey_Mike's_logo.svg"
+    },
+    {
+      "id": "little-caesars",
+      "name": "Little Caesars",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Little_Caesars_logo.png"
+    },
+    {
+      "id": "panda-express",
+      "name": "Panda Express",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/id/8/85/Panda_Express_logo.svg"
+    },
+    {
+      "id": "panera",
+      "name": "Panera Bread",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/de/e/ea/Panera_Bread_Logo.svg"
+    },
+    {
+      "id": "papajohns",
+      "name": "Papa Johns",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Papa_Johns_logo.svg"
+    },
+    {
+      "id": "pizza-hut",
+      "name": "Pizza Hut",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pizza_Hut_2025.svg"
+    },
+    {
+      "id": "sonic",
+      "name": "Sonic Drive-In",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/SONIC_New_Logo_2020.svg"
+    },
+    {
+      "id": "starbucks",
+      "name": "Starbucks",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Corporation_Logo_2011.svg"
+    },
+    {
+      "id": "whataburger",
+      "name": "Whataburger",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Whataburger_logo.svg"
+    },
+    {
+      "id": "chipotle",
+      "name": "Chipotle",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/de/f/f8/Chipotle-Mexican-Grill-Logo.svg"
+    }
+  ]
+}

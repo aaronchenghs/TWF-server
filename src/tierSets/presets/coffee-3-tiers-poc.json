@@ -1,0 +1,74 @@
+{
+  "id": "coffee-3-tiers-poc",
+  "title": "Coffee",
+  "description": "Fast tier list for drink choices.",
+  "tiers": [
+    {
+      "id": "LOVE",
+      "name": "Love",
+      "color": "#E53935"
+    },
+    {
+      "id": "OK",
+      "name": "Ok",
+      "color": "#FDD835"
+    },
+    {
+      "id": "NO",
+      "name": "No",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "espresso",
+      "name": "Espresso",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/A_small_cup_of_coffee.JPG"
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Caff%C3%A8_Latte_at_Pulse_Cafe.jpg"
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Cappuccino_at_Sightglass_Coffee.jpg"
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Caff%C3%A8_Americano.JPG"
+    },
+    {
+      "id": "cold-brew",
+      "name": "Cold Brew",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Iced_coffee_in_glass.jpg"
+    },
+    {
+      "id": "mocha",
+      "name": "Mocha",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Mocaccino-Coffee.jpg"
+    },
+    {
+      "id": "tea",
+      "name": "Tea",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Black_tea.jpg"
+    },
+    {
+      "id": "macchiato",
+      "name": "Macchiato",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Macchiato_%287199366530%29.jpg"
+    },
+    {
+      "id": "flat-white",
+      "name": "Flat White",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Flat_white_coffee_with_pretty_feather_pattern.jpg"
+    },
+    {
+      "id": "iced-latte",
+      "name": "Iced Latte",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/7/78/Glass_of_Coffee_Latte_with_Pastry_%282%29.jpg"
+    }
+  ]
+}

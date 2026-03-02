@@ -1,0 +1,79 @@
+{
+  "id": "programming-languages-poc",
+  "title": "Programming Languages",
+  "description": "Rank these languages.",
+  "tiers": [
+    {
+      "id": "GOAT",
+      "name": "GOAT",
+      "color": "#E53935"
+    },
+    {
+      "id": "SOLID",
+      "name": "Solid",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "MID",
+      "name": "Mid",
+      "color": "#FDD835"
+    },
+    {
+      "id": "NAH",
+      "name": "Nah",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Typescript.svg"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/JavaScript-logo.png"
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Python-logo-notext.svg"
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_C_sharp.svg"
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Java_programming_language_logo.svg"
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Go_Logo_Blue.svg"
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Rust_programming_language_black_logo.svg"
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Kotlin_Icon.png"
+    },
+    {
+      "id": "php",
+      "name": "PHP",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruby_logo.svg"
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/PHP-logo.svg"
+    }
+  ]
+}

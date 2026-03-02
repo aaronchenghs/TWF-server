@@ -1,0 +1,119 @@
+{
+  "id": "movies-poc",
+  "title": "Movies",
+  "description": "Rank these movies.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    },
+    {
+      "id": "F",
+      "name": "F",
+      "color": "#8E24AA"
+    }
+  ],
+  "items": [
+    {
+      "id": "the-godfather",
+      "name": "The Godfather",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Godfather_ver1.jpg"
+    },
+    {
+      "id": "pulp-fiction",
+      "name": "Pulp Fiction",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg"
+    },
+    {
+      "id": "the-dark-knight",
+      "name": "The Dark Knight",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Dark_Knight.jpg"
+    },
+    {
+      "id": "inception",
+      "name": "Inception",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Inception_ver3.jpg"
+    },
+    {
+      "id": "interstellar",
+      "name": "Interstellar",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Interstellar_film_poster.jpg"
+    },
+    {
+      "id": "spirited-away",
+      "name": "Spirited Away",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Spirited_Away_Japanese_poster.png"
+    },
+    {
+      "id": "parasite",
+      "name": "Parasite",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Parasite_(2019_film).png"
+    },
+    {
+      "id": "the-matrix",
+      "name": "The Matrix",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/db/The_Matrix.png"
+    },
+    {
+      "id": "fight-club",
+      "name": "Fight Club",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Fight_Club_poster.jpg"
+    },
+    {
+      "id": "forrest-gump",
+      "name": "Forrest Gump",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Forrest_Gump_poster.jpg"
+    },
+    {
+      "id": "the-shawshank-redemption",
+      "name": "The Shawshank Redemption",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/ShawshankRedemptionMoviePoster.jpg"
+    },
+    {
+      "id": "goodfellas",
+      "name": "Goodfellas",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Goodfellas.jpg"
+    },
+    {
+      "id": "the-lord-of-the-rings-return-of-the-king",
+      "name": "The Lord of the Rings: The Return of the King",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Lord_Rings_Return_King.jpg"
+    },
+    {
+      "id": "gladiator",
+      "name": "Gladiator",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Gladiator_(2000_film_poster).png"
+    },
+    {
+      "id": "whiplash",
+      "name": "Whiplash",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Whiplash_poster.jpg"
+    },
+    {
+      "id": "the-social-network",
+      "name": "The Social Network",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Social_Network_film_poster.png"
+    }
+  ]
+}

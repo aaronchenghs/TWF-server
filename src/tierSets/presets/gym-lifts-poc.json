@@ -1,0 +1,84 @@
+{
+  "id": "gym-lifts-poc",
+  "title": "Gym Lifts",
+  "description": "Rank these lifts by how much you like doing them.",
+  "tiers": [
+    {
+      "id": "LOVE",
+      "name": "Love It",
+      "color": "#E53935"
+    },
+    {
+      "id": "LIKE",
+      "name": "Like It",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "EH",
+      "name": "Meh",
+      "color": "#FDD835"
+    },
+    {
+      "id": "HATE",
+      "name": "Hate It",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "bench",
+      "name": "Bench Press",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Bench-press-2.png"
+    },
+    {
+      "id": "squat",
+      "name": "Back Squat",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Woman_doing_squat_workout_in_gym_with_barbell%2C_back_view.jpg"
+    },
+    {
+      "id": "deadlift",
+      "name": "Deadlift",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Dead-lifts-2-2.png"
+    },
+    {
+      "id": "ohp",
+      "name": "Overhead Press",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Dumbbell-shoulder-press-1.png"
+    },
+    {
+      "id": "pullups",
+      "name": "Pull-Ups",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/6/67/Marine_Pull-ups.jpg"
+    },
+    {
+      "id": "rdl",
+      "name": "Romanian Deadlift",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Romanian-deadlift-1.png"
+    },
+    {
+      "id": "row",
+      "name": "Bent-Over Row",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Barbell_row.jpg"
+    },
+    {
+      "id": "lunges",
+      "name": "Lunges",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Lunges-2.png"
+    },
+    {
+      "id": "bicep-curl",
+      "name": "Bicep Curl",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Biceps-curl-1.png"
+    },
+    {
+      "id": "tricep-dip",
+      "name": "Tricep Dip",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Bench-dips-1.png"
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg Press",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Leg-press-1-1024x670.png"
+    }
+  ]
+}

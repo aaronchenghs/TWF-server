@@ -1,0 +1,84 @@
+{
+  "id": "anime-poc",
+  "title": "Anime",
+  "description": "Rank these shows.",
+  "tiers": [
+    {
+      "id": "PEAK",
+      "name": "Peak",
+      "color": "#E53935"
+    },
+    {
+      "id": "GREAT",
+      "name": "Great",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "GOOD",
+      "name": "Good",
+      "color": "#FDD835"
+    },
+    {
+      "id": "OK",
+      "name": "Ok",
+      "color": "#43A047"
+    },
+    {
+      "id": "PASS",
+      "name": "Pass",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "attack-on-titan",
+      "name": "Attack on Titan",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_manga_volume_1.jpg"
+    },
+    {
+      "id": "one-piece",
+      "name": "One Piece",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/One_Piece%2C_Volume_1.jpg"
+    },
+    {
+      "id": "naruto",
+      "name": "Naruto",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/NarutoCoverTankobon1.jpg"
+    },
+    {
+      "id": "death-note",
+      "name": "Death Note",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Death_Note_Vol_1.jpg"
+    },
+    {
+      "id": "fullmetal-alchemist-brotherhood",
+      "name": "FMAB",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Fullmetal_Alchemist_Brotherhood_logo.svg"
+    },
+    {
+      "id": "demon-slayer",
+      "name": "Demon Slayer",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg"
+    },
+    {
+      "id": "jujutsu-kaisen",
+      "name": "Jujutsu Kaisen",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Jujutsu_kaisen.jpg"
+    },
+    {
+      "id": "cowboy-bebop",
+      "name": "Cowboy Bebop",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/a/a9/Cowboy_Bebop_key_visual.jpg"
+    },
+    {
+      "id": "dragon-ball",
+      "name": "Dragon Ball",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/2/24/Weekly_Sh%C5%8Dnen_Jump_No._51_%28Dec._1984%29_is_the_first_appearance_of_Goku._Cover_art_by_Akira_Toriyama.jpg"
+    },
+    {
+      "id": "bleach",
+      "name": "Bleach",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/7/72/Bleachanime.png"
+    }
+  ]
+}
