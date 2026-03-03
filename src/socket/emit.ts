@@ -4,16 +4,15 @@ import type {
   RoomPublicState,
   ServerToClientEvents,
 } from "@twf/contracts";
+import type { Room } from "../types/types.js";
+import { scheduleRoomPersist } from "../lib/roomStore.js";
 
 export type IOServer = Server<ClientToServerEvents, ServerToClientEvents>;
 export type IOSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
 
-export const emitState = (
-  io: IOServer,
-  code: string,
-  state: RoomPublicState
-) => {
-  io.to(code).emit("room:state", state);
+export const emitRoomState = (io: IOServer, room: Room) => {
+  scheduleRoomPersist(room);
+  io.to(room.code).emit("room:state", room.state);
 };
 
 export const emitError = (socket: IOSocket, message: string) => {

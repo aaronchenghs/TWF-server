@@ -10,7 +10,7 @@ import {
 import { requireRoom, touchRoom } from "../../lib/rooms.js";
 import { reschedule } from "../../lib/timing.js";
 import { getTierSet } from "../../tierSets/registry.js";
-import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
+import { emitError, emitRoomState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import type { Room } from "../../types/types.js";
 
@@ -49,10 +49,10 @@ export function handleStart(io: IOServer, socket: IOSocket) {
     room.rematch.queuedPlayerIds.clear();
     room.rematch.hostStarted = false;
 
-    touchRoom(room);
     startGame(room, selectedTierSet, Date.now());
-    emitState(io, room.code, room.state);
-    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+    touchRoom(room);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
   };
 }
 
@@ -82,10 +82,10 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
       voteConfirmedByPlayerId: {},
     };
 
-    touchRoom(room);
     beginVote(room, Date.now());
-    emitState(io, room.code, room.state);
-    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+    touchRoom(room);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
   };
 }
 
@@ -110,7 +110,7 @@ export function handleVote(io: IOServer, socket: IOSocket) {
     };
 
     touchRoom(room);
-    emitState(io, room.code, room.state);
+    emitRoomState(io, room);
   };
 }
 
@@ -141,14 +141,14 @@ export function handleVoteConfirm(io: IOServer, socket: IOSocket) {
     };
 
     if (allEligibleVotersConfirmed(room)) {
-      touchRoom(room);
       beginResults(room, Date.now());
-      emitState(io, room.code, room.state);
-      reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+      touchRoom(room);
+      emitRoomState(io, room);
+      reschedule(room, (r) => emitRoomState(io, r), getTierSet);
       return;
     }
 
     touchRoom(room);
-    emitState(io, room.code, room.state);
+    emitRoomState(io, room);
   };
 }
