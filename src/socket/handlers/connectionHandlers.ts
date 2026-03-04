@@ -10,7 +10,7 @@ import {
 import { beginResults } from "../../lib/game.js";
 import { reschedule } from "../../lib/timing.js";
 import { getTierSet } from "../../tierSets/registry.js";
-import { IOServer, IOSocket, emitState } from "../emit.js";
+import { IOServer, IOSocket, emitRoomState } from "../emit.js";
 import type { Guid } from "../../types/guid.js";
 import {
   removePlayerFromTurnQueue,
@@ -95,18 +95,17 @@ export function handleDisconnectFromRoom(io: IOServer, socket: IOSocket) {
 
         const deleted = deleteRoomIfEmpty(room);
         if (!deleted) {
-          emitState(io, room.code, room.state);
-          reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+          emitRoomState(io, room);
+          reschedule(room, (r) => emitRoomState(io, r), getTierSet);
         }
         continue;
       }
 
       const deleted = deleteRoomIfEmpty(room);
       if (!deleted) {
-        emitState(io, room.code, room.state);
-        if (queueChanged && queueNeedsReschedule) {
-          reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
-        }
+        emitRoomState(io, room);
+        if (queueChanged && queueNeedsReschedule)
+          reschedule(room, (r) => emitRoomState(io, r), getTierSet);
       }
     }
 

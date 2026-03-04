@@ -12,6 +12,7 @@ import { getErrorMessage, getNameTakenMessage } from "./errors.js";
 import { emitError, type IOServer, type IOSocket } from "../socket/emit.js";
 import { NULL_TIMERS, clearRoomTimers } from "./timing.js";
 import { createRandomAvatar } from "./avatar.js";
+import { scheduleRoomDelete, scheduleRoomPersist } from "./roomStore.js";
 
 /**
  * In-memory registry of active rooms.
@@ -76,6 +77,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
 
   if (initialRole === "host") room.displayConnectionIds.add(creatorSocketId);
   rooms.set(code, room);
+  scheduleRoomPersist(room);
   return room;
 }
 
@@ -186,6 +188,7 @@ export function removeDeferredSocket(room: Room, socketId: string): void {
   if (deferred) deferred.socketIds.delete(socketId);
 
   touchRoom(room);
+  scheduleRoomPersist(room);
 }
 
 export function getClientIdForPlayer(
@@ -233,6 +236,7 @@ export function deleteRoomIfEmpty(room: Room): boolean {
 export function deleteRoom(room: Room): void {
   clearRoomTimers(room.code);
   rooms.delete(room.code);
+  scheduleRoomDelete(room.code);
 }
 
 export function closeRoomAndDisconnect(
@@ -273,6 +277,14 @@ export function closeRoomAndDisconnect(
 
 export function getAllRooms(): IterableIterator<Room> {
   return rooms.values();
+}
+
+export function restoreRooms(restoredRooms: readonly Room[]): void {
+  rooms.clear();
+
+  for (const room of restoredRooms) {
+    rooms.set(room.code, room);
+  }
 }
 
 /**

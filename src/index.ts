@@ -1,3 +1,4 @@
+import "dotenv/config";
 import http from "node:http";
 import express from "express";
 import { Server } from "socket.io";
@@ -6,10 +7,18 @@ import type {
   ServerToClientEvents,
 } from "@twf/contracts";
 import { registerSocketHandlers } from "./socket/index.js";
-import "dotenv/config";
+import { emitRoomState } from "./socket/emit.js";
 import { runRoomJanitor, stopRoomJanitor } from "./lib/roomCleanup.js";
 import { readBooleanEnv, readNumberEnv, readStringListEnv } from "./lib/env.js";
 import { isPrivateNetworkOrigin } from "./lib/network.js";
+import { getTierSet } from "./tierSets/registry.js";
+import { restoreRooms } from "./lib/rooms.js";
+import {
+  initializeRoomStore,
+  loadHydratedRooms,
+  shutdownRoomStore,
+} from "./lib/roomStore.js";
+import { reschedule } from "./lib/timing.js";
 
 const DEFAULT_CLIENT_ORIGINS = [
   "http://localhost:5173",
@@ -56,9 +65,6 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(httpServer, {
   },
 });
 
-registerSocketHandlers(io);
-runRoomJanitor();
-
 // Helps with newer browser Private Network Access preflight flows.
 io.engine.on("initial_headers", (headers) => {
   headers["Access-Control-Allow-Private-Network"] = "true";
@@ -69,14 +75,6 @@ io.engine.on("headers", (headers) => {
 
 process.once("SIGINT", () => shutdown("SIGINT"));
 process.once("SIGTERM", () => shutdown("SIGTERM"));
-
-httpServer.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server listening on :${PORT}`);
-  console.log(`CLIENT_ORIGINS=${CLIENT_ORIGINS.join(",")}`);
-  console.log(
-    `ALLOW_PRIVATE_NETWORK_ORIGINS=${String(ALLOW_PRIVATE_NETWORK_ORIGINS)}`,
-  );
-});
 
 function shutdown(signal: string) {
   if (isShuttingDown) return;
@@ -92,11 +90,46 @@ function shutdown(signal: string) {
 
   io.close(() => {
     httpServer.close(() => {
-      clearTimeout(safetyExitForHang);
-      console.log("Socket.IO and HTTP server closed.");
-      process.exit(0);
+      void shutdownRoomStore()
+        .catch((error) => {
+          console.error("Failed to close Redis client.", error);
+        })
+        .finally(() => {
+          clearTimeout(safetyExitForHang);
+          console.log("Socket.IO and HTTP server closed.");
+          process.exit(0);
+        });
     });
   });
 }
 
 let isShuttingDown = false;
+
+void bootstrap();
+
+async function bootstrap() {
+  try {
+    await initializeRoomStore();
+
+    const restored = await loadHydratedRooms();
+    restoreRooms(restored);
+    registerSocketHandlers(io);
+    runRoomJanitor();
+
+    for (const room of restored) {
+      reschedule(room, (nextRoom) => emitRoomState(io, nextRoom), getTierSet);
+    }
+
+    httpServer.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server listening on :${PORT}`);
+      console.log(`CLIENT_ORIGINS=${CLIENT_ORIGINS.join(",")}`);
+      console.log(
+        `ALLOW_PRIVATE_NETWORK_ORIGINS=${String(ALLOW_PRIVATE_NETWORK_ORIGINS)}`,
+      );
+      console.log(`RESTORED_ROOMS=${restored.length}`);
+    });
+  } catch (error) {
+    console.error("Startup failed.", error);
+    process.exit(1);
+  }
+}

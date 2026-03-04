@@ -17,7 +17,8 @@ import {
   getClientIdForPlayer,
   closeRoomAndDisconnect,
 } from "../../lib/rooms.js";
-import { emitError, emitState, IOServer, IOSocket } from "../emit.js";
+import { scheduleRoomPersist } from "../../lib/roomStore.js";
+import { emitError, emitRoomState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import { Guid } from "../../types/guid.js";
 import { NULL_TIMERS, clearRoomTimers } from "../../lib/timing.js";
@@ -32,7 +33,7 @@ export function handleCreate(io: IOServer, socket: IOSocket) {
     await socket.join(room.code);
     socket.emit("room:created", { code: room.code });
     socket.emit("room:state", room.state);
-    emitState(io, room.code, room.state);
+    emitRoomState(io, room);
   };
 }
 
@@ -67,7 +68,7 @@ export function handleJoin(io: IOServer, socket: IOSocket) {
       await socket.join(room.code);
       socket.emit("room:state", room.state);
       touchRoom(room);
-      emitState(io, room.code, room.state);
+      emitRoomState(io, room);
     } catch (e) {
       emitError(
         socket,
@@ -111,7 +112,7 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
     };
 
     touchRoom(room);
-    emitState(io, room.code, room.state);
+    emitRoomState(io, room);
   };
 }
 
@@ -154,7 +155,7 @@ export function handleBootPlayerFromLobby(io: IOServer, socket: IOSocket) {
     }
 
     touchRoom(room);
-    emitState(io, room.code, room.state);
+    emitRoomState(io, room);
   };
 }
 
@@ -237,7 +238,7 @@ async function startRematchLobby(io: IOServer, room: Room) {
   };
 
   touchRoom(room);
-  emitState(io, room.code, room.state);
+  emitRoomState(io, room);
 }
 
 async function rejoinDeferredPlayer(
@@ -276,7 +277,7 @@ async function rejoinDeferredPlayer(
   socket.emit("room:joined", { playerId: deferred.id });
 
   touchRoom(room);
-  emitState(io, room.code, room.state);
+  emitRoomState(io, room);
 }
 
 /**
@@ -305,6 +306,7 @@ export function handlePlayAgain(io: IOServer, socket: IOSocket) {
       if (room.state.phase === "FINISHED" && !room.rematch.hostStarted) {
         room.rematch.queuedPlayerIds.add(activePlayerId);
         touchRoom(room);
+        scheduleRoomPersist(room);
         socket.emit("room:playAgainQueued");
         return;
       }

@@ -3,6 +3,18 @@ type NumberEnvOptions = {
   max?: number;
 };
 
+/**
+ * Reads a string environment variable and trims it.
+ * Falls back when the variable is missing or resolves to an empty string.
+ */
+export function readStringEnv(name: string, fallback = ""): string {
+  const value = process.env[name];
+  if (value === undefined) return fallback;
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : fallback;
+}
+
 export function readStringListEnv(name: string): string[] {
   const value = process.env[name];
   if (!value) return [];

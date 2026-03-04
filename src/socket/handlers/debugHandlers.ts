@@ -1,4 +1,4 @@
-import { IOServer, IOSocket, emitError, emitState } from "../emit.js";
+import { IOServer, IOSocket, emitError, emitRoomState } from "../emit.js";
 import { requireRoom } from "../../lib/rooms.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import { getTierSet } from "../../tierSets/registry.js";
@@ -67,8 +67,8 @@ export function handleDebugNext(io: IOServer, socket: IOSocket) {
         return;
     }
 
-    emitState(io, room.code, room.state);
-    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
   };
 }
 
@@ -87,8 +87,8 @@ export function handleDebugPrev(io: IOServer, socket: IOSocket) {
     const now = Date.now();
     restoreToSnapshot(room, room.debugHistory.length - 2, now);
 
-    emitState(io, room.code, room.state);
-    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
   };
 }
 
@@ -124,7 +124,7 @@ export function handleDebugTogglePause(io: IOServer, socket: IOSocket) {
       };
     }
 
-    emitState(io, room.code, room.state);
-    reschedule(room, (r) => emitState(io, r.code, r.state), getTierSet);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
   };
 }
