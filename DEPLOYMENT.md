@@ -68,9 +68,19 @@ docker tag twf-server:local "${ECR_URI}:latest"
 docker push "${ECR_URI}:latest"
 ```
 
+The ECS service currently references the `:latest` tag in [`ecs-task-definition.json`](./ecs-task-definition.json).
+
+That means a code-only backend change is not deployed until you push a freshly built image to ECR under the tag the service already uses.
+
 ## Deploy A Code-Only Backend Update
 
-If the image changed but the task configuration did not:
+For a code-only change, the full deploy flow is:
+
+1. Build the image locally
+2. Push the new image to ECR
+3. Force ECS to start a new deployment
+
+If the task configuration did not change, run:
 
 ```powershell
 aws ecs update-service `
@@ -80,7 +90,31 @@ aws ecs update-service `
   --region us-east-1
 ```
 
-This forces ECS to start a fresh task using the latest image tag already referenced by the current task definition.
+`aws ecs update-service --force-new-deployment` by itself only restarts the service.
+It does not deploy your local source code unless a new image has already been pushed to ECR.
+
+In the current setup, the correct code-only deploy sequence is:
+
+```powershell
+docker build -t twf-server:local .
+
+$AWS_REGION = "us-east-1"
+$AWS_ACCOUNT_ID = "010928227897"
+$ECR_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/twf-server"
+
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+
+docker tag twf-server:local "${ECR_URI}:latest"
+docker push "${ECR_URI}:latest"
+
+aws ecs update-service `
+  --cluster twf-cluster `
+  --service twf-server-service `
+  --force-new-deployment `
+  --region us-east-1
+```
+
+If switching to an immutable image tags later, push the new tag and update the ECS task definition to reference that exact tag.
 
 ## Deploy A Backend Update That Changes Environment Variables Or Task Settings
 
@@ -106,6 +140,8 @@ aws ecs update-service `
 ```
 
 If you want to pin a specific revision explicitly, use `--task-definition twf-server:<revision>`.
+
+Before registering a new revision, review the values in [`ecs-task-definition.json`](./ecs-task-definition.json) carefully and make sure they match production.
 
 ## Verify A Backend Deployment
 
