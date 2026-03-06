@@ -23,7 +23,7 @@
         },
         {
           "name": "CLIENT_ORIGINS",
-          "value": "http://localhost:5173"
+          "value": "https://www.tierswithfriends.com"
         },
         {
           "name": "ALLOW_PRIVATE_NETWORK_ORIGINS",
