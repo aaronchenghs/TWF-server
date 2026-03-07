@@ -79,6 +79,56 @@
       "id": "bleach",
       "name": "Bleach",
       "imageSrc": "https://upload.wikimedia.org/wikipedia/en/7/72/Bleachanime.png"
+    },
+    {
+      "id": "my-hero-academia",
+      "name": "My Hero Academia",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/5/5a/Boku_no_Hero_Academia_Volume_1.png"
+    },
+    {
+      "id": "spy-x-family",
+      "name": "Spy x Family",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/5/51/Spy_Family_vol_1.jpg"
+    },
+    {
+      "id": "steins-gate",
+      "name": "Steins;Gate",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/e/e4/Steins%3BGate_cover_art.jpg"
+    },
+    {
+      "id": "neon-genesis-evangelion",
+      "name": "Neon Genesis Evangelion",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/7/72/Evangelion_retouched.png"
+    },
+    {
+      "id": "code-geass",
+      "name": "Code Geass",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/7/74/Code_Geass_R1_box_set_cover.jpg"
+    },
+    {
+      "id": "chainsaw-man",
+      "name": "Chainsaw Man",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/2/24/Chainsawman.jpg"
+    },
+    {
+      "id": "mob-psycho-100",
+      "name": "Mob Psycho 100",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/4/4b/Mob_Psycho_100_manga_vol_1.jpg"
+    },
+    {
+      "id": "vinland-saga",
+      "name": "Vinland Saga",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/5/51/Vinland_Saga_volume_01_cover.jpg"
+    },
+    {
+      "id": "sailor-moon",
+      "name": "Sailor Moon",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg"
+    },
+    {
+      "id": "your-name",
+      "name": "Your Name",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/0b/Your_Name_poster.png"
     }
   ]
 }

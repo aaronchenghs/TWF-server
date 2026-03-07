@@ -79,6 +79,51 @@
       "id": "leg-press",
       "name": "Leg Press",
       "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Leg-press-1-1024x670.png"
+    },
+    {
+      "id": "incline-bench-press",
+      "name": "Incline Bench Press",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Bench_press_1.jpg"
+    },
+    {
+      "id": "front-squat",
+      "name": "Front Squat",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/8/82/Squats.svg"
+    },
+    {
+      "id": "hip-thrust",
+      "name": "Hip Thrust",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/3/34/Glute-bridge.png"
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat Pulldown",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/f8/PulldownMachineExercise.JPG"
+    },
+    {
+      "id": "cable-row",
+      "name": "Cable Row",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Cable-seated-rows-1.png"
+    },
+    {
+      "id": "calf-raise",
+      "name": "Calf Raise",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/DumbbellStandingCalfRaise.JPG"
+    },
+    {
+      "id": "face-pull",
+      "name": "Face Pull",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Cable-upright-rows-1.png"
+    },
+    {
+      "id": "leg-curl",
+      "name": "Leg Curl",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/c/c6/LyingLegCurlMachineExercise.JPG"
+    },
+    {
+      "id": "leg-extension",
+      "name": "Leg Extension",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/3/36/LegExtensionMachineExercise.JPG"
     }
   ]
 }

@@ -68,12 +68,62 @@
     {
       "id": "php",
       "name": "PHP",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruby_logo.svg"
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/PHP-logo.svg"
     },
     {
       "id": "ruby",
       "name": "Ruby",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/PHP-logo.svg"
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruby_logo.svg"
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Swift%20logo.svg"
+    },
+    {
+      "id": "cplusplus",
+      "name": "C++",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/ISO_C%2B%2B_Logo.svg"
+    },
+    {
+      "id": "c",
+      "name": "C",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/The_C_Programming_Language_logo.svg"
+    },
+    {
+      "id": "scala",
+      "name": "Scala",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Scala-full-color.svg"
+    },
+    {
+      "id": "elixir",
+      "name": "Elixir",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Elixir_programming_language_logo.svg"
+    },
+    {
+      "id": "clojure",
+      "name": "Clojure",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Clojure_logo.svg"
+    },
+    {
+      "id": "dart",
+      "name": "Dart",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Dart%20programming%20language%20logo.svg"
+    },
+    {
+      "id": "lua",
+      "name": "Lua",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Lua-Logo.svg"
+    },
+    {
+      "id": "haskell",
+      "name": "Haskell",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20of%20the%20Haskell%20programming%20language.svg"
+    },
+    {
+      "id": "zig",
+      "name": "Zig",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Zig_logo_2020.svg"
     }
   ]
 }

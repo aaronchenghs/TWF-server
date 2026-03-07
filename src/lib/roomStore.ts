@@ -10,6 +10,7 @@ import {
 } from "./roomRedisCodec.js";
 
 const DEFAULT_KEY_PREFIX = "twf:";
+const pendingRoomStoreOps = new Set<Promise<void>>();
 
 function getRedisKeyPrefix(): string {
   return (
@@ -45,6 +46,23 @@ async function persistSerializedRoom(snapshot: PersistedRoom): Promise<void> {
   await client.sAdd(getRoomIndexKey(), snapshot.code);
 }
 
+async function deletePersistedRoom(code: RoomCode): Promise<void> {
+  const client = await connectRedis();
+  if (!client) return;
+
+  await Promise.all([
+    client.del(getRoomKey(code)),
+    client.sRem(getRoomIndexKey(), code),
+  ]);
+}
+
+function trackRoomStoreOp(op: Promise<void>): void {
+  pendingRoomStoreOps.add(op);
+  void op.finally(() => {
+    pendingRoomStoreOps.delete(op);
+  });
+}
+
 /**
  * Returns whether room snapshots should be written to Redis in this process.
  * This is intentionally a lightweight runtime check around Redis configuration.
@@ -65,6 +83,8 @@ export async function initializeRoomStore(): Promise<void> {
  * Closes the Redis-backed persistence layer during server shutdown.
  */
 export async function shutdownRoomStore(): Promise<void> {
+  if (pendingRoomStoreOps.size > 0)
+    await Promise.allSettled([...pendingRoomStoreOps]);
   await closeRedis();
 }
 
@@ -113,9 +133,11 @@ export function scheduleRoomPersist(room: Room): void {
   if (!isRoomPersistenceEnabled()) return;
 
   const snapshot = serializeRoom(room);
-  void persistSerializedRoom(snapshot).catch((error) => {
+  const op = persistSerializedRoom(snapshot).catch((error) => {
     logRoomStoreError(`Failed to persist room ${room.code}.`, error);
   });
+
+  trackRoomStoreOp(op);
 }
 
 /**
@@ -124,15 +146,9 @@ export function scheduleRoomPersist(room: Room): void {
 export function scheduleRoomDelete(code: RoomCode): void {
   if (!isRoomPersistenceEnabled()) return;
 
-  void (async () => {
-    const client = await connectRedis();
-    if (!client) return;
-
-    await Promise.all([
-      client.del(getRoomKey(code)),
-      client.sRem(getRoomIndexKey(), code),
-    ]);
-  })().catch((error) => {
+  const op = deletePersistedRoom(code).catch((error) => {
     logRoomStoreError(`Failed to delete persisted room ${code}.`, error);
   });
+
+  trackRoomStoreOp(op);
 }

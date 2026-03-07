@@ -5,18 +5,14 @@ export type BuiltInTierSet = TierSetDefinition & { coverImageSrc?: string };
 
 const PRESETS_DIRECTORY_URL = new URL("./presets/", import.meta.url);
 const PRESET_FILE_ORDER = [
-  "us-national-parks-25-poc.json",
-  "video-games-poc.json",
-  "fast-food-poc.json",
-  "gym-lifts-poc.json",
   "anime-poc.json",
+  "video-games-poc.json",
   "movies-poc.json",
-  "fruits-poc.json",
+  "fast-food-poc.json",
   "countries-poc.json",
+  "gym-lifts-poc.json",
   "programming-languages-poc.json",
-  "colors-8-tiers-poc.json",
-  "planets-9-tiers-poc.json",
-  "coffee-3-tiers-poc.json",
+  "us-national-parks-25-poc.json",
 ];
 
 function asRecord(value: unknown, context: string): Record<string, unknown> {
@@ -62,10 +58,8 @@ function assertUniqueIds(
   const seen = new Set<string>();
 
   for (const id of ids) {
-    if (seen.has(id)) {
+    if (seen.has(id))
       throw new Error(`${context} has duplicate ${field}: "${id}".`);
-    }
-
     seen.add(id);
   }
 }

@@ -114,6 +114,26 @@
       "id": "the-social-network",
       "name": "The Social Network",
       "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Social_Network_film_poster.png"
+    },
+    {
+      "id": "dune-part-two",
+      "name": "Dune: Part Two",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/5/52/Dune_Part_Two_poster.jpeg"
+    },
+    {
+      "id": "oppenheimer",
+      "name": "Oppenheimer",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg"
+    },
+    {
+      "id": "mad-max-fury-road",
+      "name": "Mad Max: Fury Road",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/6/6e/Mad_Max_Fury_Road.jpg"
+    },
+    {
+      "id": "blade-runner-2049",
+      "name": "Blade Runner 2049",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9b/Blade_Runner_2049_poster.png"
     }
   ]
 }

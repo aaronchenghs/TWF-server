@@ -149,6 +149,61 @@
       "id": "chipotle",
       "name": "Chipotle",
       "imageSrc": "https://upload.wikimedia.org/wikipedia/de/f/f8/Chipotle-Mexican-Grill-Logo.svg"
+    },
+    {
+      "id": "raising-canes",
+      "name": "Raising Cane's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Raising%20Cane%27s%20Chicken%20Fingers%20logo.svg"
+    },
+    {
+      "id": "in-n-out",
+      "name": "In-N-Out Burger",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/InNOut%202021%20logo.svg"
+    },
+    {
+      "id": "shake-shack",
+      "name": "Shake Shack",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Shake%20Shack%20logo.svg"
+    },
+    {
+      "id": "qdoba",
+      "name": "Qdoba",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Qdoba%20Logo.svg"
+    },
+    {
+      "id": "krispy-kreme",
+      "name": "Krispy Kreme",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Krispy%20Kreme%20logo.svg"
+    },
+    {
+      "id": "culvers",
+      "name": "Culver's",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Culver%27s%20logo.svg"
+    },
+    {
+      "id": "dairy-queen",
+      "name": "Dairy Queen",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Dairy%20Queen%20logo.svg"
+    },
+    {
+      "id": "jack-in-the-box",
+      "name": "Jack in the Box",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Jack%20in%20the%20Box%202022%20logo.svg"
+    },
+    {
+      "id": "wingstop",
+      "name": "Wingstop",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Wingstop_logo.svg"
+    },
+    {
+      "id": "zaxbys",
+      "name": "Zaxby's",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Zaxby%27s_logo.png"
+    },
+    {
+      "id": "white-castle",
+      "name": "White Castle",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/White_Castle_logo.svg"
     }
   ]
 }

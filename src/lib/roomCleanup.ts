@@ -1,5 +1,5 @@
 import { getAllRooms, deleteRoom, deleteRoomIfEmpty } from "./rooms.js";
-import { clearRoomTimers, ONE_HOUR_MS } from "./timing.js";
+import { ONE_HOUR_MS } from "./timing.js";
 import { readNumberEnv } from "./env.js";
 
 const ROOM_TTL_MS = readNumberEnv("ROOM_TTL_MS", ONE_HOUR_MS);
@@ -24,7 +24,6 @@ export function runRoomJanitor() {
 
       const last = room.lastActivityAt ?? room.createdAt ?? now;
       if (now - last > ROOM_TTL_MS) {
-        clearRoomTimers(room.code);
         deleteRoom(room);
       }
     }

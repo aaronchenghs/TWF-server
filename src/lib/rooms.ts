@@ -226,8 +226,7 @@ export function deleteRoomIfEmpty(room: Room): boolean {
   const hasAnyConnections =
     room.displayConnectionIds.size > 0 || room.controllerBySocketId.size > 0;
   if (!hasAnyConnections) {
-    clearRoomTimers(room.code);
-    rooms.delete(room.code);
+    deleteRoom(room);
     return true;
   }
   return false;

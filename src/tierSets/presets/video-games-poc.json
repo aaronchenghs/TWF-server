@@ -104,6 +104,81 @@
       "id": "super-mario-odyssey",
       "name": "Super Mario Odyssey",
       "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Mario_logo.svg"
+    },
+    {
+      "id": "super-mario-bros",
+      "name": "Super Mario Bros.",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/03/Super_Mario_Bros._box.png"
+    },
+    {
+      "id": "half-life-2",
+      "name": "Half-Life 2",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/2/25/Half-Life_2_cover.jpg"
+    },
+    {
+      "id": "bloodborne",
+      "name": "Bloodborne",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/6/68/Bloodborne_Cover_Wallpaper.jpg"
+    },
+    {
+      "id": "hollow-knight",
+      "name": "Hollow Knight",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/de/Hollow_Knight_2026_cover_art.jpg"
+    },
+    {
+      "id": "hades",
+      "name": "Hades",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg"
+    },
+    {
+      "id": "god-of-war-ragnarok",
+      "name": "God of War Ragnarok",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg"
+    },
+    {
+      "id": "the-last-of-us",
+      "name": "The Last of Us",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg"
+    },
+    {
+      "id": "mass-effect-2",
+      "name": "Mass Effect 2",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/05/MassEffect2_cover.PNG"
+    },
+    {
+      "id": "dark-souls",
+      "name": "Dark Souls",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/8/8d/Dark_Souls_Cover_Art.jpg"
+    },
+    {
+      "id": "resident-evil-4",
+      "name": "Resident Evil 4",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/d9/Resi4-gc-cover.jpg"
+    },
+    {
+      "id": "metal-gear-solid-3",
+      "name": "Metal Gear Solid 3: Snake Eater",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg"
+    },
+    {
+      "id": "persona-5",
+      "name": "Persona 5",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/b0/Persona_5_cover_art.jpg"
+    },
+    {
+      "id": "chrono-trigger",
+      "name": "Chrono Trigger",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Chrono_Trigger.jpg/330px-Chrono_Trigger.jpg"
+    },
+    {
+      "id": "donkey-kong-country",
+      "name": "Donkey Kong Country",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Donkey_Kong_Country_SNES_cover.png/330px-Donkey_Kong_Country_SNES_cover.png"
+    },
+    {
+      "id": "metroid-prime",
+      "name": "Metroid Prime",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/ba/MetroidPrimebox.jpg"
     }
   ]
 }
