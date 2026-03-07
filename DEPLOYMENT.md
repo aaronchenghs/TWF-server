@@ -72,6 +72,12 @@ The ECS service currently references the `:latest` tag in [`ecs-task-definition.
 
 That means a code-only backend change is not deployed until you push a freshly built image to ECR under the tag the service already uses.
 
+Important when using mutable tags like `:latest`:
+
+- ECS tasks pull an image digest when the task starts.
+- If you run `aws ecs update-service --force-new-deployment` before `docker push` finishes, the new task can still pull the previous digest behind `:latest`.
+- In that case, ECS may show a completed deployment while runtime code is still old.
+
 ## Deploy A Code-Only Backend Update
 
 For a code-only change, the full deploy flow is:
@@ -112,6 +118,16 @@ aws ecs update-service `
   --service twf-server-service `
   --force-new-deployment `
   --region us-east-1
+```
+
+Do not force a new deployment until after `docker push` has fully completed.
+If needed, verify the pushed digest first:
+
+```powershell
+aws ecr describe-images `
+  --repository-name twf-server `
+  --region us-east-1 `
+  --query "reverse(sort_by(imageDetails,&imagePushedAt))[0].{PushedAt:imagePushedAt,Digest:imageDigest,Tags:imageTags}"
 ```
 
 If switching to an immutable image tags later, push the new tag and update the ECS task definition to reference that exact tag.
@@ -179,6 +195,35 @@ aws logs get-log-events `
   --limit 50 `
   --region us-east-1
 ```
+
+Verify the running ECS task digest matches the latest ECR digest:
+
+```powershell
+$task = aws ecs list-tasks `
+  --cluster twf-cluster `
+  --service-name twf-server-service `
+  --region us-east-1 `
+  --query "taskArns[0]" `
+  --output text
+
+$runningDigest = aws ecs describe-tasks `
+  --cluster twf-cluster `
+  --tasks $task `
+  --region us-east-1 `
+  --query "tasks[0].containers[0].imageDigest" `
+  --output text
+
+$latestDigest = aws ecr describe-images `
+  --repository-name twf-server `
+  --region us-east-1 `
+  --query "reverse(sort_by(imageDetails,&imagePushedAt))[0].imageDigest" `
+  --output text
+
+"runningDigest=$runningDigest"
+"latestDigest=$latestDigest"
+```
+
+If the digests do not match, run `aws ecs update-service --force-new-deployment` again after confirming the new image push is complete.
 
 ## Recommended Deploy Order
 
