@@ -15,13 +15,21 @@ import {
   detachSocket,
   findRoomBySocket,
   getClientIdForPlayer,
+  deleteRoomIfEmpty,
   closeRoomAndDisconnect,
 } from "../../lib/rooms.js";
 import { scheduleRoomPersist } from "../../lib/roomStore.js";
 import { emitError, emitRoomState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import { Guid } from "../../types/guid.js";
-import { NULL_TIMERS, clearRoomTimers } from "../../lib/timing.js";
+import { NULL_TIMERS, clearRoomTimers, reschedule } from "../../lib/timing.js";
+import { beginResults } from "../../lib/game.js";
+import {
+  removePlayerFromClientMap,
+  removePlayerFromPublicState,
+  removePlayerFromTurnQueue,
+  shouldFinalizeVoteImmediately,
+} from "../../lib/playerDisconnection.js";
 import type { Room } from "../../types/types.js";
 
 /**
@@ -338,5 +346,62 @@ export function handleCloseRoom(io: IOServer, socket: IOSocket) {
     if (room.adminConnectionId !== socket.id)
       return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
     closeRoomAndDisconnect(io, room);
+  };
+}
+
+export function handleLeaveRoom(io: IOServer, socket: IOSocket) {
+  return () => {
+    const room = findRoomBySocket(socket.id);
+    if (!room) return;
+
+    const playerId = room.controllerBySocketId.get(socket.id);
+    if (!playerId) {
+      socket.disconnect(true);
+      return;
+    }
+
+    const clientId = getClientIdForPlayer(room, playerId);
+    if (clientId) {
+      const deferred = room.rematch.deferredByClientId.get(clientId);
+      if (deferred) {
+        for (const sid of deferred.socketIds) {
+          room.rematch.deferredClientIdBySocketId.delete(sid);
+          room.clientIdBySocketId.delete(sid);
+        }
+      }
+      room.rematch.deferredByClientId.delete(clientId);
+    }
+
+    detachSocket(room, socket.id);
+
+    const queueResult = removePlayerFromTurnQueue(room, playerId);
+    const wasRemovedFromPlayers = removePlayerFromPublicState(room, playerId);
+    removePlayerFromClientMap(room, playerId);
+    room.rematch.queuedPlayerIds.delete(playerId as Guid);
+
+    const queueChanged = queueResult.changed || wasRemovedFromPlayers;
+    const queueNeedsReschedule = queueResult.requiresReschedule;
+
+    if (shouldFinalizeVoteImmediately(room)) {
+      beginResults(room, Date.now());
+
+      const deleted = deleteRoomIfEmpty(room);
+      if (!deleted) {
+        emitRoomState(io, room);
+        reschedule(room, (r) => emitRoomState(io, r), getTierSet);
+      }
+
+      socket.disconnect(true);
+      return;
+    }
+
+    const deleted = deleteRoomIfEmpty(room);
+    if (!deleted) {
+      emitRoomState(io, room);
+      if (queueChanged && queueNeedsReschedule)
+        reschedule(room, (r) => emitRoomState(io, r), getTierSet);
+    }
+
+    socket.disconnect(true);
   };
 }

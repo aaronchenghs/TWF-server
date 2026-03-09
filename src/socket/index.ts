@@ -6,6 +6,7 @@ import {
   handleSetTierSet,
   handleBootPlayerFromLobby,
   handlePlayAgain,
+  handleLeaveRoom,
 } from "./handlers/roomHandlers.js";
 import {
   handleTierSetsList,
@@ -31,6 +32,7 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:setTierSet", handleSetTierSet(io, socket));
   socket.on("room:bootPlayerFromLobby", handleBootPlayerFromLobby(io, socket));
   socket.on("room:playAgain", handlePlayAgain(io, socket));
+  socket.on("room:leave", handleLeaveRoom(io, socket));
   socket.on("room:start", handleStart(io, socket));
 
   socket.on("disconnecting", handleDisconnectFromRoom(io, socket));

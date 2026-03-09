@@ -15,14 +15,6 @@ export function shouldFinalizeVoteImmediately(room: Room): boolean {
   return have >= eligibleVoterIds.length;
 }
 
-export function shouldPermanentlyRemovePlayerOnDisconnect(
-  reason: string,
-): boolean {
-  // Explicit client-side leave only.
-  // Transport drops/timeouts remain resumable (e.g. mobile app backgrounding).
-  return reason === "client namespace disconnect";
-}
-
 export function removePlayerFromTurnQueue(
   room: Room,
   playerId: string,
