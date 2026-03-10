@@ -254,6 +254,7 @@ src/
 - If running behind a reverse proxy/load balancer, ensure WebSocket upgrade support is enabled.
 - Use process manager/service supervisor (PM2, systemd, container orchestrator) for restart policy.
 - Current ECS deploys use the image tag `010928227897.dkr.ecr.us-east-1.amazonaws.com/twf-server:latest`.
+- Preferred code-only deploy command: `npm run deploy:backend` (builds, pushes, forces ECS rollout, and verifies image digest match).
 - For a code-only backend deploy, you must build and push a new image to ECR first, then run `aws ecs update-service --force-new-deployment`.
 - `--force-new-deployment` alone only restarts ECS tasks; it does not deploy local code unless a new image has already been pushed under the tag the task definition uses.
 - If env vars, CPU/memory, ports, or other task definition settings changed, register a new ECS task definition revision instead of only forcing a new deployment.

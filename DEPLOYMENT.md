@@ -86,6 +86,20 @@ For a code-only change, the full deploy flow is:
 2. Push the new image to ECR
 3. Force ECS to start a new deployment
 
+Fast path (recommended):
+
+```powershell
+npm run deploy:backend
+```
+
+This runs [`scripts/deploy-backend.ps1`](./scripts/deploy-backend.ps1), which:
+
+1. Builds and pushes the new Docker image
+2. Forces an ECS service deployment
+3. Waits for service stability
+4. Verifies the running task digest matches the newly pushed ECR digest
+5. Checks the health endpoint
+
 If the task configuration did not change, run:
 
 ```powershell
