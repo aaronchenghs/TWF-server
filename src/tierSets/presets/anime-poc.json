@@ -129,6 +129,56 @@
       "id": "your-name",
       "name": "Your Name",
       "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/0b/Your_Name_poster.png"
+    },
+    {
+      "id": "one-punch-man",
+      "name": "One-Punch Man",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/OnePunchMan%20manga%20cover.png"
+    },
+    {
+      "id": "tokyo-ghoul",
+      "name": "Tokyo Ghoul",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tokyo%20Ghoul%20volume%201%20cover.jpg"
+    },
+    {
+      "id": "haikyu",
+      "name": "Haikyu!!",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Haiky%C5%AB%20Volume%201.jpg"
+    },
+    {
+      "id": "frieren",
+      "name": "Frieren: Beyond Journey's End",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Frieren%20Beyond%20Journey's%20End.jpg"
+    },
+    {
+      "id": "solo-leveling",
+      "name": "Solo Leveling",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Solo%20Leveling%20Volume%201%20Cover.jpg"
+    },
+    {
+      "id": "jojos-bizarre-adventure",
+      "name": "JoJo's Bizarre Adventure",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/JoJo%20no%20Kimyou%20na%20Bouken%20cover%20-%20vol1.jpg"
+    },
+    {
+      "id": "black-clover",
+      "name": "Black Clover",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Black%20Clover%2C%20volume%201.jpg"
+    },
+    {
+      "id": "blue-lock",
+      "name": "Blue Lock",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Blue%20Lock%20manga%20volume%201.png"
+    },
+    {
+      "id": "re-zero",
+      "name": "Re:Zero",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Re-Zero%20kara%20Hajimeru%20Isekai%20Seikatsu%20light%20novel%20volume%201%20cover.jpg"
+    },
+    {
+      "id": "kaguya-sama-love-is-war",
+      "name": "Kaguya-sama: Love Is War",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Kaguya-sama%20-%20Love%20is%20War%2C%20volume%201.jpg"
     }
   ]
 }

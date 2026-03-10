@@ -101,11 +101,6 @@
       "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Elixir_programming_language_logo.svg"
     },
     {
-      "id": "clojure",
-      "name": "Clojure",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Clojure_logo.svg"
-    },
-    {
       "id": "dart",
       "name": "Dart",
       "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Dart%20programming%20language%20logo.svg"
@@ -121,9 +116,9 @@
       "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20of%20the%20Haskell%20programming%20language.svg"
     },
     {
-      "id": "zig",
-      "name": "Zig",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Zig_logo_2020.svg"
+      "id": "cobol",
+      "name": "COBOL",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/COBOL_Report_Apr60.djvu/page1-457px-COBOL_Report_Apr60.djvu.jpg?_=20141004140250"
     }
   ]
 }

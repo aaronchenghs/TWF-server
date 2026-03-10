@@ -1,0 +1,184 @@
+{
+  "id": "nba-teams-poc",
+  "title": "NBA Teams",
+  "description": "Rank all current NBA teams.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "atlanta-hawks",
+      "name": "Atlanta Hawks",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Atlanta%20Hawks%20logo.svg"
+    },
+    {
+      "id": "boston-celtics",
+      "name": "Boston Celtics",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Boston%20Celtics.svg"
+    },
+    {
+      "id": "brooklyn-nets",
+      "name": "Brooklyn Nets",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Brooklyn%20Nets%20primary%20icon%20logo%202024.svg"
+    },
+    {
+      "id": "charlotte-hornets",
+      "name": "Charlotte Hornets",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Charlotte%20Hornets%20%282014%29.svg"
+    },
+    {
+      "id": "chicago-bulls",
+      "name": "Chicago Bulls",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Chicago%20Bulls%20logo.svg"
+    },
+    {
+      "id": "cleveland-cavaliers",
+      "name": "Cleveland Cavaliers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Cleveland%20Cavaliers%20logo.svg"
+    },
+    {
+      "id": "dallas-mavericks",
+      "name": "Dallas Mavericks",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Dallas%20Mavericks%20logo.svg"
+    },
+    {
+      "id": "denver-nuggets",
+      "name": "Denver Nuggets",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Denver%20Nuggets.svg"
+    },
+    {
+      "id": "detroit-pistons",
+      "name": "Detroit Pistons",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Logo%20of%20the%20Detroit%20Pistons.svg"
+    },
+    {
+      "id": "golden-state-warriors",
+      "name": "Golden State Warriors",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Golden%20State%20Warriors%20logo.svg"
+    },
+    {
+      "id": "houston-rockets",
+      "name": "Houston Rockets",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Houston%20Rockets.svg"
+    },
+    {
+      "id": "indiana-pacers",
+      "name": "Indiana Pacers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Indiana%20Pacers.svg"
+    },
+    {
+      "id": "los-angeles-clippers",
+      "name": "Los Angeles Clippers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Los%20Angeles%20Clippers%20%282024%29.svg"
+    },
+    {
+      "id": "los-angeles-lakers",
+      "name": "Los Angeles Lakers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Los%20Angeles%20Lakers%20logo.svg"
+    },
+    {
+      "id": "memphis-grizzlies",
+      "name": "Memphis Grizzlies",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Memphis%20Grizzlies.svg"
+    },
+    {
+      "id": "miami-heat",
+      "name": "Miami Heat",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Miami%20Heat%20logo.svg"
+    },
+    {
+      "id": "milwaukee-bucks",
+      "name": "Milwaukee Bucks",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Milwaukee%20Bucks%20logo.svg"
+    },
+    {
+      "id": "minnesota-timberwolves",
+      "name": "Minnesota Timberwolves",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Minnesota%20Timberwolves%20logo.svg"
+    },
+    {
+      "id": "new-orleans-pelicans",
+      "name": "New Orleans Pelicans",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20Orleans%20Pelicans%20logo.svg"
+    },
+    {
+      "id": "new-york-knicks",
+      "name": "New York Knicks",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20York%20Knicks%20logo.svg"
+    },
+    {
+      "id": "oklahoma-city-thunder",
+      "name": "Oklahoma City Thunder",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Oklahoma%20City%20Thunder.svg"
+    },
+    {
+      "id": "orlando-magic",
+      "name": "Orlando Magic",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Orlando%20Magic%20logo.svg"
+    },
+    {
+      "id": "philadelphia-76ers",
+      "name": "Philadelphia 76ers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Philadelphia%2076ers%20logo.svg"
+    },
+    {
+      "id": "phoenix-suns",
+      "name": "Phoenix Suns",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Phoenix%20Suns%20logo.svg"
+    },
+    {
+      "id": "portland-trail-blazers",
+      "name": "Portland Trail Blazers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Portland%20Trail%20Blazers%20logo.svg"
+    },
+    {
+      "id": "sacramento-kings",
+      "name": "Sacramento Kings",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/SacramentoKings.svg"
+    },
+    {
+      "id": "san-antonio-spurs",
+      "name": "San Antonio Spurs",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/San%20Antonio%20Spurs.svg"
+    },
+    {
+      "id": "toronto-raptors",
+      "name": "Toronto Raptors",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Toronto%20Raptors%20logo.svg"
+    },
+    {
+      "id": "utah-jazz",
+      "name": "Utah Jazz",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Utah%20Jazz%20logo%202025.svg"
+    },
+    {
+      "id": "washington-wizards",
+      "name": "Washington Wizards",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Washington%20Wizards%20logo.svg"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "id": "starter-pokemon-poc",
+  "title": "Starter Pokemon",
+  "description": "Rank these starter Pokemon.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "bulbasaur",
+      "name": "Bulbasaur",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    },
+    {
+      "id": "charmander",
+      "name": "Charmander",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+    },
+    {
+      "id": "squirtle",
+      "name": "Squirtle",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+    },
+    {
+      "id": "chikorita",
+      "name": "Chikorita",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/152.png"
+    },
+    {
+      "id": "cyndaquil",
+      "name": "Cyndaquil",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/155.png"
+    },
+    {
+      "id": "totodile",
+      "name": "Totodile",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/158.png"
+    },
+    {
+      "id": "treecko",
+      "name": "Treecko",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/252.png"
+    },
+    {
+      "id": "torchic",
+      "name": "Torchic",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/255.png"
+    },
+    {
+      "id": "mudkip",
+      "name": "Mudkip",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/258.png"
+    },
+    {
+      "id": "turtwig",
+      "name": "Turtwig",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/387.png"
+    },
+    {
+      "id": "chimchar",
+      "name": "Chimchar",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/390.png"
+    },
+    {
+      "id": "piplup",
+      "name": "Piplup",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/393.png"
+    },
+    {
+      "id": "snivy",
+      "name": "Snivy",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/495.png"
+    },
+    {
+      "id": "tepig",
+      "name": "Tepig",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/498.png"
+    },
+    {
+      "id": "oshawott",
+      "name": "Oshawott",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/501.png"
+    },
+    {
+      "id": "chespin",
+      "name": "Chespin",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/650.png"
+    },
+    {
+      "id": "fennekin",
+      "name": "Fennekin",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/653.png"
+    },
+    {
+      "id": "froakie",
+      "name": "Froakie",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/656.png"
+    },
+    {
+      "id": "rowlet",
+      "name": "Rowlet",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/722.png"
+    },
+    {
+      "id": "litten",
+      "name": "Litten",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/725.png"
+    },
+    {
+      "id": "popplio",
+      "name": "Popplio",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/728.png"
+    },
+    {
+      "id": "grookey",
+      "name": "Grookey",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/810.png"
+    },
+    {
+      "id": "scorbunny",
+      "name": "Scorbunny",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/813.png"
+    },
+    {
+      "id": "sobble",
+      "name": "Sobble",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/816.png"
+    },
+    {
+      "id": "sprigatito",
+      "name": "Sprigatito",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/906.png"
+    },
+    {
+      "id": "fuecoco",
+      "name": "Fuecoco",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/909.png"
+    },
+    {
+      "id": "quaxly",
+      "name": "Quaxly",
+      "imageSrc": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/912.png"
+    },
+    {
+      "id": "browt",
+      "name": "Browt",
+      "imageSrc": "https://windswaves.pokemon.com/_images/feb_27_2026/starter_grass.png"
+    },
+    {
+      "id": "pombon",
+      "name": "Pombon",
+      "imageSrc": "https://windswaves.pokemon.com/_images/feb_27_2026/starter_fire.png"
+    },
+    {
+      "id": "gecqua",
+      "name": "Gecqua",
+      "imageSrc": "https://windswaves.pokemon.com/_images/feb_27_2026/starter_water.png"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "id": "us-grocery-stores-20-poc",
+  "title": "US Grocery Stores",
+  "description": "Rank these major US grocery chains.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "walmart",
+      "name": "Walmart",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Walmart%20logo%20%282025%29.svg"
+    },
+    {
+      "id": "kroger",
+      "name": "Kroger",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Kroger%20%282021%29%20logo.svg"
+    },
+    {
+      "id": "costco",
+      "name": "Costco",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Costco%20Wholesale%20logo%202010-10-26.svg"
+    },
+    {
+      "id": "albertsons",
+      "name": "Albertsons",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Albertsons%20Companies%20%28logo%29.svg"
+    },
+    {
+      "id": "aldi",
+      "name": "Aldi",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/ALDI%20SUD.svg"
+    },
+    {
+      "id": "trader-joes",
+      "name": "Trader Joe's",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Trader%20Joes%20Logo.svg"
+    },
+    {
+      "id": "whole-foods",
+      "name": "Whole Foods",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Whole%20Foods%20Market%20201x%20logo.svg"
+    },
+    {
+      "id": "target",
+      "name": "Target",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Target%20%282018%29.svg"
+    },
+    {
+      "id": "sams-club",
+      "name": "Sam's Club",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Sam%27s%20Club%20Logo%202020.svg"
+    },
+    {
+      "id": "publix",
+      "name": "Publix",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/PublixLogo.svg"
+    },
+    {
+      "id": "safeway",
+      "name": "Safeway",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Safeway%20Logo.svg"
+    },
+    {
+      "id": "food-lion",
+      "name": "Food Lion",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Food%20Lion%20logo.svg"
+    },
+    {
+      "id": "stop-and-shop",
+      "name": "Stop & Shop",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Stop%20%26%20Shop%202018%20logo.svg"
+    },
+    {
+      "id": "meijer",
+      "name": "Meijer",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Meijer%20logo.svg"
+    },
+    {
+      "id": "hy-vee",
+      "name": "Hy-Vee",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Hy-Vee.svg"
+    },
+    {
+      "id": "bjs-wholesale-club",
+      "name": "BJ's Wholesale Club",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/BJs%20Wholesale%20Club%20Logo.svg"
+    },
+    {
+      "id": "wegmans",
+      "name": "Wegmans",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/WegmansLogo.svg"
+    },
+    {
+      "id": "winco-foods",
+      "name": "WinCo Foods",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/WinCo%20Foods%20Logo.svg"
+    },
+    {
+      "id": "harris-teeter",
+      "name": "Harris Teeter",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Harris%20Teeter%20logo%20%282023%29.svg"
+    },
+    {
+      "id": "giant-eagle",
+      "name": "Giant Eagle",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Giant%20Eagle%20logo.svg"
+    }
+  ]
+}

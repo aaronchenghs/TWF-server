@@ -5,14 +5,17 @@ export type BuiltInTierSet = TierSetDefinition & { coverImageSrc?: string };
 
 const PRESETS_DIRECTORY_URL = new URL("./presets/", import.meta.url);
 const PRESET_FILE_ORDER = [
-  "anime-poc.json",
   "video-games-poc.json",
-  "movies-poc.json",
   "fast-food-poc.json",
+  "anime-poc.json",
+  "movies-poc.json",
+  "us-states-50-poc.json",
   "countries-poc.json",
-  "gym-lifts-poc.json",
   "programming-languages-poc.json",
-  "us-national-parks-25-poc.json",
+  "starter-pokemon-poc.json",
+  "us-grocery-stores-20-poc.json",
+  "nfl-teams-poc.json",
+  "nba-teams-poc.json",
 ];
 
 function asRecord(value: unknown, context: string): Record<string, unknown> {

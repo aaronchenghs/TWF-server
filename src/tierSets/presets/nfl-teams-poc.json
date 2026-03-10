@@ -1,0 +1,194 @@
+{
+  "id": "nfl-teams-poc",
+  "title": "NFL Teams",
+  "description": "Rank all current NFL teams.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "arizona-cardinals",
+      "name": "Arizona Cardinals",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Arizona%20Cardinals%20logo.svg"
+    },
+    {
+      "id": "atlanta-falcons",
+      "name": "Atlanta Falcons",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Atlanta%20Falcons%20logo.svg"
+    },
+    {
+      "id": "baltimore-ravens",
+      "name": "Baltimore Ravens",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Baltimore%20Ravens%20logo.svg"
+    },
+    {
+      "id": "buffalo-bills",
+      "name": "Buffalo Bills",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Buffalo%20Bills%20logo.svg"
+    },
+    {
+      "id": "carolina-panthers",
+      "name": "Carolina Panthers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Carolina%20Panthers%20logo.svg"
+    },
+    {
+      "id": "chicago-bears",
+      "name": "Chicago Bears",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Chicago%20Bears%20logo%20primary.svg"
+    },
+    {
+      "id": "cincinnati-bengals",
+      "name": "Cincinnati Bengals",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Cincinnati%20Bengals%20logo.svg"
+    },
+    {
+      "id": "cleveland-browns",
+      "name": "Cleveland Browns",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Cleveland%20Browns%20logo.svg"
+    },
+    {
+      "id": "dallas-cowboys",
+      "name": "Dallas Cowboys",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Dallas%20Cowboys.svg"
+    },
+    {
+      "id": "denver-broncos",
+      "name": "Denver Broncos",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Denver%20Broncos%20logo.svg"
+    },
+    {
+      "id": "detroit-lions",
+      "name": "Detroit Lions",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Detroit%20Lions%20logo.svg"
+    },
+    {
+      "id": "green-bay-packers",
+      "name": "Green Bay Packers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Green%20Bay%20Packers%20logo.svg"
+    },
+    {
+      "id": "houston-texans",
+      "name": "Houston Texans",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Houston%20Texans%20logo.svg"
+    },
+    {
+      "id": "indianapolis-colts",
+      "name": "Indianapolis Colts",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Indianapolis%20Colts%20logo.svg"
+    },
+    {
+      "id": "jacksonville-jaguars",
+      "name": "Jacksonville Jaguars",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Jacksonville%20Jaguars%20logo.svg"
+    },
+    {
+      "id": "kansas-city-chiefs",
+      "name": "Kansas City Chiefs",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Kansas%20City%20Chiefs%20logo.svg"
+    },
+    {
+      "id": "las-vegas-raiders",
+      "name": "Las Vegas Raiders",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Las%20Vegas%20Raiders%20logo.svg"
+    },
+    {
+      "id": "los-angeles-chargers",
+      "name": "Los Angeles Chargers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Los%20Angeles%20Chargers%20logo.svg"
+    },
+    {
+      "id": "los-angeles-rams",
+      "name": "Los Angeles Rams",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Los%20Angeles%20Rams%20logo.svg"
+    },
+    {
+      "id": "miami-dolphins",
+      "name": "Miami Dolphins",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Miami%20Dolphins%20logo.svg"
+    },
+    {
+      "id": "minnesota-vikings",
+      "name": "Minnesota Vikings",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Minnesota%20Vikings%20logo.svg"
+    },
+    {
+      "id": "new-england-patriots",
+      "name": "New England Patriots",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20England%20Patriots%20logo.svg"
+    },
+    {
+      "id": "new-orleans-saints",
+      "name": "New Orleans Saints",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20Orleans%20Saints%20logo.svg"
+    },
+    {
+      "id": "new-york-giants",
+      "name": "New York Giants",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20York%20Giants%20logo.svg"
+    },
+    {
+      "id": "new-york-jets",
+      "name": "New York Jets",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/New%20York%20Jets%202024.svg"
+    },
+    {
+      "id": "philadelphia-eagles",
+      "name": "Philadelphia Eagles",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Philadelphia%20Eagles%20logo.svg"
+    },
+    {
+      "id": "pittsburgh-steelers",
+      "name": "Pittsburgh Steelers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Pittsburgh%20Steelers%20logo.svg"
+    },
+    {
+      "id": "san-francisco-49ers",
+      "name": "San Francisco 49ers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/San%20Francisco%2049ers%20logo.svg"
+    },
+    {
+      "id": "seattle-seahawks",
+      "name": "Seattle Seahawks",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Seattle%20Seahawks%20logo.svg"
+    },
+    {
+      "id": "tampa-bay-buccaneers",
+      "name": "Tampa Bay Buccaneers",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tampa%20Bay%20Buccaneers%20logo.svg"
+    },
+    {
+      "id": "tennessee-titans",
+      "name": "Tennessee Titans",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tennessee%20Titans%20logo.svg"
+    },
+    {
+      "id": "washington-commanders",
+      "name": "Washington Commanders",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Washington%20Commanders%20logo.svg"
+    }
+  ]
+}

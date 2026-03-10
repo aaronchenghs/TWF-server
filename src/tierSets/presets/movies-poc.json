@@ -134,6 +134,56 @@
       "id": "blade-runner-2049",
       "name": "Blade Runner 2049",
       "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9b/Blade_Runner_2049_poster.png"
+    },
+    {
+      "id": "the-godfather-part-ii",
+      "name": "The Godfather Part II",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Godfather%20part%20ii.jpg"
+    },
+    {
+      "id": "the-silence-of-the-lambs",
+      "name": "The Silence of the Lambs",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The%20Silence%20of%20the%20Lambs%20poster.jpg"
+    },
+    {
+      "id": "the-departed",
+      "name": "The Departed",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Departed234.jpg"
+    },
+    {
+      "id": "the-green-mile",
+      "name": "The Green Mile",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The%20Green%20Mile%20(movie%20poster).jpg"
+    },
+    {
+      "id": "titanic",
+      "name": "Titanic",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Titanic%20(1997%20film)%20poster.png"
+    },
+    {
+      "id": "avengers-endgame",
+      "name": "Avengers: Endgame",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Avengers%20Endgame%20poster.jpg"
+    },
+    {
+      "id": "star-wars",
+      "name": "Star Wars",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/StarWarsMoviePoster1977.jpg"
+    },
+    {
+      "id": "joker",
+      "name": "Joker",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Joker%20(2019%20film)%20poster.jpg"
+    },
+    {
+      "id": "the-prestige",
+      "name": "The Prestige",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Prestige%20poster.jpg"
+    },
+    {
+      "id": "inglourious-basterds",
+      "name": "Inglourious Basterds",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Inglourious%20Basterds%20poster.jpg"
     }
   ]
 }

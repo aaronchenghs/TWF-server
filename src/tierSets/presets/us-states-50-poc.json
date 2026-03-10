@@ -1,0 +1,284 @@
+{
+  "id": "us-states-50-poc",
+  "title": "50 US States",
+  "description": "Rank all 50 US states.",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "alabama",
+      "name": "Alabama",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Alabama.svg"
+    },
+    {
+      "id": "alaska",
+      "name": "Alaska",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Alaska%20blank%20borough%20map.svg"
+    },
+    {
+      "id": "arizona",
+      "name": "Arizona",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Arizona.svg"
+    },
+    {
+      "id": "arkansas",
+      "name": "Arkansas",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Arkansas.svg"
+    },
+    {
+      "id": "california",
+      "name": "California",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/California%20blank%20map.svg"
+    },
+    {
+      "id": "colorado",
+      "name": "Colorado",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Colorado.svg"
+    },
+    {
+      "id": "connecticut",
+      "name": "Connecticut",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Connecticut%20blank.svg"
+    },
+    {
+      "id": "delaware",
+      "name": "Delaware",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Delaware.svg"
+    },
+    {
+      "id": "florida",
+      "name": "Florida",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Florida.svg"
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Georgia.svg"
+    },
+    {
+      "id": "hawaii",
+      "name": "Hawaii",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Hawaii.svg"
+    },
+    {
+      "id": "idaho",
+      "name": "Idaho",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Idaho.svg"
+    },
+    {
+      "id": "illinois",
+      "name": "Illinois",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Illinois%20map.svg"
+    },
+    {
+      "id": "indiana",
+      "name": "Indiana",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Indiana.svg"
+    },
+    {
+      "id": "iowa",
+      "name": "Iowa",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Iowa.svg"
+    },
+    {
+      "id": "kansas",
+      "name": "Kansas",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Kansas.svg"
+    },
+    {
+      "id": "kentucky",
+      "name": "Kentucky",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Kentucky.svg"
+    },
+    {
+      "id": "louisiana",
+      "name": "Louisiana",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Louisiana.svg"
+    },
+    {
+      "id": "maine",
+      "name": "Maine",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Maine.svg"
+    },
+    {
+      "id": "maryland",
+      "name": "Maryland",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Maryland.svg"
+    },
+    {
+      "id": "massachusetts",
+      "name": "Massachusetts",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Massachusetts.svg"
+    },
+    {
+      "id": "michigan",
+      "name": "Michigan",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Michigan.svg"
+    },
+    {
+      "id": "minnesota",
+      "name": "Minnesota",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Simple%20Rounded%20Outline%20of%20the%20state%20of%20Minnesota.svg"
+    },
+    {
+      "id": "mississippi",
+      "name": "Mississippi",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Mississippi.svg"
+    },
+    {
+      "id": "missouri",
+      "name": "Missouri",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Missouri%20with%20counties.svg"
+    },
+    {
+      "id": "montana",
+      "name": "Montana",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/USA%20Montana%20blank%20map.svg"
+    },
+    {
+      "id": "nebraska",
+      "name": "Nebraska",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Map%20of%20Nebraska.svg"
+    },
+    {
+      "id": "nevada",
+      "name": "Nevada",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Nevada.svg"
+    },
+    {
+      "id": "new-hampshire",
+      "name": "New Hampshire",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20New%20Hampshire.svg"
+    },
+    {
+      "id": "new-jersey",
+      "name": "New Jersey",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20New%20Jersey.svg"
+    },
+    {
+      "id": "new-mexico",
+      "name": "New Mexico",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20New%20Mexico.svg"
+    },
+    {
+      "id": "new-york",
+      "name": "New York",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/New%20York%20blank.svg"
+    },
+    {
+      "id": "north-carolina",
+      "name": "North Carolina",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20North%20Carolina.svg"
+    },
+    {
+      "id": "north-dakota",
+      "name": "North Dakota",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20North%20Dakota.svg"
+    },
+    {
+      "id": "ohio",
+      "name": "Ohio",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Ohio.svg"
+    },
+    {
+      "id": "oklahoma",
+      "name": "Oklahoma",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20Oklahoma.svg"
+    },
+    {
+      "id": "oregon",
+      "name": "Oregon",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Oregon.svg"
+    },
+    {
+      "id": "pennsylvania",
+      "name": "Pennsylvania",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Pennsylvania%20blank.svg"
+    },
+    {
+      "id": "rhode-island",
+      "name": "Rhode Island",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Rhode%20Island.svg"
+    },
+    {
+      "id": "south-carolina",
+      "name": "South Carolina",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20South%20Carolina.svg"
+    },
+    {
+      "id": "south-dakota",
+      "name": "South Dakota",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20South%20Dakota.svg"
+    },
+    {
+      "id": "tennessee",
+      "name": "Tennessee",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Tennessee.svg"
+    },
+    {
+      "id": "texas",
+      "name": "Texas",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Texas%20blank%20map.svg"
+    },
+    {
+      "id": "utah",
+      "name": "Utah",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Utah.svg"
+    },
+    {
+      "id": "vermont",
+      "name": "Vermont",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Vermont.svg"
+    },
+    {
+      "id": "virginia",
+      "name": "Virginia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20Virginia.svg"
+    },
+    {
+      "id": "washington",
+      "name": "Washington",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Washington%20Map.svg"
+    },
+    {
+      "id": "west-virginia",
+      "name": "West Virginia",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20subdivisions%202019%20Albers%20West%20Virginia.svg"
+    },
+    {
+      "id": "wisconsin",
+      "name": "Wisconsin",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Map%20of%20Wisconsin%20no-highlighting.svg"
+    },
+    {
+      "id": "wyoming",
+      "name": "Wyoming",
+      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20Map%20of%20Wyoming.svg"
+    }
+  ]
+}

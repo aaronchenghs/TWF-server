@@ -1,7 +1,7 @@
 {
   "id": "video-games-poc",
-  "title": "Video Games",
-  "description": "Rank these games.",
+  "title": "Video Game Series",
+  "description": "Rank these video game series.",
   "tiers": [
     {
       "id": "S",
@@ -31,154 +31,204 @@
   ],
   "items": [
     {
+      "id": "mario",
+      "name": "Mario",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Mario_emblem.svg"
+    },
+    {
+      "id": "sonic-the-hedgehog",
+      "name": "Sonic the Hedgehog",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Sonic_The_Hedgehog.svg"
+    },
+    {
       "id": "minecraft",
       "name": "Minecraft",
       "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Minecraft_2024_cover_art.png"
     },
     {
-      "id": "skyrim",
-      "name": "Skyrim",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Elder_Scrolls_V_Skyrim_cover.png"
+      "id": "the-legend-of-zelda",
+      "name": "The Legend of Zelda",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Legend%20of%20zelda%20cover%20(with%20cartridge)%20gold.png"
     },
     {
-      "id": "zelda-botw",
-      "name": "Zelda: BOTW",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Legend_of_Zelda_Breath_of_the_Wild.jpg"
+      "id": "pokemon",
+      "name": "Pokemon",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Pok%C3%A9mon%20Red%20and%20Blue%20cover%20art.webp"
     },
     {
-      "id": "gta-v",
-      "name": "GTA V",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Grand_Theft_Auto_V.png"
+      "id": "grand-theft-auto",
+      "name": "Grand Theft Auto",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Grand_Theft_Auto_logo_series.svg"
     },
     {
       "id": "fortnite",
       "name": "Fortnite",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Fortnite.png"
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/FortniteLogo.svg"
     },
     {
       "id": "pac-man",
       "name": "Pac-Man",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Original_PacMan.svg"
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Pac_flyer.png"
     },
     {
       "id": "tetris",
       "name": "Tetris",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Tetris_logo.png"
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tetris_logo_2019.svg"
     },
     {
-      "id": "super-mario-64",
-      "name": "Super Mario 64",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Mario_64_logo.png"
+      "id": "undertale",
+      "name": "Undertale",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Undertale_vector_logo_on_black_borders.svg"
     },
     {
-      "id": "elden-ring",
-      "name": "Elden Ring",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Elden_Ring_Box_art.jpg"
+      "id": "god-of-war",
+      "name": "God of War",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/God_of_War_4_cover.jpg"
     },
     {
-      "id": "red-dead-redemption-2",
-      "name": "Red Dead Redemption 2",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Red_Dead_Redemption_II.jpg"
+      "id": "call-of-duty",
+      "name": "Call of Duty",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Call_of_Duty_logo_2023.svg"
     },
     {
-      "id": "portal-2",
-      "name": "Portal 2",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Portal_2_Official_Logo.png"
+      "id": "halo",
+      "name": "Halo",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Halo_(series)_logo.svg"
     },
     {
-      "id": "witcher-3",
-      "name": "The Witcher 3: Wild Hunt",
+      "id": "the-elder-scrolls",
+      "name": "The Elder Scrolls",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/The_Elder_Scrolls_V_Skyrim_cover.png"
+    },
+    {
+      "id": "final-fantasy",
+      "name": "Final Fantasy",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/FF1%20USA%20boxart.jpg"
+    },
+    {
+      "id": "assassins-creed",
+      "name": "Assassin's Creed",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Assassin%27s_Creed_Logo.svg"
+    },
+    {
+      "id": "resident-evil",
+      "name": "Resident Evil",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Resident_Evil_series_logo.png"
+    },
+    {
+      "id": "metal-gear",
+      "name": "Metal Gear",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Metal_Gear_franchise_logo.svg"
+    },
+    {
+      "id": "the-witcher",
+      "name": "The Witcher",
       "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Witcher_3_cover_art.jpg"
-    },
-    {
-      "id": "halo-combat-evolved",
-      "name": "Halo: Combat Evolved",
-      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Halo%20-%20Combat%20Evolved%20(XBox%20version%20-%20box%20art).jpg"
-    },
-    {
-      "id": "smash-ultimate",
-      "name": "Super Smash Bros. Ultimate",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Smash_Bros._Ultimate_logo.svg"
-    },
-    {
-      "id": "super-mario-odyssey",
-      "name": "Super Mario Odyssey",
-      "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Mario_logo.svg"
-    },
-    {
-      "id": "super-mario-bros",
-      "name": "Super Mario Bros.",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/03/Super_Mario_Bros._box.png"
-    },
-    {
-      "id": "half-life-2",
-      "name": "Half-Life 2",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/2/25/Half-Life_2_cover.jpg"
-    },
-    {
-      "id": "bloodborne",
-      "name": "Bloodborne",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/6/68/Bloodborne_Cover_Wallpaper.jpg"
-    },
-    {
-      "id": "hollow-knight",
-      "name": "Hollow Knight",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/de/Hollow_Knight_2026_cover_art.jpg"
-    },
-    {
-      "id": "hades",
-      "name": "Hades",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg"
-    },
-    {
-      "id": "god-of-war-ragnarok",
-      "name": "God of War Ragnarok",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg"
-    },
-    {
-      "id": "the-last-of-us",
-      "name": "The Last of Us",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg"
-    },
-    {
-      "id": "mass-effect-2",
-      "name": "Mass Effect 2",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/0/05/MassEffect2_cover.PNG"
     },
     {
       "id": "dark-souls",
       "name": "Dark Souls",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/8/8d/Dark_Souls_Cover_Art.jpg"
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Dark_Souls_Cover_Art.jpg"
     },
     {
-      "id": "resident-evil-4",
-      "name": "Resident Evil 4",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/d9/Resi4-gc-cover.jpg"
+      "id": "persona",
+      "name": "Persona",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Persona_5_cover_art.jpg"
     },
     {
-      "id": "metal-gear-solid-3",
-      "name": "Metal Gear Solid 3: Snake Eater",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg"
+      "id": "monster-hunter",
+      "name": "Monster Hunter",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Monster_Hunter_logo.png"
     },
     {
-      "id": "persona-5",
-      "name": "Persona 5",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/b0/Persona_5_cover_art.jpg"
+      "id": "street-fighter",
+      "name": "Street Fighter",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Street_Fighter_Logo.png"
     },
     {
-      "id": "chrono-trigger",
-      "name": "Chrono Trigger",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Chrono_Trigger.jpg/330px-Chrono_Trigger.jpg"
+      "id": "tekken",
+      "name": "Tekken",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tekken_series_logo.svg"
     },
     {
-      "id": "donkey-kong-country",
-      "name": "Donkey Kong Country",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Donkey_Kong_Country_SNES_cover.png/330px-Donkey_Kong_Country_SNES_cover.png"
+      "id": "mortal-kombat",
+      "name": "Mortal Kombat",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Mortal_Kombat_Logo.svg"
     },
     {
-      "id": "metroid-prime",
-      "name": "Metroid Prime",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/ba/MetroidPrimebox.jpg"
+      "id": "mega-man",
+      "name": "Mega Man",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Mega_Man_logo.svg"
+    },
+    {
+      "id": "doom",
+      "name": "Doom",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Doom_cover_art.jpg"
+    },
+    {
+      "id": "diablo",
+      "name": "Diablo",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Diablo_logo.jpg"
+    },
+    {
+      "id": "battlefield",
+      "name": "Battlefield",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/BattlefieldLogo.svg"
+    },
+    {
+      "id": "overwatch",
+      "name": "Overwatch",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Overwatch_circle_logo.svg"
+    },
+    {
+      "id": "civilization",
+      "name": "Civilization",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Civilization_series_logo_(2016).svg"
+    },
+    {
+      "id": "fallout",
+      "name": "Fallout",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Fallout_4_cover_art.jpg"
+    },
+    {
+      "id": "red-dead",
+      "name": "Red Dead",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Official_Red_Dead_logo.png"
+    },
+    {
+      "id": "kingdom-hearts",
+      "name": "Kingdom Hearts",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Kingdom_Hearts_logo.png"
+    },
+    {
+      "id": "animal-crossing",
+      "name": "Animal Crossing",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Animal_Crossing_Logo.png"
+    },
+    {
+      "id": "kirby",
+      "name": "Kirby",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Kirbys-dream-land-gameboy-boxart.png"
+    },
+    {
+      "id": "baldurs-gate",
+      "name": "Baldur's Gate",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Baldur's%20Gate%20box.PNG"
+    },
+    {
+      "id": "tomb-raider",
+      "name": "Tomb Raider",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Tomb%20Raider%20(1996).png"
+    },
+    {
+      "id": "bioshock",
+      "name": "BioShock",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/BioShock%20cover.jpg"
+    },
+    {
+      "id": "life-is-strange",
+      "name": "Life Is Strange",
+      "imageSrc": "https://en.wikipedia.org/wiki/Special:FilePath/Life%20Is%20Strange%20cover%20art.png"
     }
   ]
 }
