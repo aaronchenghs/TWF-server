@@ -114,11 +114,6 @@
       "id": "haskell",
       "name": "Haskell",
       "imageSrc": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20of%20the%20Haskell%20programming%20language.svg"
-    },
-    {
-      "id": "cobol",
-      "name": "COBOL",
-      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/COBOL_Report_Apr60.djvu/page1-457px-COBOL_Report_Apr60.djvu.jpg?_=20141004140250"
     }
   ]
 }
