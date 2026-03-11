@@ -1,0 +1,140 @@
+{
+  "id": "streaming-social-apps-poc",
+  "title": "Streaming & Social Apps",
+  "description": "Rank the apps and streaming platforms that basically run your 20s.",
+  "coverImageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/3/3c/Netflix_UI_for_Web.png"
+    },
+    {
+      "id": "hulu",
+      "name": "Hulu",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Hulu_logo_%282018%29.svg/960px-Hulu_logo_%282018%29.svg.png"
+    },
+    {
+      "id": "disney-plus",
+      "name": "Disney+",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Disney%2B_2024.svg/1280px-Disney%2B_2024.svg.png"
+    },
+    {
+      "id": "max",
+      "name": "Max",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/HBO_Max_%282025%29.svg/960px-HBO_Max_%282025%29.svg.png"
+    },
+    {
+      "id": "prime-video",
+      "name": "Prime Video",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/7/78/Amazon_Prime_Video_example_screenshot.png"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Youtube_interface%2C_showing_search_results_of_Burger_Recipe.png"
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/6/6d/TikTok.com_Screenshot.png"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png"
+    },
+    {
+      "id": "apple-music",
+      "name": "Apple Music",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/d2/IOS_26_Music_Home.png"
+    },
+    {
+      "id": "discord",
+      "name": "Discord",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/4/4e/Discord_screenshot.png"
+    },
+    {
+      "id": "twitch",
+      "name": "Twitch",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/f/ff/Twitch_Website_Screenshot.png"
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/d/de/Reddit_screenshot_%28new%29.png"
+    },
+    {
+      "id": "x",
+      "name": "X",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/X_%28formerly_Twitter%29_logo_late_2025.svg/330px-X_%28formerly_Twitter%29_logo_late_2025.svg.png"
+    },
+    {
+      "id": "pinterest",
+      "name": "Pinterest",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9c/Pinterest_home.png"
+    },
+    {
+      "id": "bereal",
+      "name": "BeReal",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/BeReal._Logo.svg/960px-BeReal._Logo.svg.png"
+    },
+    {
+      "id": "letterboxd",
+      "name": "Letterboxd",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/93/Letterboxd-film-page-example.png"
+    },
+    {
+      "id": "paramount-plus",
+      "name": "Paramount+",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Paramount_Plus.svg/1280px-Paramount_Plus.svg.png"
+    },
+    {
+      "id": "apple-tv-plus",
+      "name": "Apple TV+",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/e/eb/Apple_TV_logo_2025.png"
+    },
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/WhatsApp_Logo_green.svg/500px-WhatsApp_Logo_green.svg.png"
+    },
+    {
+      "id": "threads",
+      "name": "Threads",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Threads_%28app%29.svg/960px-Threads_%28app%29.svg.png"
+    },
+    {
+      "id": "steam",
+      "name": "Steam",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9c/Steam_%28service%29.png"
+    }
+  ]
+}

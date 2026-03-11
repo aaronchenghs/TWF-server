@@ -7,8 +7,10 @@ const PRESETS_DIRECTORY_URL = new URL("./presets/", import.meta.url);
 const PRESET_FILE_ORDER = [
   "video-games-poc.json",
   "fast-food-poc.json",
+  "american-snacks-poc.json",
   "anime-poc.json",
   "movies-poc.json",
+  "streaming-social-apps-poc.json",
   "us-states-50-poc.json",
   "countries-poc.json",
   "programming-languages-poc.json",

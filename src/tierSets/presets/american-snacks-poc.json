@@ -1,0 +1,170 @@
+{
+  "id": "american-snacks-poc",
+  "title": "American Snacks",
+  "description": "Rank these iconic American snacks.",
+  "coverImageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9a/Doritos_Logo_%282013%29.png",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "doritos",
+      "name": "Doritos",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/9a/Doritos_Logo_%282013%29.png"
+    },
+    {
+      "id": "cheetos",
+      "name": "Cheetos",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Cheetos_logo.svg/250px-Cheetos_logo.svg.png"
+    },
+    {
+      "id": "lays",
+      "name": "Lay's",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Lay%27s_2025.svg/960px-Lay%27s_2025.svg.png"
+    },
+    {
+      "id": "pringles",
+      "name": "Pringles",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Pringles_2021.svg/330px-Pringles_2021.svg.png"
+    },
+    {
+      "id": "fritos",
+      "name": "Fritos",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/1/11/Fritos_logo.png"
+    },
+    {
+      "id": "tostitos",
+      "name": "Tostitos",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/4/49/2019-12-16_15_52_18_Tostitos_Bite_Size_tortilla_chips_and_Salsa_Con_Queso_dip_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg"
+    },
+    {
+      "id": "sun-chips",
+      "name": "Sun Chips",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/b/bc/SunChips_Logo.png"
+    },
+    {
+      "id": "cheez-it",
+      "name": "Cheez-It",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/4/46/Cheez-It-Crackers.jpg"
+    },
+    {
+      "id": "goldfish",
+      "name": "Goldfish",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/f/f2/GoldfishLogo2024Better.webp"
+    },
+    {
+      "id": "oreo",
+      "name": "Oreo",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Oreo-Two-Cookies.png"
+    },
+    {
+      "id": "chips-ahoy",
+      "name": "Chips Ahoy!",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/0/05/Chips_ahoy_brandlogo.png"
+    },
+    {
+      "id": "ritz-crackers",
+      "name": "Ritz Crackers",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/7/72/Ritz_crackers_logo.png"
+    },
+    {
+      "id": "nutter-butter",
+      "name": "Nutter Butter",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Nutterbutter_brand_logo.png"
+    },
+    {
+      "id": "chex-mix",
+      "name": "Chex Mix",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/98/Traditional_Chex_Mix.png"
+    },
+    {
+      "id": "pop-tarts",
+      "name": "Pop-Tarts",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Poptarts_brand_logo.png"
+    },
+    {
+      "id": "rice-krispies-treats",
+      "name": "Rice Krispies Treats",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Ricekrispiestreats_brand_logo.png"
+    },
+    {
+      "id": "funyuns",
+      "name": "Funyuns",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Funyuns_brand_logo.png"
+    },
+    {
+      "id": "takis",
+      "name": "Takis",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/8/82/Takis_logo.png"
+    },
+    {
+      "id": "slim-jim",
+      "name": "Slim Jim",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/9/95/Slim_Jim_logo.png"
+    },
+    {
+      "id": "combos",
+      "name": "Combos",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/7/79/Combos_snacks_logo.png"
+    },
+    {
+      "id": "fruit-roll-ups",
+      "name": "Fruit Roll-Ups",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/7/78/Betty_Crocker_Fruit_Roll-Ups.jpg"
+    },
+    {
+      "id": "sour-patch-kids",
+      "name": "Sour Patch Kids",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Sour-Patch-Kids.jpg"
+    },
+    {
+      "id": "skittles",
+      "name": "Skittles",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/en/1/19/Skittles_brand_logo.png"
+    },
+    {
+      "id": "kit-kat",
+      "name": "Kit Kat",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo_of_the_KitKat.svg/960px-Logo_of_the_KitKat.svg.png"
+    },
+    {
+      "id": "m-and-ms",
+      "name": "M&M's",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/4/45/M%26M%27s_2022.svg"
+    },
+    {
+      "id": "reeses-peanut-butter-cups",
+      "name": "Reese's Peanut Butter Cups",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Reese%27s_logo.svg/330px-Reese%27s_logo.svg.png"
+    },
+    {
+      "id": "twizzlers",
+      "name": "Twizzlers",
+      "imageSrc": "https://upload.wikimedia.org/wikipedia/commons/3/3a/2019-11-16_00_55_13_A_packet_of_Strawberry_Twizzlers_Twists_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg"
+    }
+  ]
+}
