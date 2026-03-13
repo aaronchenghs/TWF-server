@@ -11,7 +11,7 @@ import {
   beginVote,
   beginResults,
   commitDriftResolution,
-  getNextTurn,
+  passCurrentPlacementTurn,
 } from "./game.js";
 
 /** This object acts as the single source of truth for the length of game phases */
@@ -108,17 +108,7 @@ export function reschedule(
           // turn and give the next player a chance to place the same item. Otherwise
           // proceed directly to voting.
           if (!room.state.pendingTierId) {
-            const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
-            room.state = {
-              ...room.state,
-              turnIndex,
-              currentTurnPlayerId,
-              pendingTierId: null,
-              votes: {},
-              voteConfirmedByPlayerId: {},
-            };
-
-            beginPlace(room, now2);
+            passCurrentPlacementTurn(room, now2);
             emit(room);
             reschedule(room, emit, _getTierSet);
             return;

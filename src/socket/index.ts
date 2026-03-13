@@ -15,6 +15,7 @@ import {
 import { handleDisconnectFromRoom } from "./handlers/connectionHandlers.js";
 import {
   handlePlaceItem,
+  handlePassTurn,
   handleStart,
   handleVote,
   handleVoteConfirm,
@@ -42,6 +43,7 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("tierSets:get", handleTierSetsGet(socket));
 
   socket.on("game:place", handlePlaceItem(io, socket));
+  socket.on("game:pass", handlePassTurn(io, socket));
   socket.on("game:vote", handleVote(io, socket));
   socket.on("game:voteConfirm", handleVoteConfirm(io, socket));
   socket.on("game:voteUnlock", handleVoteUnlock(io, socket));

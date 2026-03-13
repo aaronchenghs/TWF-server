@@ -2,6 +2,7 @@ import { TierId, VoteValue } from "@twf/contracts";
 import {
   beginResults,
   beginVote,
+  passCurrentPlacementTurn,
   startGame,
   getEligibleVoterIds,
   getPlayerId,
@@ -83,6 +84,27 @@ export function handlePlaceItem(io: IOServer, socket: IOSocket) {
     };
 
     beginVote(room, Date.now());
+    touchRoom(room);
+    emitRoomState(io, room);
+    reschedule(room, (r) => emitRoomState(io, r), getTierSet);
+  };
+}
+
+export function handlePassTurn(io: IOServer, socket: IOSocket) {
+  return () => {
+    const room = requireRoom(socket);
+    if (!room) return;
+
+    const pid = getPlayerId(room, socket);
+    if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+    if (room.state.phase !== "PLACE")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
+    if (room.state.currentTurnPlayerId !== pid)
+      return emitError(socket, getErrorMessage("NOT_YOUR_TURN"));
+    if (!room.state.currentItem)
+      return emitError(socket, getErrorMessage("NO_CURRENT_ITEM"));
+
+    passCurrentPlacementTurn(room, Date.now());
     touchRoom(room);
     emitRoomState(io, room);
     reschedule(room, (r) => emitRoomState(io, r), getTierSet);

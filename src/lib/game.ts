@@ -139,6 +139,21 @@ export function beginPlace(room: Room, now: number) {
   recordPhaseStart(room);
 }
 
+export function passCurrentPlacementTurn(room: Room, now: number) {
+  const { turnIndex, currentTurnPlayerId } = getNextTurn(room, 1);
+
+  room.state = {
+    ...room.state,
+    turnIndex,
+    currentTurnPlayerId,
+    pendingTierId: null,
+    votes: {},
+    voteConfirmedByPlayerId: {},
+  };
+
+  beginPlace(room, now);
+}
+
 export function beginVote(room: Room, now: number) {
   const nextVotes = getEligibleVoterIds(room).reduce(
     (acc, voterId) => {
