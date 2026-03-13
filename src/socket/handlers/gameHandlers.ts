@@ -152,3 +152,32 @@ export function handleVoteConfirm(io: IOServer, socket: IOSocket) {
     emitRoomState(io, room);
   };
 }
+
+export function handleVoteUnlock(io: IOServer, socket: IOSocket) {
+  return () => {
+    const room = requireRoom(socket);
+    if (!room) return;
+    const pid = getPlayerId(room, socket);
+    if (!pid) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+    if (room.state.phase !== "VOTE")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
+    if (room.state.currentTurnPlayerId === pid)
+      return emitError(socket, getErrorMessage("PLACER_CANNOT_VOTE"));
+
+    const confirmed = room.state.voteConfirmedByPlayerId ?? {};
+    if (!confirmed[pid]) return;
+
+    const nextVoteConfirmedByPlayerId = {
+      ...confirmed,
+    };
+    delete nextVoteConfirmedByPlayerId[pid];
+
+    room.state = {
+      ...room.state,
+      voteConfirmedByPlayerId: nextVoteConfirmedByPlayerId,
+    };
+
+    touchRoom(room);
+    emitRoomState(io, room);
+  };
+}

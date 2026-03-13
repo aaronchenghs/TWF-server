@@ -18,6 +18,7 @@ import {
   handleStart,
   handleVote,
   handleVoteConfirm,
+  handleVoteUnlock,
 } from "./handlers/gameHandlers.js";
 import {
   handleDebugNext,
@@ -43,6 +44,7 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("game:place", handlePlaceItem(io, socket));
   socket.on("game:vote", handleVote(io, socket));
   socket.on("game:voteConfirm", handleVoteConfirm(io, socket));
+  socket.on("game:voteUnlock", handleVoteUnlock(io, socket));
 
   socket.on("debug:next", handleDebugNext(io, socket));
   socket.on("debug:prev", handleDebugPrev(io, socket));
