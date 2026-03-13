@@ -1,6 +1,6 @@
 # Tiers! With Friends - Server
 
-Socket.IO + Express backend for the Tiers With Friends app. Client-side Repo Here: https://github.com/aaronchenghs/TWF-client
+Socket.IO + Express backend for the Tiers! With Friends app. Client-side Repo Here: https://github.com/aaronchenghs/TWF-client
 
 This service manages:
 
@@ -282,3 +282,14 @@ Debug controls not working:
 Room disappears unexpectedly:
 
 - Check `ROOM_TTL_MS`, `CLEANUP_INTERVAL_MS`, or empty-room disconnect behavior.
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
+See the LICENSE file for details.
+
+## Branding Notice
+
+"Tiers! With Friends" and its associated name, logo, and branding are not granted under this repository's software license.
+
+No permission is granted to use the project name, branding, or visual identity without explicit written permission from Aaron Raphael Cheng.
