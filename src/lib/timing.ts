@@ -39,14 +39,25 @@ type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
 export function getPhaseTimers(
   phase: RoomPublicState["phase"],
   now: number,
+  gameSettings?: RoomPublicState["gameSettings"] | null,
 ): RoomPublicState["timers"] {
   switch (phase) {
     case "STARTING":
       return { ...NULL_TIMERS, buildEndsAt: now + PHASE_TIMERS.BUILD_MS };
     case "PLACE":
-      return { ...NULL_TIMERS, placeEndsAt: now + PHASE_TIMERS.PLACE_MS };
+      return {
+        ...NULL_TIMERS,
+        placeEndsAt: gameSettings?.unlimitedPlacingTime
+          ? null
+          : now + PHASE_TIMERS.PLACE_MS,
+      };
     case "VOTE":
-      return { ...NULL_TIMERS, voteEndsAt: now + PHASE_TIMERS.VOTE_MS };
+      return {
+        ...NULL_TIMERS,
+        voteEndsAt: gameSettings?.unlimitedVotingTime
+          ? null
+          : now + PHASE_TIMERS.VOTE_MS,
+      };
     case "RESULTS":
       return { ...NULL_TIMERS, resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS };
     default:

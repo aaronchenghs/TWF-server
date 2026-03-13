@@ -25,6 +25,10 @@ import { Guid } from "../../types/guid.js";
 import { NULL_TIMERS, clearRoomTimers, reschedule } from "../../lib/timing.js";
 import { beginResults } from "../../lib/game.js";
 import {
+  DEFAULT_GAME_SETTINGS,
+  sanitizeGameSettings,
+} from "../../lib/gameSettings.js";
+import {
   removePlayerFromClientMap,
   removePlayerFromPublicState,
   removePlayerFromTurnQueue,
@@ -117,6 +121,29 @@ export function handleSetTierSet(io: IOServer, socket: IOSocket) {
       votes: {},
       voteConfirmedByPlayerId: {},
       lastResolution: null,
+    };
+
+    touchRoom(room);
+    emitRoomState(io, room);
+  };
+}
+
+export function handleSetGameSettings(io: IOServer, socket: IOSocket) {
+  return ({
+    gameSettings,
+  }: {
+    gameSettings: Room["state"]["gameSettings"];
+  }) => {
+    const room = requireRoom(socket);
+    if (!room) return;
+    if (room.adminConnectionId !== socket.id)
+      return emitError(socket, getErrorMessage("HOST_ACTION_FORBIDDEN"));
+    if (room.state.phase !== "LOBBY")
+      return emitError(socket, getErrorMessage("INVALID_PHASE"));
+
+    room.state = {
+      ...room.state,
+      gameSettings: sanitizeGameSettings(gameSettings),
     };
 
     touchRoom(room);
@@ -232,6 +259,7 @@ async function startRematchLobby(io: IOServer, room: Room) {
   room.state = {
     ...room.state,
     phase: "LOBBY",
+    gameSettings: { ...DEFAULT_GAME_SETTINGS },
     players: nextPlayers,
     turnOrderPlayerIds: [],
     turnIndex: 0,

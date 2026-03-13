@@ -19,7 +19,7 @@ export function resetTimersForPhase(
   state: RoomPublicState,
   now: number,
 ): RoomPublicState["timers"] {
-  return getPhaseTimers(state.phase, now);
+  return getPhaseTimers(state.phase, now, state.gameSettings);
 }
 
 /**

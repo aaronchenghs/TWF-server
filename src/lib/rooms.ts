@@ -13,6 +13,7 @@ import { emitError, type IOServer, type IOSocket } from "../socket/emit.js";
 import { NULL_TIMERS, clearRoomTimers } from "./timing.js";
 import { createRandomAvatar } from "./avatar.js";
 import { scheduleRoomDelete, scheduleRoomPersist } from "./roomStore.js";
+import { DEFAULT_GAME_SETTINGS } from "./gameSettings.js";
 
 /**
  * In-memory registry of active rooms.
@@ -38,6 +39,7 @@ export function createRoom(creatorSocketId: string, initialRole: Role): Room {
     code,
     phase: "LOBBY",
     players: [],
+    gameSettings: { ...DEFAULT_GAME_SETTINGS },
     turnOrderPlayerIds: [],
     turnIndex: 0,
     currentTurnPlayerId: null,

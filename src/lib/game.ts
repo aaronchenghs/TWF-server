@@ -91,7 +91,7 @@ export function startGame(room: Room, tierSet: TierSetDefinition, now: number) {
     votes: {},
     voteConfirmedByPlayerId: {},
     timers: {
-      ...getPhaseTimers("STARTING", now),
+      ...getPhaseTimers("STARTING", now, room.state.gameSettings),
     },
   };
 
@@ -124,7 +124,7 @@ export function beginTurn(room: Room, now: number, turnDelta = 0) {
     votes: {},
     voteConfirmedByPlayerId: {},
     currentTurnPlayerId,
-    timers: getPhaseTimers("PLACE", now),
+    timers: getPhaseTimers("PLACE", now, room.state.gameSettings),
   };
 
   recordPhaseStart(room);
@@ -134,7 +134,7 @@ export function beginPlace(room: Room, now: number) {
   room.state = {
     ...room.state,
     phase: "PLACE",
-    timers: getPhaseTimers("PLACE", now),
+    timers: getPhaseTimers("PLACE", now, room.state.gameSettings),
   };
   recordPhaseStart(room);
 }
@@ -155,7 +155,8 @@ export function passCurrentPlacementTurn(room: Room, now: number) {
 }
 
 export function beginVote(room: Room, now: number) {
-  const nextVotes = getEligibleVoterIds(room).reduce(
+  const eligibleVoterIds = getEligibleVoterIds(room);
+  const nextVotes = eligibleVoterIds.reduce(
     (acc, voterId) => {
       acc[voterId] = 0;
       return acc;
@@ -168,8 +169,17 @@ export function beginVote(room: Room, now: number) {
     phase: "VOTE",
     votes: nextVotes,
     voteConfirmedByPlayerId: {},
-    timers: getPhaseTimers("VOTE", now),
+    timers: getPhaseTimers("VOTE", now, room.state.gameSettings),
   };
+
+  if (
+    room.state.gameSettings.unlimitedVotingTime &&
+    eligibleVoterIds.length === 0
+  ) {
+    beginResults(room, now);
+    return;
+  }
+
   recordPhaseStart(room);
 }
 
@@ -197,7 +207,7 @@ export function beginResults(room: Room, now: number) {
     ...room.state,
     phase: "RESULTS",
     lastResolution: resolution,
-    timers: getPhaseTimers("RESULTS", now),
+    timers: getPhaseTimers("RESULTS", now, room.state.gameSettings),
   };
 
   recordPhaseStart(room);
