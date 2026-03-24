@@ -277,6 +277,13 @@ async function startRematchLobby(io: IOServer, room: Room) {
   emitRoomState(io, room);
 }
 
+function queueAllPlayersForLobbyReturn(room: Room) {
+  room.rematch.queuedPlayerIds.clear();
+  for (const player of room.state.players) {
+    room.rematch.queuedPlayerIds.add(player.id as Guid);
+  }
+}
+
 async function rejoinDeferredPlayer(
   io: IOServer,
   socket: IOSocket,
@@ -332,8 +339,11 @@ export function handlePlayAgain(io: IOServer, socket: IOSocket) {
     const isDeferred = room.rematch.deferredClientIdBySocketId.has(socket.id);
 
     if (isHost) {
-      if (room.state.phase !== "FINISHED")
+      if (room.state.phase === "LOBBY")
         return emitError(socket, getErrorMessage("INVALID_PHASE"));
+      if (room.state.phase !== "FINISHED") {
+        queueAllPlayersForLobbyReturn(room);
+      }
       await startRematchLobby(io, room);
       return;
     }
