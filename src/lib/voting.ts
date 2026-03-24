@@ -1,13 +1,10 @@
+import { clamp } from "radashi";
 import type {
   TierId,
   TierItemId,
   TurnResolution,
   VoteValue,
 } from "@twf/contracts";
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, value));
-}
 
 export function computeVoteResolution(args: {
   votes: Record<string, VoteValue | undefined>;
