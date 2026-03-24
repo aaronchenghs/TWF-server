@@ -1,3 +1,5 @@
+import { template } from "radashi";
+
 const ERRORS = {
   CANNOT_BOOT_PLAYER: "Cannot boot player after game start.",
   CANNOT_CHANGE_TIER_SET: "Cannot change tier set after start.",
@@ -16,7 +18,7 @@ const ERRORS = {
   MISSING_PENDING_TIER: "Missing pending tier.",
   MISSING_RESOLUTION: "Missing resolution",
   NAME_REQUIRED: "Name required.",
-  NAME_TAKEN: (name: string) => `Name "${name}" is already taken.`,
+  NAME_TAKEN: 'Name "{name}" is already taken.',
   NOT_A_PLAYER: "Not a player.",
   NOT_AUTHORIZED: "Auth Denied",
   NOT_DEBUG_MODE: "Debug controls are disabled.",
@@ -45,5 +47,5 @@ export function getErrorMessage(key: ErrorKey): string {
 }
 
 export function getNameTakenMessage(name: string): string {
-  return ERRORS.NAME_TAKEN(name);
+  return template(ERRORS.NAME_TAKEN, { name });
 }

@@ -1,5 +1,6 @@
 import type { Tier, TierItem, TierSetDefinition } from "@twf/contracts";
 import { readFileSync, readdirSync } from "node:fs";
+import { tryParseJson } from "../lib/json.js";
 
 export type BuiltInTierSet = TierSetDefinition & { coverImageSrc?: string };
 
@@ -136,18 +137,14 @@ function readBuiltInTierSet(value: unknown, fileName: string): BuiltInTierSet {
 function parsePresetFile(fileName: string): BuiltInTierSet {
   const fileUrl = new URL(fileName, PRESETS_DIRECTORY_URL);
   const fileContents = readFileSync(fileUrl, "utf8");
-
-  try {
-    return readBuiltInTierSet(JSON.parse(fileContents) as unknown, fileName);
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      throw new Error(`Failed to parse tier set preset "${fileName}".`, {
-        cause: error,
-      });
-    }
-
-    throw error;
+  const [parseError, parsedPreset] = tryParseJson(fileContents);
+  if (parseError) {
+    throw new Error(`Failed to parse tier set preset "${fileName}".`, {
+      cause: parseError,
+    });
   }
+
+  return readBuiltInTierSet(parsedPreset, fileName);
 }
 
 function loadBuiltInTierSets(): BuiltInTierSet[] {

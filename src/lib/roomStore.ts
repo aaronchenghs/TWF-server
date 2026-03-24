@@ -1,6 +1,7 @@
 import type { RoomCode } from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import { readNumberEnv, readStringEnv } from "./env.js";
+import { tryParseJson } from "./json.js";
 import { closeRedis, connectRedis, isRedisConfigured } from "./redis.js";
 import { ONE_HOUR_MS } from "./timing.js";
 import {
@@ -108,8 +109,11 @@ export async function loadHydratedRooms(): Promise<Room[]> {
     }
 
     try {
+      const [parseError, parsedPayload] = tryParseJson(payload);
+      if (parseError) throw parseError;
+
       hydratedRooms.push(
-        deserializeRoom(JSON.parse(payload) as unknown, {
+        deserializeRoom(parsedPayload, {
           resetConnections: true,
         }),
       );

@@ -1,3 +1,5 @@
+import { sift } from "radashi";
+
 type NumberEnvOptions = {
   min?: number;
   max?: number;
@@ -19,10 +21,7 @@ export function readStringListEnv(name: string): string[] {
   const value = process.env[name];
   if (!value) return [];
 
-  return value
-    .split(",")
-    .map((part) => part.trim())
-    .filter((part) => part.length > 0);
+  return sift(value.split(",").map((part) => part.trim()));
 }
 
 export function readBooleanEnv(name: string, fallback: boolean): boolean {
