@@ -11,16 +11,19 @@ import {
 } from "@twf/contracts";
 import { getErrorMessage } from "./errors.js";
 
-const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const PROFANITY = new Filter({ placeHolder: "*" });
 
-export function makeCode(): RoomCode {
+export function makeCode(
+  isCodeTaken: (code: RoomCode) => boolean = () => false,
+): RoomCode {
   for (;;) {
     const code = Array.from(
       { length: CODE_LENGTH },
       () => ALPHABET[Math.floor(Math.random() * ALPHABET.length)],
     ).join("");
 
+    if (isCodeTaken(code)) continue;
     if (!PROFANITY.isProfane(code.toUpperCase())) return code as RoomCode;
   }
 }

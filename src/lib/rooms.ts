@@ -45,8 +45,7 @@ export function getRoom(code: RoomCode): Room | null {
  * they explicitly join.
  */
 export function createRoom(creatorSocketId: string, initialRole: Role): Room {
-  let code = makeCode();
-  while (rooms.has(code)) code = makeCode();
+  const code = makeCode((candidate) => rooms.has(candidate));
 
   const state: RoomPublicState = {
     code,
