@@ -5,6 +5,7 @@ import {
   handleCloseRoom,
   handleSetTierSet,
   handleSetGameSettings,
+  handleSetPlayerName,
   handleBootPlayerFromLobby,
   handlePlayAgain,
   handleLeaveRoom,
@@ -34,6 +35,7 @@ function registerPerSocketHandlers(io: IOServer, socket: IOSocket) {
   socket.on("room:close", handleCloseRoom(io, socket));
   socket.on("room:setTierSet", handleSetTierSet(io, socket));
   socket.on("room:setGameSettings", handleSetGameSettings(io, socket));
+  socket.on("room:setPlayerName", handleSetPlayerName(io, socket));
   socket.on("room:bootPlayerFromLobby", handleBootPlayerFromLobby(io, socket));
   socket.on("room:playAgain", handlePlayAgain(io, socket));
   socket.on("room:leave", handleLeaveRoom(io, socket));

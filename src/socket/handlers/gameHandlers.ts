@@ -27,6 +27,7 @@ import { getTierSet } from "../../tierSets/registry.js";
 import { emitError, emitRoomState, IOServer, IOSocket } from "../emit.js";
 import { getErrorMessage } from "../../lib/errors.js";
 import type { Room } from "../../types/types.js";
+import { normalizeName } from "../../lib/general.js";
 
 function allEligibleVotersConfirmed(room: Room): boolean {
   const eligibleVoterIds = getEligibleVoterIds(room);
@@ -46,13 +47,14 @@ export function handleStart(io: IOServer, socket: IOSocket) {
       return emitError(socket, getErrorMessage("GAME_ALREADY_STARTED"));
     if (!room.state.tierSetId)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_SELECTED"));
+    if (room.state.players.length < 2)
+      return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
+    if (room.state.players.some((player) => !normalizeName(player.name)))
+      return emitError(socket, getErrorMessage("MISSING_PLAYER_NAMES"));
 
     const selectedTierSet = getTierSet(room.state.tierSetId);
     if (!selectedTierSet)
       return emitError(socket, getErrorMessage("TIER_SET_NOT_FOUND"));
-
-    if (room.state.players.length < 1)
-      return emitError(socket, getErrorMessage("NOT_ENOUGH_PLAYERS"));
 
     // Once a new game starts, any deferred rematch players are considered gone.
     for (const sid of room.rematch.deferredClientIdBySocketId.keys()) {

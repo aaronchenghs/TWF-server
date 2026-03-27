@@ -11,13 +11,7 @@ by the Free Software Foundation, either version 3 of the License, or
 See the LICENSE file for details.
 */
 
-import {
-  MAX_NAME_LENGTH,
-  Role,
-  RoomCode,
-  RoomPublicState,
-  ClientId,
-} from "@twf/contracts";
+import { Role, RoomCode, RoomPublicState, ClientId } from "@twf/contracts";
 import { getSafeNameOrThrow, makeCode, normalizeName } from "./general.js";
 import { Guid, newGuid } from "../types/guid.js";
 import type { Room } from "../types/types.js";
@@ -322,6 +316,24 @@ export function touchRoom(room: Room): void {
   room.lastActivityAt = Date.now();
 }
 
+export function setPlayerNameInLobby(
+  room: Room,
+  playerId: Guid,
+  proposedName: string,
+): void {
+  if (room.state.phase !== "LOBBY")
+    throw new Error(getErrorMessage("INVALID_PHASE"));
+
+  const player = room.state.players.find(
+    (candidate) => candidate.id === playerId,
+  );
+  if (!player) throw new Error(getErrorMessage("NOT_A_PLAYER"));
+
+  const safeName = getSafeNameOrThrow(proposedName);
+  assertUniquePlayerName(room, safeName, playerId);
+  player.name = safeName;
+}
+
 // #region helpers for player join logic
 
 function assertUniquePlayerName(
@@ -329,6 +341,8 @@ function assertUniquePlayerName(
   proposedName: string,
   excludePlayerId?: Guid,
 ): void {
+  if (!proposedName) return;
+
   const isNameDuplicate = room.state.players.some((player) => {
     if (excludePlayerId && player.id === excludePlayerId) return false;
     return (
@@ -384,9 +398,11 @@ function tryResumeActivePlayer(
 
   // If the game has NOT started, allow this device to change its name
   if (room.state.phase === "LOBBY") {
-    const safeName = getSafeNameOrThrow(proposedName);
-    assertUniquePlayerName(room, proposedName, existingPlayerId);
-    if (me) me.name = safeName;
+    const safeName = normalizeName(proposedName);
+    if (safeName) {
+      assertUniquePlayerName(room, safeName, existingPlayerId);
+      if (me) me.name = getSafeNameOrThrow(safeName);
+    }
   }
 
   return existingPlayerId;
@@ -435,8 +451,11 @@ function tryResumeDeferredRematchPlayer(
     return deferred.id;
   }
 
-  const safeName = getSafeNameOrThrow(proposedName);
-  assertUniquePlayerName(room, proposedName);
+  const nextRequestedName = normalizeName(proposedName);
+  const safeName = nextRequestedName
+    ? getSafeNameOrThrow(nextRequestedName)
+    : deferred.name;
+  assertUniquePlayerName(room, safeName);
 
   // Clear any old deferred socket references for this client.
   for (const sid of deferred.socketIds) {
@@ -467,8 +486,11 @@ function createNewLobbyPlayer(
   if (room.state.phase !== "LOBBY")
     throw new Error(getErrorMessage("LOBBY_STARTED"));
 
-  const safeName = getSafeNameOrThrow(proposedName);
-  assertUniquePlayerName(room, proposedName);
+  const nextRequestedName = normalizeName(proposedName);
+  const safeName = nextRequestedName
+    ? getSafeNameOrThrow(nextRequestedName)
+    : "";
+  assertUniquePlayerName(room, safeName);
 
   const playerId = newGuid();
   registerController(room, socketId, clientId, playerId);

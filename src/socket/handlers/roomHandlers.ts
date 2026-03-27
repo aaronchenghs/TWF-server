@@ -11,6 +11,7 @@ import {
   joinAsHost,
   joinAsPlayer,
   requireRoom,
+  setPlayerNameInLobby,
   touchRoom,
   detachSocket,
   findRoomBySocket,
@@ -148,6 +149,27 @@ export function handleSetGameSettings(io: IOServer, socket: IOSocket) {
 
     touchRoom(room);
     emitRoomState(io, room);
+  };
+}
+
+export function handleSetPlayerName(io: IOServer, socket: IOSocket) {
+  return ({ name }: { name: string }) => {
+    const room = requireRoom(socket);
+    if (!room) return;
+
+    const playerId = room.controllerBySocketId.get(socket.id);
+    if (!playerId) return emitError(socket, getErrorMessage("NOT_A_PLAYER"));
+
+    try {
+      setPlayerNameInLobby(room, playerId as Guid, name);
+      touchRoom(room);
+      emitRoomState(io, room);
+    } catch (error) {
+      emitError(
+        socket,
+        error instanceof Error ? error.message : getErrorMessage("JOIN_FAILED"),
+      );
+    }
   };
 }
 
