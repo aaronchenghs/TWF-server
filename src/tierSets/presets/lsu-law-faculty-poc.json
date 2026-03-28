@@ -1,7 +1,7 @@
 {
   "id": "lsu-law-faculty-poc",
   "title": "LSU Law Faculty",
-  "description": "Rank the LSU Law full-time faculty from the public directory.",
+  "description": "Rank LSU Law professors from the public directory, including select emeriti faculty.",
   "coverImageSrc": "https://law.lsu.edu/wp-content/themes/lsulaw-fierce/images/lsulaw-logo.svg",
   "tiers": [
     {
@@ -240,6 +240,16 @@
       "id": "del-wright",
       "name": "Del Wright",
       "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Del-Wright-Web-1.jpg"
+    },
+    {
+      "id": "p-raymond-lamonica",
+      "name": "P. Raymond Lamonica",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Ray-Lemonica-web-headshot.jpg"
+    },
+    {
+      "id": "alain-a-levasseur",
+      "name": "Alain A. Levasseur",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/LevasseurAlain_Thumb.jpg"
     }
   ]
 }
