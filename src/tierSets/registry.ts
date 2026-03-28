@@ -37,16 +37,21 @@ function toPreviewImageSrc(src?: string): string | undefined {
   }
 }
 
+/** Lists tier set results. Intentionally excludes details of each tier set. */
 export function listTierSets(): TierSetSummary[] {
   return BUILTINS.map((s) => {
     const firstItem = s.items[0];
+    const firstItemName = firstItem?.name;
+    const firstItemImageSrc = toPreviewImageSrc(firstItem?.imageSrc);
+
     return {
-      ...s,
+      id: s.id,
+      title: s.title,
       ...(s.coverImageSrc ? { coverImageSrc: s.coverImageSrc } : {}),
       itemCount: s.items.length,
-      firstItemName: firstItem?.name,
-      firstItemImageSrc: toPreviewImageSrc(firstItem?.imageSrc),
-    } as TierSetSummary;
+      ...(firstItemName ? { firstItemName } : {}),
+      ...(firstItemImageSrc ? { firstItemImageSrc } : {}),
+    };
   });
 }
 
