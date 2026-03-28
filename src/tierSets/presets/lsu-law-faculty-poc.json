@@ -1,0 +1,245 @@
+{
+  "id": "lsu-law-faculty-poc",
+  "title": "LSU Law Faculty",
+  "description": "Rank the LSU Law full-time faculty from the public directory.",
+  "coverImageSrc": "https://law.lsu.edu/wp-content/themes/lsulaw-fierce/images/lsulaw-logo.svg",
+  "tiers": [
+    {
+      "id": "S",
+      "name": "S",
+      "color": "#E53935"
+    },
+    {
+      "id": "A",
+      "name": "A",
+      "color": "#FB8C00"
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "color": "#FDD835"
+    },
+    {
+      "id": "C",
+      "name": "C",
+      "color": "#43A047"
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "color": "#1E88E5"
+    }
+  ],
+  "items": [
+    {
+      "id": "alena-m-allen",
+      "name": "Alena M. Allen",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2023/05/Alena-Allen-web-headshot.jpg"
+    },
+    {
+      "id": "lisa-avalos",
+      "name": "Lisa Avalos",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2018/05/Avalos_Lisa2_WEB.jpg"
+    },
+    {
+      "id": "grace-barry",
+      "name": "Grace Barry",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Barry_Grace_web-1.jpg"
+    },
+    {
+      "id": "joseph-t-bockrath",
+      "name": "Joseph T. Bockrath",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Joseph-Bockrath-web-headshot.jpg"
+    },
+    {
+      "id": "jeffrey-c-brooks",
+      "name": "Jeffrey C. Brooks",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Brooks_Jeff_WEB.jpg"
+    },
+    {
+      "id": "nicholas-bryner",
+      "name": "Nicholas Bryner",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2018/05/Bryner_Nick_web.jpg"
+    },
+    {
+      "id": "andrea-beauchamp-carroll",
+      "name": "Andrea Beauchamp Carroll",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Carroll_Andi_web.jpg"
+    },
+    {
+      "id": "elizabeth-r-carter",
+      "name": "Elizabeth R. Carter",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Elizabeth-Carter-web-headshot.jpg"
+    },
+    {
+      "id": "summer-chandler",
+      "name": "Summer Chandler",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2021/07/Summer-Chandler-web-headshot.jpg"
+    },
+    {
+      "id": "john-m-church",
+      "name": "John M. Church",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/John-Church-web-headshot.jpg"
+    },
+    {
+      "id": "jennifer-cooper",
+      "name": "Jennifer Cooper",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Jennifer-Cooper-Web.jpg"
+    },
+    {
+      "id": "william-r-corbett",
+      "name": "William R. Corbett",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Bill-Corbett-web-headshot-1.jpg"
+    },
+    {
+      "id": "christine-a-corcos",
+      "name": "Christine A. Corcos",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Christine-Corcos-web-headshot.jpg"
+    },
+    {
+      "id": "nikolaos-a-davrados",
+      "name": "Nikolaos A. Davrados",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2023/06/Davrados-Nikolaos-web.jpg"
+    },
+    {
+      "id": "john-devlin",
+      "name": "John Devlin",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/John-Devlin-for-web.jpg"
+    },
+    {
+      "id": "raymond-t-diamond",
+      "name": "Raymond T. Diamond",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/DiamondRay_Thumb.jpg"
+    },
+    {
+      "id": "jordan-d-engelhart",
+      "name": "Jordan D. Engelhart",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/05/Englehart_Jordan_web.jpg"
+    },
+    {
+      "id": "thomas-c-galligan-jr",
+      "name": "Thomas C. Galligan Jr.",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2016/07/Tom-Galligan-web-headshot.jpg"
+    },
+    {
+      "id": "darlene-c-goring",
+      "name": "Darlene C. Goring",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Goring_Darlene_web.jpg"
+    },
+    {
+      "id": "keith-b-hall",
+      "name": "Keith B. Hall",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Keith-Hall-web-headshot.jpg"
+    },
+    {
+      "id": "jack-harrison",
+      "name": "Jack Harrison",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Jack-Harrison-headshot-web.jpg"
+    },
+    {
+      "id": "marlene-krousel",
+      "name": "Marlene Krousel",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Krousel_Marlene_web.jpg"
+    },
+    {
+      "id": "robert-e-lancaster",
+      "name": "Robert E. Lancaster",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/03/Robert-Lancaster-2025-web-copy-2.jpg"
+    },
+    {
+      "id": "ken-levy",
+      "name": "Ken Levy",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Ken-Levy-1-web-headshot.jpg"
+    },
+    {
+      "id": "melissa-t-lonegrass",
+      "name": "Melissa T. Lonegrass",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Missy-Lonegrass-web-headshot.jpg"
+    },
+    {
+      "id": "john-a-lovett",
+      "name": "John A. Lovett",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2023/04/John-Lovett-copy-web.jpg"
+    },
+    {
+      "id": "michael-j-malinowski",
+      "name": "Michael J. Malinowski",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Malinowski_Michael_web.jpg"
+    },
+    {
+      "id": "will-monroe",
+      "name": "Will Monroe",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Monroe-Will-2025.jpg"
+    },
+    {
+      "id": "olivier-moreteau",
+      "name": "Olivier Moréteau",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Olivier-Moreteau-web-headshot.jpg"
+    },
+    {
+      "id": "tracy-l-m-norton",
+      "name": "Tracy L. M. Norton",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2022/06/Norton_Tracy_web.jpg"
+    },
+    {
+      "id": "john-parsi",
+      "name": "John Parsi",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Parsi_John_web.jpg"
+    },
+    {
+      "id": "richard-m-pittman",
+      "name": "Richard M. Pittman",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Pittman_Richard_web.jpg"
+    },
+    {
+      "id": "caprice-l-roberts",
+      "name": "Caprice L. Roberts",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2022/03/Caprice-Roberts-preferred-web-headshot.jpg"
+    },
+    {
+      "id": "kathy-flynn-simino",
+      "name": "Kathy Flynn Simino",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Kathy-Simino-2-copy-scaled.jpg"
+    },
+    {
+      "id": "kenya-smith",
+      "name": "Kenya Smith",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Smith_Kenya_web.jpg"
+    },
+    {
+      "id": "ryan-stoa",
+      "name": "Ryan Stoa",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Ryan-Stoa-Headshot-web-2025.jpg"
+    },
+    {
+      "id": "scott-sullivan",
+      "name": "Scott Sullivan",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Scott-Sullivan-headshot-web.jpg"
+    },
+    {
+      "id": "margaret-s-thomas",
+      "name": "Margaret S. Thomas",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Thomas_Maggie_web.jpg"
+    },
+    {
+      "id": "heidi-howat-thompson",
+      "name": "Heidi Howat Thompson",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/Thompson_Heidi_WEB.jpg"
+    },
+    {
+      "id": "john-randall-trahan",
+      "name": "John Randall Trahan",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2015/04/TrahanJohn_Thumb.jpg"
+    },
+    {
+      "id": "cherish-van-mullem",
+      "name": "Cherish van Mullem",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2018/07/Cherish-van-Mullem-Tax-Services-Feb-2023-1-scaled-1.jpg"
+    },
+    {
+      "id": "del-wright",
+      "name": "Del Wright",
+      "imageSrc": "https://law.lsu.edu/directory/wp-content/blogs.dir/8/files/2024/01/Del-Wright-Web-1.jpg"
+    }
+  ]
+}

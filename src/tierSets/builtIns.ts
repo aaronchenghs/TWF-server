@@ -16,6 +16,7 @@ const PRESET_FILE_ORDER = [
   "countries-poc.json",
   "programming-languages-poc.json",
   "us-grocery-stores-20-poc.json",
+  "lsu-law-faculty-poc.json",
   "nfl-teams-poc.json",
   "nba-teams-poc.json",
 ];
