@@ -33,13 +33,20 @@ This service manages:
 
 ## Quick Start
 
-1. Install dependencies:
+1. Install the local requirements:
+
+- Node.js 20+ recommended
+- npm 10+ recommended
+- Git installed (required because `@twf/contracts` is installed from a GitHub commit)
+- Docker Desktop installed and running
+
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Create env file:
+3. Create env file:
 
 ```bash
 cp .env.example .env
@@ -51,19 +58,40 @@ PowerShell alternative:
 Copy-Item .env.example .env
 ```
 
-3. Start development server:
+4. Open Docker Desktop and start a Redis container:
+
+- Image: `redis:alpine`
+- Container port: `6379`
+- Host port: `6379`
+
+Keep that container running while you are developing locally.
+
+If you prefer the command line, the equivalent is:
+
+```bash
+docker run --name twf-redis -p 6379:6379 redis:alpine
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Server URL: `http://localhost:<PORT>`
+Default server URL: `http://localhost:3001`
+
+Local dev flow summary:
+
+1. Open Docker Desktop.
+2. Run the `redis:alpine` container.
+3. Run `npm run dev`.
 
 ## Requirements
 
 - Node.js 20+ recommended
 - npm 10+ recommended
 - Git installed (required because `@twf/contracts` is installed from a GitHub commit)
+- Docker Desktop installed and running for the local Redis container used in development
 
 ## Configuration
 
@@ -77,7 +105,10 @@ The source of truth for env defaults is `.env.example`.
 | `CLIENT_ORIGINS`        | Comma-separated allowed CORS origins for client requests/websocket handshake.                      |
 | `ALLOW_PRIVATE_NETWORK_ORIGINS` | If `true`, also allows `localhost`, `127.0.0.1`, and RFC1918 LAN origins (for phone testing). |
 | `ENABLE_DEBUG_CONTROLS` | Enables `debug:*` socket events for host-only debug controls. Must be the string `true` to enable. |
+| `REDIS_URL`             | Redis connection string. For local Docker Desktop setup, use `redis://localhost:6379`.            |
+| `REDIS_KEY_PREFIX`      | Prefix used for Redis keys written by the server.                                                  |
 | `ROOM_TTL_MS`           | Max inactive room age before janitor removes a room.                                               |
+| `ROOM_PERSIST_TTL_MS`   | TTL for room snapshots persisted in Redis.                                                         |
 | `CLEANUP_INTERVAL_MS`   | Janitor sweep interval.                                                                            |
 
 Notes:
@@ -86,6 +117,8 @@ Notes:
 - Empty string env values also fall back to defaults.
 - `CLIENT_ORIGINS` defaults to `http://localhost:5173,http://127.0.0.1:5173`.
 - `ALLOW_PRIVATE_NETWORK_ORIGINS` defaults to `true`.
+- Leaving `REDIS_URL` empty disables Redis-backed room persistence.
+- The checked-in `.env.example` is already set up for a local `redis:alpine` container on port `6379`.
 
 ## Scripts
 
@@ -282,6 +315,13 @@ Debug controls not working:
 Room disappears unexpectedly:
 
 - Check `ROOM_TTL_MS`, `CLEANUP_INTERVAL_MS`, or empty-room disconnect behavior.
+
+Redis connection errors on startup:
+
+- Make sure Docker Desktop is open.
+- Make sure the `redis:alpine` container is running.
+- Make sure port `6379` is published from the container to your PC.
+- Confirm `REDIS_URL=redis://localhost:6379` in `.env`.
 
 ## License
 
