@@ -186,7 +186,7 @@ export function beginVote(room: Room, now: number) {
   };
 
   if (
-    room.state.gameSettings.unlimitedVotingTime &&
+    room.state.gameSettings.votingTimeLimitSeconds === null &&
     eligibleVoterIds.length === 0
   ) {
     beginResults(room, now);

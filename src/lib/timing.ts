@@ -13,14 +13,14 @@ import {
   commitDriftResolution,
   passCurrentPlacementTurn,
 } from "./game.js";
+import { DEFAULT_GAME_SETTINGS } from "./gameSettings.js";
 
 /** This object acts as the single source of truth for the length of game phases */
-const PHASE_TIMERS = {
+const FIXED_PHASE_TIMERS = {
   BUILD_MS: 3_000,
-  PLACE_MS: 20_000,
-  VOTE_MS: 60_000,
   RESULTS_MS: 3_000,
 } as const;
+const SECOND_MS = 1_000;
 
 export const ONE_HOUR_MS = 1000 * 60 * 60;
 
@@ -36,30 +36,41 @@ const timersByRoom = new Map<RoomCode, NodeJS.Timeout[]>();
 type EmitFn = (room: Room) => void;
 type GetTierSetFn = (id: TierSetId) => TierSetDefinition | undefined;
 
+function getEndsAtFromLimitSeconds(now: number, limitSeconds: number | null) {
+  return limitSeconds === null ? null : now + limitSeconds * SECOND_MS;
+}
+
 export function getPhaseTimers(
   phase: RoomPublicState["phase"],
   now: number,
   gameSettings?: RoomPublicState["gameSettings"] | null,
 ): RoomPublicState["timers"] {
+  const effectiveGameSettings = gameSettings ?? DEFAULT_GAME_SETTINGS;
+
   switch (phase) {
     case "STARTING":
-      return { ...NULL_TIMERS, buildEndsAt: now + PHASE_TIMERS.BUILD_MS };
+      return { ...NULL_TIMERS, buildEndsAt: now + FIXED_PHASE_TIMERS.BUILD_MS };
     case "PLACE":
       return {
         ...NULL_TIMERS,
-        placeEndsAt: gameSettings?.unlimitedPlacingTime
-          ? null
-          : now + PHASE_TIMERS.PLACE_MS,
+        placeEndsAt: getEndsAtFromLimitSeconds(
+          now,
+          effectiveGameSettings.placingTimeLimitSeconds,
+        ),
       };
     case "VOTE":
       return {
         ...NULL_TIMERS,
-        voteEndsAt: gameSettings?.unlimitedVotingTime
-          ? null
-          : now + PHASE_TIMERS.VOTE_MS,
+        voteEndsAt: getEndsAtFromLimitSeconds(
+          now,
+          effectiveGameSettings.votingTimeLimitSeconds,
+        ),
       };
     case "RESULTS":
-      return { ...NULL_TIMERS, resultsEndsAt: now + PHASE_TIMERS.RESULTS_MS };
+      return {
+        ...NULL_TIMERS,
+        resultsEndsAt: now + FIXED_PHASE_TIMERS.RESULTS_MS,
+      };
     default:
       return NULL_TIMERS;
   }

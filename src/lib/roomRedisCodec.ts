@@ -1,7 +1,7 @@
 import type { ClientId, RoomCode } from "@twf/contracts";
 import type { Room } from "../types/types.js";
 import type { Guid } from "../types/guid.js";
-import { DEFAULT_GAME_SETTINGS } from "./gameSettings.js";
+import { DEFAULT_GAME_SETTINGS, sanitizeGameSettings } from "./gameSettings.js";
 
 type StringMapRecord = Record<string, string>;
 
@@ -200,14 +200,12 @@ export function deserializeRoom(
     code: persisted.code,
     state: {
       ...structuredClone(persisted.state),
-      gameSettings:
+      gameSettings: sanitizeGameSettings(
         typeof persisted.state.gameSettings === "object" &&
-        persisted.state.gameSettings !== null
-          ? {
-              ...DEFAULT_GAME_SETTINGS,
-              ...persisted.state.gameSettings,
-            }
-          : { ...DEFAULT_GAME_SETTINGS },
+          persisted.state.gameSettings !== null
+          ? persisted.state.gameSettings
+          : DEFAULT_GAME_SETTINGS,
+      ),
     },
     adminConnectionId:
       typeof persisted.adminConnectionId === "string"
