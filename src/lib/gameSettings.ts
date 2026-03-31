@@ -12,14 +12,12 @@ const DEFAULT_PLACING_TIME_LIMIT_SECONDS: Exclude<
 > = 30;
 const DEFAULT_VOTING_TIME_LIMIT_SECONDS: Exclude<VotingTimeLimitSeconds, null> =
   60;
-const DEFAULT_SHOW_ITEM_NAMES = true;
 
 export const DEFAULT_GAME_SETTINGS: RoomPublicState["gameSettings"] = {
   placingTimeLimitSeconds: DEFAULT_PLACING_TIME_LIMIT_SECONDS,
   votingTimeLimitSeconds: DEFAULT_VOTING_TIME_LIMIT_SECONDS,
   unlimitedVotingTime: false,
   unlimitedPlacingTime: false,
-  showItemNames: DEFAULT_SHOW_ITEM_NAMES,
 };
 
 function isPlacingTimeLimitSeconds(
@@ -56,12 +54,6 @@ function normalizeVotingTimeLimitSeconds(
     : DEFAULT_VOTING_TIME_LIMIT_SECONDS;
 }
 
-function normalizeShowItemNames(candidate: Record<string, unknown>): boolean {
-  return typeof candidate.showItemNames === "boolean"
-    ? candidate.showItemNames
-    : DEFAULT_SHOW_ITEM_NAMES;
-}
-
 export function sanitizeGameSettings(
   input: unknown,
 ): RoomPublicState["gameSettings"] {
@@ -71,13 +63,11 @@ export function sanitizeGameSettings(
   const candidate = input as Record<string, unknown>;
   const placingTimeLimitSeconds = normalizePlacingTimeLimitSeconds(candidate);
   const votingTimeLimitSeconds = normalizeVotingTimeLimitSeconds(candidate);
-  const showItemNames = normalizeShowItemNames(candidate);
 
   return {
     placingTimeLimitSeconds,
     votingTimeLimitSeconds,
     unlimitedVotingTime: votingTimeLimitSeconds === null,
     unlimitedPlacingTime: placingTimeLimitSeconds === null,
-    showItemNames,
   };
 }
