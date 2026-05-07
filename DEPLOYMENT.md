@@ -146,6 +146,34 @@ aws ecr describe-images `
 
 If switching to an immutable image tags later, push the new tag and update the ECS task definition to reference that exact tag.
 
+## Pause Or Resume The Backend To Save Money
+
+When you are not actively developing or demoing the app, the easiest low-risk way to stop most backend compute cost is to scale the ECS service down to zero tasks:
+
+```powershell
+npm run ecs:stop
+```
+
+To turn the backend back on:
+
+```powershell
+npm run ecs:start
+```
+
+To check whether it is running:
+
+```powershell
+npm run ecs:status
+```
+
+What this does:
+
+- `ecs:stop` sets the ECS service desired task count to `0`
+- `ecs:start` sets the desired task count back to `1`, waits for ECS stability, and checks `https://api.tierswithfriends.com/health`
+- `ecs:status` shows the current desired/running/pending task counts
+
+Important cost note: this stops Fargate task charges, but it does not delete the rest of the AWS infrastructure. The Application Load Balancer, Route 53 hosted zone, CloudWatch logs, ECR image storage, S3 bucket, and CloudFront distribution can still have small ongoing charges. If you want the backend to cost almost nothing while parked, the next step would be replacing the always-on Application Load Balancer setup with infrastructure that can be destroyed/recreated or with a serverless-style deployment.
+
 ## Deploy A Backend Update That Changes Environment Variables Or Task Settings
 
 If you changed env vars, CPU/memory, ports, log config, or anything else in the task definition:
