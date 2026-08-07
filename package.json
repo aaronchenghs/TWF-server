@@ -12,7 +12,9 @@
     "deploy:backend": "powershell -ExecutionPolicy Bypass -File scripts/deploy-backend.ps1",
     "ecs:start": "powershell -ExecutionPolicy Bypass -File scripts/start-backend.ps1",
     "ecs:stop": "powershell -ExecutionPolicy Bypass -File scripts/stop-backend.ps1",
-    "ecs:status": "powershell -ExecutionPolicy Bypass -File scripts/backend-status.ps1"
+    "ecs:status": "powershell -ExecutionPolicy Bypass -File scripts/backend-status.ps1",
+    "aws:park-fixed-costs": "powershell -ExecutionPolicy Bypass -File scripts/park-backend-fixed-costs.ps1",
+    "aws:restore-fixed-costs": "powershell -ExecutionPolicy Bypass -File scripts/restore-backend-fixed-costs.ps1"
   },
   "repository": {
     "type": "git",

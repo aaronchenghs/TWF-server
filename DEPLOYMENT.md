@@ -174,6 +174,43 @@ What this does:
 
 Important cost note: this stops Fargate task charges, but it does not delete the rest of the AWS infrastructure. The Application Load Balancer, Route 53 hosted zone, CloudWatch logs, ECR image storage, S3 bucket, and CloudFront distribution can still have small ongoing charges. If you want the backend to cost almost nothing while parked, the next step would be replacing the always-on Application Load Balancer setup with infrastructure that can be destroyed/recreated or with a serverless-style deployment.
 
+## Park Or Restore Backend Fixed-Cost Infrastructure
+
+For a longer pause, remove the Application Load Balancer after scaling ECS to zero:
+
+```powershell
+npm run aws:park-fixed-costs
+```
+
+This does the following:
+
+- saves a timestamped AWS state snapshot under `scripts/aws-state/`
+- sets ECS desired task count to `0`
+- waits for ECS stability
+- deletes the Application Load Balancer `twf-server-alb`
+- keeps the ECS service, ECS cluster, target group, task definition, ECR repository, CloudWatch log group, ACM certificate, security groups, and Route 53 hosted zone
+
+This is the meaningful fixed-cost backend shutdown path because ECS was already designed to scale down and Application Load Balancers cannot be stopped, only deleted.
+
+To recreate the load balancer, restore the API DNS alias, and start the backend:
+
+```powershell
+npm run aws:restore-fixed-costs
+```
+
+If you only want to recreate the load balancer and DNS without starting an ECS task:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/restore-backend-fixed-costs.ps1 -SkipStart
+```
+
+After restore, verify the backend:
+
+```powershell
+npm run ecs:status
+Invoke-WebRequest -UseBasicParsing -Uri "https://api.tierswithfriends.com/health"
+```
+
 ## Deploy A Backend Update That Changes Environment Variables Or Task Settings
 
 If you changed env vars, CPU/memory, ports, log config, or anything else in the task definition:
